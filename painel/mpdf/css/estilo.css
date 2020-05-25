@@ -1,0 +1,37 @@
+fieldset{
+ width: 800px;
+ margin: 10px auto;
+ color: #444;
+ border: 5px solid #fff;
+ font-family: Helvetica;
+ padding: 15px;
+}
+
+h1{
+ text-align: center;
+}
+
+p.sub-titulo{
+ font-size: 14px;
+}
+
+.direita{
+ text-align: right;
+}
+
+.center{
+ text-align: center;
+}
+.logo{
+margin:0 auto; width:200px;
+}
+table{
+font-family: Helvetica;
+width: 100%;
+}
+table td{
+	
+}
+.line{
+	border-bottom: 1px solid #000;
+}

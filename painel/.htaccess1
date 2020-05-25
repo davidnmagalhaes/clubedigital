@@ -1,0 +1,20 @@
+##### LOCAWEB - NAO REMOVER #####
+AddHandler php72-script .php
+suPHP_ConfigPath /home/clubedigitalong1/
+##### LOCAWEB - NAO REMOVER #####
+
+#Habilita o mod_rewrite
+RewriteEngine On
+
+DirectoryIndex index.html index.php index.html
+
+#Oculta o index.php
+RewriteCond %{THE_REQUEST} ^GET.*index\.php [NC]
+RewriteRule (.*?)index\.php/*(.*) /$1$2 [R=301,NE,L]
+
+RewriteCond %{SERVER_PORT} 80
+RewriteRule ^(.*)$ https://www.clubedigital.ong.br/$1 [R,L]
+
+RewriteCond %{SERVER_PORT} 80
+RewriteRule ^(.*)$ https://clubedigital.ong.br/$1 [R,L]
+

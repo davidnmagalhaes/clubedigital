@@ -1,0 +1,6 @@
+
+	
+	  $cha = apk_48507913-bgADtRMaflfFWQtEkAuaKYjOrkniVyax;
+	  $cha2 = KR7EH5M5VF0HBX56ZBVKUUN9T64Y5M1PE84VEQ0A61RH;
+
+	
