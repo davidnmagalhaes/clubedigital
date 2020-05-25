@@ -58,7 +58,73 @@ $row_paghiper = mysqli_fetch_assoc($paghiper);
 			
 							
 							<form method="post" action="proc_edt_integracao.php" name="form-contabancaria">
-			<div class="row">
+			
+							<div class="row">
+				<div class="col">
+					
+					<div class="alert alert-danger" role="alert" style="margin: 10px 16px">
+					<p>
+				<strong>Instruções de Configuração de Domínio:</strong><br>
+				O Clube Digital fornece um website ao clube, portanto até que seja feita a configuração do domínio seu clube utilizará o link de nosso servidor.<Br>
+				<br>
+		  		<strong>Atenção!</strong><br>
+		  		Esta configuração serve para apontar seu domínio para nossos servidores. Após o preenchimento correto, já com os DNS's apontados, será necessário aguardar um período de 24/48h para propagação.<br>
+				<br>
+				<strong>1-)</strong> Vá até seu provedor de domínio e procure a sessão de configuração de DNS;<br>
+				<strong>2-)</strong> Na sessão de DNS clique para adicionar/alterar os DNS's, inserindo os DNS's abaixo:<br><Br>
+				<strong>Master:</strong> NS1.DNS-PARKING.COM<br>
+				<strong>Slave></strong> NS2.DNS-PARKING.COM<Br><br>
+				<strong>3-)</strong>Agora, preencha o domínio de seu site no campo abaixo com www, sem HTTP ou HTTPS.<br><br>
+
+				Por fim, aguarde 24/48h para que possa acessar seu site através de seu domínio.
+			
+							
+							</p>
+					</div>
+				</div>
+			</div>
+			
+            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <strong>Configuração</strong>
+                                        <small>Domínio</small>
+                                    </div>
+                                    <div class="card-body card-block">
+                                        
+												
+										<div class="row">
+										<div class="col-12 col-md-12">
+											<div class="form-group">
+												<label for="descricao_receber" class=" form-control-label">Domínio para seu site</label>
+												<div class="input-group">
+											        <div class="input-group-prepend">
+											          <div class="input-group-text"><i class="fas fa-globe"></i></div>
+											        </div>
+											        <input type="text" class="form-control" name="urldominio" placeholder="Digite o domínio do seu site. Ex.: https://www.meudominio.com.br" data-toggle="tooltip" title="Somente preencha este campo caso já tenha adquirido um domínio para seu site e tenha apontado os DNS's para nosso servidor." value="<?php echo $row_paghiper['urldominio'];?>">
+											      </div>
+											</div>
+										</div>
+										
+										</div>
+										
+										
+										
+										
+										
+										<div>
+                                                <button id="payment-button" type="submit" class="btn btn-lg btn-primary btn-block">
+                                                    
+                                                    <span id="payment-button-amount"><i class="fas fa-paper-plane"></i> Atualizar</span>
+                                                    <span id="payment-button-sending" style="display:none;">Sending…</span>
+                                                </button>
+                                         </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+			
+				<div class="row">
 				<div class="col">
 					<img src="images/logo-paghiper.png" style="margin-left: 20px"/>
 					<div class="alert alert-danger" role="alert" style="margin: 10px 16px">

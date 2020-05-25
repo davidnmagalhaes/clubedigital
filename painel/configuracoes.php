@@ -152,40 +152,7 @@ function moeda(a, e, r, t) {
 
             
  <div class="main-content">
-			<!-- Modal Como Configurar DNS -->
-<div class="modal fade" id="configuracaodns" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Como configurar os DNS's</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="alert alert-danger" role="alert">
-		  <strong>Atenção!</strong><br>
-		  Esta configuração serve para apontar seu domínio para nossos servidores. Após o preenchimento correto, já com os DNS's apontados, será necessário aguardar um período de 24/48h para propagação.
-		</div>
 
-		<div class="row">
-			<div class="col">
-				<strong>1-)</strong> Vá até seu provedor de domínio e procure a sessão de configuração de DNS;<br>
-				<strong>2-)</strong> Na sessão de DNS clique para adicionar/alterar os DNS's, inserindo os DNS's abaixo:<br><Br>
-				<strong>Master:</strong> NS1.DNS-PARKING.COM<br>
-				<strong>Slave></strong> NS2.DNS-PARKING.COM<Br><br>
-				<strong>3-)</strong> Agora até o painel de configurações do clube dentro do Clube Digital, e adicione seu domínio na caixa <strong>Domínio do site</strong>.<br><br>
-
-				Por fim, aguarde 24/48h para que seu domínio entre em vigor.
-			</div>
-		</div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-      </div>
-    </div>
-  </div>
-</div>
 							
 							<form method="post" action="proc_edt_configuracoes.php" name="form-contabancaria" enctype="multipart/form-data">
 			
@@ -210,19 +177,7 @@ function moeda(a, e, r, t) {
 										
 										</div>
 
-										<div class="row">
-											<div class="col-12">
-											<div class="form-group">
-												<label for="descricao_receber" class=" form-control-label">Domínio do site <a href="#" class="badge badge-info" data-toggle="modal" data-target="#configuracaodns">Ver como configurar</a></label>
-												<div class="input-group">
-											        <div class="input-group-prepend">
-											          <div class="input-group-text"><i class="fas fa-globe"></i></div>
-											        </div>
-											        <input type="text" class="form-control" name="urldominio" placeholder="Digite o domínio do seu site. Ex.: https://www.meudominio.com.br" data-toggle="tooltip" title="Somente preencha este campo caso já tenha adquirido um domínio para seu site e tenha apontado os DNS's para nosso servidor." value="<?php echo $row_clubeinfo['urldominio'];?>">
-											      </div>
-											</div>
-										</div>
-										</div>
+										
 
 										<div class="row">
 										<div class="col-12 col-md-4">
