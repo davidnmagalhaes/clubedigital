@@ -24,6 +24,11 @@ $protocolo = date('YmdHis').rand(0,1000);
 $data = date('Y-m-d');
 $hora = date('H:i:s');
 
+$srecaptcha = "SELECT * FROM rfa_clubes WHERE id_clube='$clube'";
+$recaptcha = mysqli_query($link, $srecaptcha) or die(mysqli_error($link));
+$row_recaptcha = mysqli_fetch_assoc($recaptcha);
+$secretkey = $row_recaptcha['secret_key'];
+
 if (isset($_POST['g-recaptcha-response'])) {
     $captcha_data = $_POST['g-recaptcha-response'];
 }
@@ -33,7 +38,7 @@ if (!$captcha_data) {
     echo "<script>javascript:alert('Por medida de segurança você precisa confirmar o Recaptcha no final do formulário!');javascript:window.location='continua-doacoes.php?clube=".$clube."&nome=".$nome."&email=".$email."&cep=".$cep."&estado=".$estado."&endereco=".$endereco."&numero=".$numero."&cidade=".$cidade."&cpf=".$cpf."&rg=".$rg."&telefone=".$telefone."&celular=".$celular."&deficiencia=".$deficiencia."&escolaridade=".$escolaridade."&renda=".$renda."&deficiencia=".$deficiencia."&necessidade=".$necessidade."&origem=".$origem."'</script>";
 }else{
 
-	$resposta = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6LfxI-oUAAAAAJHf9arBHYIDSLWa6d9dGYGDG-AD&response=".$captcha_data."&remoteip=".$_SERVER['REMOTE_ADDR']);
+	$resposta = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secretkey."&response=".$captcha_data."&remoteip=".$_SERVER['REMOTE_ADDR']);
 
 	if ($resposta.success) {
 

@@ -2,8 +2,9 @@
 //Conexão com banco de dados
 include_once("../config.php");
 
+include('verificacao.php');
+
 if(isset($_POST['clube'])){
-$clube = $_POST['clube'];
 $nome = mysqli_real_escape_string($link,$_POST['nome']);
 $email = mysqli_real_escape_string($link,$_POST['email']);
 $cep = mysqli_real_escape_string($link,$_POST['cep']);
@@ -21,7 +22,6 @@ $deficiencia = mysqli_real_escape_string($link,$_POST['deficiencia']);
 $necessidade = mysqli_real_escape_string($link,$_POST['necessidade']);
 $origem = mysqli_real_escape_string($link,$_POST['origem']);
 }else{
-$clube = $_GET['clube'];
 $nome = mysqli_real_escape_string($link,$_GET['nome']);
 $email = mysqli_real_escape_string($link,$_GET['email']);
 $cep = mysqli_real_escape_string($link,$_GET['cep']);
@@ -40,7 +40,9 @@ $necessidade = mysqli_real_escape_string($link,$_GET['necessidade']);
 $origem = mysqli_real_escape_string($link,$_GET['origem']);
 }
 
-
+$srecaptcha = "SELECT * FROM rfa_clubes WHERE id_clube='$clube'";
+$recaptcha = mysqli_query($link, $srecaptcha) or die(mysqli_error($link));
+$row_recaptcha = mysqli_fetch_assoc($recaptcha);
 
 $sql = "SELECT * FROM rfa_site_topo WHERE clube='$clube'";
 $topo = mysqli_query($link, $sql) or die(mysqli_error($link));
@@ -138,7 +140,7 @@ $totalRows_blog2 = mysqli_num_rows($blog2);
                   
                   <div class="col-md-12">
                      <div class="contact-us">
-                        <form method="post" action="proc-cd-doacoes.php">
+                        <form method="post" action="<?php if($signal == 1){echo "processadoacoes";}else{echo "proc-cd-doacoes.php";}?>">
 
                           <input type="hidden" name="nome" value="<?php echo $nome; ?>">
                           <input type="hidden" name="email" value="<?php echo $email; ?>">
@@ -206,7 +208,7 @@ $totalRows_blog2 = mysqli_num_rows($blog2);
                                  </select>
                               </li>
                               <li>
-                                <div class="g-recaptcha custom-recaptcha" data-sitekey="6LfPJOoUAAAAAP_Z6aYEp7sbzZbWInoG-2-7JzTs"></div>
+                                <div class="g-recaptcha custom-recaptcha" data-sitekey="<?php echo $row_recaptcha['site_key']?>"></div>
                               </li>
                               <li><input style="border: solid #0cb309 1px; margin-bottom: 25px; background: #0cb309; color: #fff; font-size: 18px; font-weight: bold;" type="submit" value="FINALIZAR SOLICITAÇÃO"></li>
                            </ul>
@@ -221,9 +223,5 @@ $totalRows_blog2 = mysqli_num_rows($blog2);
       
 <?php include('footer.php'); ?>
 
-      <!-- ALL JS FILES -->
-      <script src="js/all.js"></script>
-      <!-- ALL PLUGINS -->
-      <script src="js/custom.js"></script>
    </body>
 </html>

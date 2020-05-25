@@ -12,6 +12,9 @@ $tokenpaghiper = mysqli_real_escape_string($link,$_POST['tokenpaghiper']);
 $emailpagseguro = mysqli_real_escape_string($link,$_POST['emailpagseguro']);
 $tokenpagseguro = mysqli_real_escape_string($link,$_POST['tokenpagseguro']);
 
+$sitekey = mysqli_real_escape_string($link,$_POST['sitekey']);
+$secretkey = mysqli_real_escape_string($link,$_POST['secretkey']);
+
 $taxapaghiper = mysqli_real_escape_string($link,str_replace(',','.',$_POST['taxapaghiper']));
 $percmulta = mysqli_real_escape_string($link,$_POST['percmulta']);
 $juros = mysqli_real_escape_string($link,$_POST['juros']);
@@ -44,7 +47,7 @@ $totalRows_listmens = mysqli_num_rows($listmens);
 
 
 if($pginc == ""){
-	$sql = "UPDATE rfa_clubes SET paghiper_taxa = '$taxapaghiper', paghiper_include = '$includeretorno', paghiper_appkey = '$appkeypaghiper', paghiper_token = '$tokenpaghiper', pagseguro_email='$emailpagseguro', pagseguro_token='$tokenpagseguro' WHERE id_clube = '$club';";
+	$sql = "UPDATE rfa_clubes SET secret_key='$secretkey',site_key='$sitekey',paghiper_taxa = '$taxapaghiper', paghiper_include = '$includeretorno', paghiper_appkey = '$appkeypaghiper', paghiper_token = '$tokenpaghiper', pagseguro_email='$emailpagseguro', pagseguro_token='$tokenpagseguro' WHERE id_clube = '$club';";
 	
 	if($totalRows_listmens > 0){}else{
 	$sql .= "INSERT INTO rfa_tipo_cob (descricao_cob, pagamentoate_cob, multa_cob, juros_cob, desconto_cob, tipoboleto_cob, user, data_cadastro, parcelas_cob, clube) VALUES ('$descricaocob', '$pagamentoatecob', '$multacob', '$juroscob', '$descontocob', '$tipoboletocob', '$user', '$hoje', '$parcelascb', '$club');";
@@ -62,7 +65,7 @@ if($pginc == ""){
 	fclose($arquivo);
 // END - Cria um arquivo de include para ser utilizado no retorno pegando a chave e o token do usuário
 }else{
-	$sql = "UPDATE rfa_clubes SET paghiper_taxa = '$taxapaghiper', paghiper_appkey = '$appkeypaghiper', paghiper_token = '$tokenpaghiper',pagseguro_email='$emailpagseguro', pagseguro_token='$tokenpagseguro' WHERE id_clube = '$club';";
+	$sql = "UPDATE rfa_clubes SET secret_key='$secretkey',site_key='$sitekey',paghiper_taxa = '$taxapaghiper', paghiper_appkey = '$appkeypaghiper', paghiper_token = '$tokenpaghiper',pagseguro_email='$emailpagseguro', pagseguro_token='$tokenpagseguro' WHERE id_clube = '$club';";
 	
 }
 	

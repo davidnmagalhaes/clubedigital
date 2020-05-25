@@ -5,6 +5,10 @@ include_once("../config.php");
 include('verificacao.php');
 $idcmp = $_GET['idcmp'];
 
+$srecaptcha = "SELECT * FROM rfa_clubes WHERE id_clube='$clube'";
+$recaptcha = mysqli_query($link, $srecaptcha) or die(mysqli_error($link));
+$row_recaptcha = mysqli_fetch_assoc($recaptcha);
+
 $sqlcmp = "SELECT * FROM rfa_consorcio WHERE clube='$clube' AND status_site='1'";
 $cmp = mysqli_query($link, $sqlcmp) or die(mysqli_error($link));
 $row_cmp = mysqli_fetch_assoc($cmp);
@@ -140,7 +144,7 @@ function somenteNumeros(e) {
                      </div>
                   <?php }else{ ?>
                      <div class="contact-us">
-                        <form method="post" action="proc-cd-consorcio.php">
+                        <form method="post" action="<?php if($signal == 1){echo "processaconsorcio";}else{echo "proc-cd-consorcio.php";}?>">
                            <h2 style="margin-bottom: 5px">Selecione um doador</h2>
                            <ul>
                               
@@ -153,7 +157,7 @@ function somenteNumeros(e) {
                               
                            
                               
-                              <li style="width: 100%; height: 240px"><div class="g-recaptcha custom-recaptcha" data-sitekey="6LfPJOoUAAAAAP_Z6aYEp7sbzZbWInoG-2-7JzTs"></div></li>
+                              <li style="width: 100%; height: 240px"><div class="g-recaptcha custom-recaptcha" data-sitekey="<?php echo $row_recaptcha['site_key'];?>"></div></li>
                               <li><input style="border: solid #0cb309 1px; margin-bottom: 25px; background: #0cb309; color: #fff; font-size: 18px; font-weight: bold;" type="submit" value="CONTINUAR"></li>
                            </ul>
                            <input type="hidden" value="<?php echo $clube;?>" name="clube">

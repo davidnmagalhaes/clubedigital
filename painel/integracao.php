@@ -201,7 +201,7 @@ $row_paghiper = mysqli_fetch_assoc($paghiper);
 							1. Acesse sua conta no <a href="https://www.google.com/recaptcha/admin/create">Google reCAPTCHA</a> para adicionar um site;<br>
 							2. Na opção <strong>Etiqueta</strong> dê um título para seu site;<br>
 							3. Na opção <strong>Tipo de Recaptcha</strong> selecione reCAPTCHA v2;<br>
-							4. Na opção <strong>Domínios</strong> adicione o domínio do seu site caso tenha configurado um domínio. Se não não configurou um domínio e está utilizando o domínio do Clube Digital adicione o seguinte domínio: <strong>clubedigital.com.br</strong><br>
+							4. Na opção <strong>Domínios</strong> adicione o domínio do seu site caso tenha configurado um domínio. Se não não configurou um domínio e está utilizando o domínio do Clube Digital adicione o seguinte domínio: <strong>clubedigital.ong.br</strong><br>
 							5. Marque a caixa <strong>Aceitar os Termos de Serviço do reCAPTCHA</strong> e <strong>Clique em Enviar</strong>;<br>
 							6. Ao finalizar terá acesso a <strong>CHAVE DO SITE</strong> e <strong>CHAVE SECRETA</strong>. 
 							</p>

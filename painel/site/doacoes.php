@@ -106,7 +106,7 @@ function somenteNumeros(e) {
                   </div>
                   <div class="col-md-6">
                      <div class="contact-us">
-                        <form method="post" action="continua-doacoes.php">
+                        <form method="post" action="<?php if($signal == 1){echo "continuadoacoes";}else{echo "continua-doacoes.php";}?>">
                            <ul>
                               <li><input type="text" id="nome" name="nome" required placeholder="Nome completo..."></li>
                               <li><input type="email" id="email" name="email" required placeholder="E-mail..."></li>

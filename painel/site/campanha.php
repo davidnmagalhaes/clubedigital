@@ -5,6 +5,10 @@ include_once("../config.php");
 include('verificacao.php');
 $idcmp = $_GET['idcmp'];
 
+$srecaptcha = "SELECT * FROM rfa_clubes WHERE id_clube='$clube'";
+$recaptcha = mysqli_query($link, $srecaptcha) or die(mysqli_error($link));
+$row_recaptcha = mysqli_fetch_assoc($recaptcha);
+
 $sqlcmp = "SELECT * FROM rfa_campanhas WHERE clube='$clube' AND cod_campanha='$idcmp'";
 $cmp = mysqli_query($link, $sqlcmp) or die(mysqli_error($link));
 $row_cmp = mysqli_fetch_assoc($cmp);
@@ -159,7 +163,7 @@ function somenteNumeros(e) {
                   </div>
                   <div class="col-md-6">
                      <div class="contact-us">
-                        <form method="post" action="proc-cd-campanha.php">
+                        <form method="post" action="<?php if($signal == 1){echo "processacampanhas";}else{echo "proc-cd-campanha.php";}?>">
                            <h2 style="margin-bottom: 5px">Dados do Doador</h2>
                            <ul>
                               <li><input type="text" id="nome" name="nome" required placeholder="Nome completo"></li>
@@ -210,7 +214,7 @@ function somenteNumeros(e) {
                               <li><input type="text" name="quantidade" onkeypress="return somenteNumeros(event)" placeholder="Quantidade"></li>
 
                               <li style="text-align:left;"><input type="checkbox" id="confidencial" style="width: 30px" name="confidencial"> Deseja tornar esta doação anônima?</li>
-                              <li><div class="g-recaptcha custom-recaptcha" data-sitekey="6LfPJOoUAAAAAP_Z6aYEp7sbzZbWInoG-2-7JzTs"></div></li>
+                              <li><div class="g-recaptcha custom-recaptcha" data-sitekey="<?php echo $row_recaptcha['site_key'];?>"></div></li>
                               <li><input style="border: solid #0cb309 1px; margin-bottom: 25px; background: #0cb309; color: #fff; font-size: 18px; font-weight: bold;" type="submit" value="CONTINUAR DOAÇÃO"></li>
                            </ul>
                            <input type="hidden" value="<?php echo $clube;?>" name="clube">

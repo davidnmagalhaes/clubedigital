@@ -7,6 +7,11 @@ $idconsorcio = $_POST['idconsorcio'];
 $socio = mysqli_real_escape_string($link,$_POST['socio']);
 $metodopagamento = "boleto";
 
+$srecaptcha = "SELECT * FROM rfa_clubes WHERE id_clube='$clube'";
+$recaptcha = mysqli_query($link, $srecaptcha) or die(mysqli_error($link));
+$row_recaptcha = mysqli_fetch_assoc($recaptcha);
+$secretkey = $row_recaptcha['secret_key'];
+
 $statuspedido = 0;
  
 $protocolo = date('ymdHis').rand(100,200);
@@ -22,7 +27,7 @@ if (!$captcha_data) {
     echo "<script>javascript:alert('Por medida de segurança você precisa confirmar o Recaptcha no final do formulário!');javascript:window.location='consorcio.php?clube=".$clube."'</script>";
 }else{
 
-	$resposta = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6LfxI-oUAAAAAJHf9arBHYIDSLWa6d9dGYGDG-AD&response=".$captcha_data."&remoteip=".$_SERVER['REMOTE_ADDR']);
+	$resposta = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secretkey."&response=".$captcha_data."&remoteip=".$_SERVER['REMOTE_ADDR']);
 
 	if ($resposta.success && $metodopagamento == "boleto") {
 

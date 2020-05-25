@@ -15,7 +15,11 @@ $signal = 1;
 $clube = $codclube;
 }else{
 $signal = 0;
+if(isset($_GET['clube'])){
 $clube = $_GET['clube'];
+}else{
+$clube = $_POST['clube'];
+}
 }
 
 ?>
