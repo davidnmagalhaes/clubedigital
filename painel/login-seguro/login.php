@@ -16,7 +16,7 @@ endif;
 
 // Se nenhum valor foi recebido, o usuário não realizou o captcha
 if (!$captcha_data):
-    echo "<script>javascript:alert('Por medida de segurança você precisa confirmar o Recaptcha!');javascript:window.location='../index.php'</script>";
+    echo "<script>javascript:alert('Por medida de segurança você precisa confirmar o Recaptcha!');javascript:window.location='../'</script>";
 else:
 
 	$resposta = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6LfxI-oUAAAAAJHf9arBHYIDSLWa6d9dGYGDG-AD&response=".$captcha_data."&remoteip=".$_SERVER['REMOTE_ADDR']);
@@ -75,7 +75,7 @@ if (!empty($retorno->tentativas) && intval($retorno->minutos) <= MINUTOS_BLOQUEI
 	$_SESSION['tentativas'] = 0;
 	$retorno = array('codigo' => 0, 'mensagem' => 'Você excedeu o limite de '.TENTATIVAS_ACEITAS.' tentativas, login bloqueado por '.MINUTOS_BLOQUEIO.' minutos!');
 	//echo json_encode($retorno);
-	echo "<script>javascript:alert('".$retorno['mensagem']."');javascript:window.location='../index.php'</script>";
+	echo "<script>javascript:alert('".$retorno['mensagem']."');javascript:window.location='../'</script>";
 	exit();
 endif;
 
@@ -120,18 +120,18 @@ endif;
 if ($_SESSION['logado'] == 'SIM'):
 	$retorno = array('codigo' => 1, 'mensagem' => 'Parabéns, você está no sistema de gestão do Rotary!');
 	//echo json_encode($retorno);
-	echo "<script>javascript:window.location='../home.php'</script>";
+	echo "<script>javascript:window.location='../home'</script>";
 	exit();
 else:
 	if ($_SESSION['tentativas'] == TENTATIVAS_ACEITAS):
 		$retorno = array('codigo' => 0, 'mensagem' => 'Você excedeu o limite de '.TENTATIVAS_ACEITAS.' tentativas, login bloqueado por '.MINUTOS_BLOQUEIO.' minutos!');
 		//echo json_encode($retorno);
-		echo "<script>javascript:alert('".$retorno['mensagem']."');javascript:window.location='../index.php'</script>";
+		echo "<script>javascript:alert('".$retorno['mensagem']."');javascript:window.location='../'</script>";
 		exit();
 	else:
 		$retorno = array('codigo' => '0', 'mensagem' => 'Usuário não autorizado, você tem mais '. (TENTATIVAS_ACEITAS - $_SESSION['tentativas']) .' tentativa(s) antes do bloqueio!');
 		//echo json_encode($retorno);
-		echo "<script>javascript:alert('".$retorno['mensagem']."');javascript:window.location='../index.php'</script>";
+		echo "<script>javascript:alert('".$retorno['mensagem']."');javascript:window.location='../'</script>";
 		exit();
 	endif;
 endif;

@@ -59,12 +59,7 @@ $totalRows_blog2 = mysqli_num_rows($blog2);
 
 <!DOCTYPE html>
 <html lang="pt-br">
-   <!-- Basic -->
-   <meta charset="utf-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <!-- Mobile Metas -->
-   <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-   <!-- Site Metas -->
+
    <title><?php echo $row_topo['title_seo']; ?></title>
    <meta name="keywords" content="<?php echo $row_topo['keyword_seo']; ?>">
    <meta name="description" content="<?php echo $row_topo['description_seo']; ?>">

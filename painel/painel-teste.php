@@ -13,6 +13,7 @@ $datahoje = date('Y-m-d');
 $scl = "SELECT * FROM rfa_clubes WHERE id_clube='$clube'";
 $sclu = mysqli_query($link, $scl) or die(mysqli_error($link));
 $row_sclu = mysqli_fetch_assoc($sclu);
+$dominio = $row_sclu['urldominio'];
 
 $scamb = "SELECT * FROM rfa_config_cambio WHERE id_cambio='1'";
 $camb = mysqli_query($link, $scamb) or die(mysqli_error($link));
@@ -280,10 +281,10 @@ echo $row_despesatotalgraf['valor'] + $row_mtgraftotaltx['valor'] + $row_fundoto
                                     
                                        <?php if(empty($row_logotopo['urldominio'])){ ?>
                                     <a href="site/clube<?php if($_GET['clube']){echo $clube;}else{echo $clube;}?>" role="button" class=" btn btn-primary btrespons" target="_blank">
-                                        <i class="fab fa-chrome" style="margin-right: 10px"></i> Site do Clube</a>
+                                        <i class="fab fa-chrome" style="margin-right: 10px"></i> Site do Clube</a> 
 
                                     <?php }else{?>
-                                     <a href="<?php echo $row_logotopo['urldominio'];?>" role="button" class=" btn btn-primary btrespons" target="_blank">
+                                     <a href="<?php echo "https://".$row_logotopo['urldominio'];?>" role="button" class=" btn btn-primary btrespons" target="_blank">
                                         <i class="fab fa-chrome" style="margin-right: 10px"></i> Site do Clube</a>
                                     <?php } ?>
 

@@ -8,6 +8,7 @@ $idpage = $_GET['id_page'];
 $qpage = "SELECT * FROM rfa_site_menu_pages WHERE clube='$clube' AND id_page='$idpage'";
 $lipage = mysqli_query($link, $qpage) or die(mysqli_error($link));
 $row_lipage = mysqli_fetch_assoc($lipage);
+$nomepagina = $row_lipage['nome_page'];
 
 $sql = "SELECT * FROM rfa_site_topo WHERE clube='$clube'";
 $topo = mysqli_query($link, $sql) or die(mysqli_error($link));
@@ -39,13 +40,7 @@ $totalRows_blog2 = mysqli_num_rows($blog2);
 
 <!DOCTYPE html>
 <html lang="pt-br">
-   <!-- Basic -->
-   <meta charset="utf-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <!-- Mobile Metas -->
-   <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-   <!-- Site Metas -->
-   <title><?php echo $row_topo['title_seo']; ?></title>
+   <title><?php echo $nomepagina; ?></title>
    <meta name="keywords" content="<?php echo $row_topo['keyword_seo']; ?>">
    <meta name="description" content="<?php echo $row_topo['description_seo']; ?>">
    <meta name="author" content="David Magalhães">

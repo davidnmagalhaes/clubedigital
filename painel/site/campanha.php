@@ -17,6 +17,7 @@ $totalRows_cmp = mysqli_num_rows($cmp);
 $valordoacao = $row_cmp['valor_campanha'];
 $tipocampanha = $row_cmp['tipo_campanha'];
 $metodocampanha = $row_cmp['metodo_campanha'];
+$nomecampanha = $row_cmp['nome_campanha'];
 
 if($metodocampanha == 'boleto'){
    $metodo = "<li class='listaitem'>Boleto Bancário</li>";
@@ -57,13 +58,8 @@ $totalRows_blog2 = mysqli_num_rows($blog2);
 
 <!DOCTYPE html>
 <html lang="pt-br">
-   <!-- Basic -->
-   <meta charset="utf-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <!-- Mobile Metas -->
-   <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-   <!-- Site Metas -->
-   <title><?php echo $row_topo['title_seo']; ?></title>
+ 
+   <title><?php echo $nomecampanha; ?></title>
    <meta name="keywords" content="<?php echo $row_topo['keyword_seo']; ?>">
    <meta name="description" content="<?php echo $row_topo['description_seo']; ?>">
    <meta name="author" content="David Magalhães">
