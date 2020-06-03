@@ -15,7 +15,23 @@ $tokenpagseguro = mysqli_real_escape_string($link,$_POST['tokenpagseguro']);
 $sitekey = mysqli_real_escape_string($link,$_POST['sitekey']);
 $secretkey = mysqli_real_escape_string($link,$_POST['secretkey']);
 
-$urldominio = mysqli_real_escape_string($link,$_POST['urldominio']);
+$urldm = mysqli_real_escape_string($link,$_POST['urldominio']);
+$https = str_replace("https://","",str_replace("http://","",$urldm));
+$urldomain = str_replace("/","",str_replace(":","",$https));
+$urlrest = explode(".",$urldomain);
+$temwww = 0;
+foreach($urlrest as $url){
+	if($url == "www"){
+		$temwww += 1;
+	}else{
+		$temwww += 0;
+	}
+}
+if($temwww == 1){
+$urldominio = $urldomain;
+}else{
+	$urldominio = "www.".$urldomain;
+}
 
 $taxapaghiper = mysqli_real_escape_string($link,str_replace(',','.',$_POST['taxapaghiper']));
 $percmulta = mysqli_real_escape_string($link,$_POST['percmulta']);

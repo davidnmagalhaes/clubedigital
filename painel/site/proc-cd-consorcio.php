@@ -2,6 +2,8 @@
 //Conexão com banco de dados
 include_once("../config.php");
 
+include('verificacao.php');
+
 $clube = $_POST['clube'];
 $idconsorcio = $_POST['idconsorcio'];
 $socio = mysqli_real_escape_string($link,$_POST['socio']);
@@ -10,7 +12,11 @@ $metodopagamento = "boleto";
 $srecaptcha = "SELECT * FROM rfa_clubes WHERE id_clube='$clube'";
 $recaptcha = mysqli_query($link, $srecaptcha) or die(mysqli_error($link));
 $row_recaptcha = mysqli_fetch_assoc($recaptcha);
-$secretkey = $row_recaptcha['secret_key'];
+if($signal == 1){
+	$secretkey = $row_recaptcha['secret_key'];
+	}else{
+	$secretkey = "6Lf6B_wUAAAAAO6w9OpYt3bgXVWs5pmC7JImzrkr";
+	}
 
 $statuspedido = 0;
  

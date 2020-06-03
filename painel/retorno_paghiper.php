@@ -87,7 +87,7 @@ var_dump($json);
 
 							if($contarpedido == 14):
 							//Codigo que sera executado assim que ocorrer a alteração de status para pago.
-							$result = "UPDATE rfa_campanhas_pedidos SET status_pedido = '1' WHERE protocolo_pedido = '$npedido'";
+							$result = "UPDATE rfa_campanhas_pedidos SET status_pedido = '1', data_pagamento='$datapgto' WHERE protocolo_pedido = '$npedido'";
 							
 							mysqli_multi_query($link, $result);
 							elseif($contarpedido == 15):

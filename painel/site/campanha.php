@@ -207,10 +207,10 @@ function somenteNumeros(e) {
                                  </div>
                               <?php }?>
 
-                              <li><input type="text" name="quantidade" onkeypress="return somenteNumeros(event)" placeholder="Quantidade"></li>
+                              <li><input type="text" name="quantidade" onkeypress="return somenteNumeros(event)" placeholder="Quantidade"></li> 
 
-                              <li style="text-align:left;"><input type="checkbox" id="confidencial" style="width: 30px" name="confidencial"> Deseja tornar esta doação anônima?</li>
-                              <li><div class="g-recaptcha custom-recaptcha" data-sitekey="<?php echo $row_recaptcha['site_key'];?>"></div></li>
+                              <li style="text-align:left;"><input type="checkbox" id="confidencial" style="width: 30px" name="confidencial"> Deseja tornar esta doação anônima?></li>
+                              <li><div class="g-recaptcha custom-recaptcha" data-sitekey="<?php if($signal == 0){echo "6Lf6B_wUAAAAAL5qoYrqRf-ycX3jgUWjt7omCybJ";}else{echo $row_recaptcha['site_key'];}?>"></div></li>
                               <li><input style="border: solid #0cb309 1px; margin-bottom: 25px; background: #0cb309; color: #fff; font-size: 18px; font-weight: bold;" type="submit" value="CONTINUAR DOAÇÃO"></li>
                            </ul>
                            <input type="hidden" value="<?php echo $clube;?>" name="clube">

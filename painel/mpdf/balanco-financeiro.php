@@ -102,6 +102,25 @@ $sqdt = "SELECT SUM(valor_pagar) as valor FROM rfa_pagar WHERE clube='$clube' AN
 $despesatotal = mysqli_query($link, $sqdt) or die(mysqli_error($link));
 $row_despesatotal = mysqli_fetch_assoc($despesatotal);
 
+//////////////////////////////////// Campanhas Totais///////////////////////////////////////////
+$scmp = "SELECT rfa_campanhas.valor_campanha as valor, SUM(rfa_campanhas_pedidos.quantidade_pedido) as quantidade FROM rfa_campanhas_pedidos INNER JOIN rfa_campanhas ON rfa_campanhas_pedidos.cod_campanha=rfa_campanhas.cod_campanha WHERE rfa_campanhas_pedidos.tipodoacao_pedido='valor' AND rfa_campanhas_pedidos.status_pedido='1' AND (rfa_campanhas_pedidos.metodopgto_pedido='boleto' OR rfa_campanhas_pedidos.metodopgto_pedido='pagseguro') AND rfa_campanhas_pedidos.clube='$clube' AND MONTH(rfa_campanhas_pedidos.data_pagamento) = '$filtromes' AND YEAR(rfa_campanhas_pedidos.data_pagamento) = '$filtroano'";
+$cmp = mysqli_query($link, $scmp) or die(mysqli_error($link));
+$row_cmp = mysqli_fetch_assoc($cmp);
+$totalcampanhas = ($row_cmp['valor'] * $row_cmp['quantidade']);
+
+$scmptx = "SELECT * FROM rfa_campanhas_pedidos WHERE tipodoacao_pedido='valor' AND status_pedido='1' AND metodopgto_pedido='boleto' AND clube='$clube' AND MONTH(data_pagamento) = '$filtromes' AND YEAR(data_pagamento) = '$filtroano'";
+$cmptx = mysqli_query($link, $scmptx) or die(mysqli_error($link));
+$row_cmptx = mysqli_fetch_assoc($cmptx);
+$totalrow_cmptx = mysqli_num_rows($cmptx);
+
+$taxabolcamp = $totalrow_cmptx * 2.49;
+
+//////////////////////////////////// Consórcios Totais///////////////////////////////////////////
+$scns = "SELECT SUM(valor_pagamento) as valor FROM rfa_consorcio_pagamentos WHERE status_pagamento='1' AND clube='$clube' AND MONTH(data_pagamento) = '$filtromes' AND YEAR(data_pagamento) = '$filtroano'";
+$cns = mysqli_query($link, $scns) or die(mysqli_error($link));
+$row_cns = mysqli_fetch_assoc($cns);
+$totalconsorcio = $row_cns['valor'];
+
 //////////////////////////////////// Inadimplências Totais Acumuladas///////////////////////////////////////////
 $sqinad = "SELECT SUM(rfa_mensalidades.valor_mensalidade) as valor FROM rfa_mensalidades INNER JOIN rfs_socios ON rfa_mensalidades.id_socio=rfs_socios.id_socio WHERE rfa_mensalidades.clube='$clube' AND MONTH(rfa_mensalidades.data_mensalidade) <= '$filtromes' AND YEAR(rfa_mensalidades.data_mensalidade) <= '$filtroano' AND rfa_mensalidades.pagamento=0 AND rfa_mensalidades.data_mensalidade < '$datahoje' AND rfs_socios.status_socio='1' AND rfs_socios.status_cob='1'";
 $inadtotal = mysqli_query($link, $sqinad) or die(mysqli_error($link));
@@ -139,7 +158,7 @@ $fundototal = mysqli_query($link, $sqdtfn) or die(mysqli_error($link));
 $row_fundototal = mysqli_fetch_assoc($fundototal);
 $resultadofundo = $row_fundototal['valor'];
 
-$resultadodespesa = $row_despesatotal['valor'] + $row_txtotal['valor'] + $row_fundototal['valor'];//Despesa com taxa
+$resultadodespesa = $row_despesatotal['valor'] + $row_txtotal['valor'] + $row_fundototal['valor'] + $taxabolcamp;//Despesa com taxa
 $resultadodespesastaxa = $row_despesatotal['valor'];//Despesa sem taxa
 
 //////////////////////////////////// Taxa total do mês///////////////////////////////////////////
@@ -208,8 +227,8 @@ $sqmtp = "SELECT SUM(valor_mensalidade) as valor FROM rfa_mensalidades WHERE clu
 $mtptotal = mysqli_query($link, $sqmtp) or die(mysqli_error($link));
 $row_mtptotal = mysqli_fetch_assoc($mtptotal);
 
-$totalentrada = ($row_recptotal['valor'] + $row_mtptotal['valor']) - ($row_despesatotalp['valor'] + $row_txtotal['valor'] + $row_fundototal['valor']);
-$receitatotal = $row_mtptotal['valor'] + $row_recptotal['valor'];
+$totalentrada = ($row_recptotal['valor'] + $row_mtptotal['valor']+ $totalcampanhas + $totalconsorcio) - ($row_despesatotalp['valor'] + $row_txtotal['valor'] + $taxabolcamp + $row_fundototal['valor']);
+$receitatotal = $row_mtptotal['valor'] + $row_recptotal['valor'] + $totalcampanhas + $totalconsorcio;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////SALDO GERAL////////////////////////////////////////////
@@ -250,8 +269,26 @@ $sqfng1 = "SELECT SUM(valor_fundo) as valor FROM rfa_fundos WHERE clube='$clube'
 $fntotalg1 = mysqli_query($link, $sqfng1) or die(mysqli_error($link));
 $row_fntotalg1 = mysqli_fetch_assoc($fntotalg1);
 $fundogeral = $row_fntotalg1['valor'];
+//////////////////////////////////// Campanhas Totais///////////////////////////////////////////
+$scmpg = "SELECT rfa_campanhas.valor_campanha as valor, SUM(rfa_campanhas_pedidos.quantidade_pedido) as quantidade FROM rfa_campanhas_pedidos INNER JOIN rfa_campanhas ON rfa_campanhas_pedidos.cod_campanha=rfa_campanhas.cod_campanha WHERE rfa_campanhas_pedidos.tipodoacao_pedido='valor' AND rfa_campanhas_pedidos.status_pedido='1' AND (rfa_campanhas_pedidos.metodopgto_pedido='boleto' OR rfa_campanhas_pedidos.metodopgto_pedido='pagseguro') AND rfa_campanhas_pedidos.clube='$clube'";
+$cmpg = mysqli_query($link, $scmpg) or die(mysqli_error($link));
+$row_cmpg = mysqli_fetch_assoc($cmpg);
+$totalcampanhasg = ($row_cmpg['valor'] * $row_cmpg['quantidade']);
 
-$totalgeral = ($row_mtgtotal1['valor'] + $row_recpgtotal1['valor'] + $row_sldtotal['valor']) - ($row_despesatotalg1['valor'] + $row_txtotalg1['valor'] + $row_fntotalg1['valor']);
+$scmptxg = "SELECT * FROM rfa_campanhas_pedidos WHERE tipodoacao_pedido='valor' AND status_pedido='1' AND metodopgto_pedido='boleto' AND clube='$clube'";
+$cmptxg = mysqli_query($link, $scmptxg) or die(mysqli_error($link));
+$row_cmptxg = mysqli_fetch_assoc($cmptxg);
+$totalrow_cmptxg = mysqli_num_rows($cmptxg);
+
+$taxabolcampg = $totalrow_cmptxg * 2.49;
+
+//////////////////////////////////// Consórcios Totais///////////////////////////////////////////
+$scnsg = "SELECT SUM(valor_pagamento) as valor FROM rfa_consorcio_pagamentos WHERE status_pagamento='1' AND clube='$clube'";
+$cnsg = mysqli_query($link, $scnsg) or die(mysqli_error($link));
+$row_cnsg = mysqli_fetch_assoc($cnsg);
+$totalconsorciog = $row_cnsg['valor'];
+
+$totalgeral = ($totalconsorciog + $totalcampanhasg + $row_mtgtotal1['valor'] + $row_recpgtotal1['valor'] + $row_sldtotal['valor']) - ($taxabolcampg + $row_despesatotalg1['valor'] + $row_txtotalg1['valor'] + $row_fntotalg1['valor']);
 $entradasgerais = ($row_mtgtotal['valor'] + $row_recpgtotal['valor'] + $row_sldtotal['valor']);
 $saidasgerais = ($row_despesatotalg['valor'] + $row_txtotalg['valor']);
 
@@ -292,7 +329,15 @@ $somasaldo = $fundogeral + $totalgeral;
  		<td width='200' style='border: 1px solid #000; border-collapsed: collapsed; font-weight: bold; padding: 2px'>Receitas Adicionais:</td>
  		<td style='border: 1px solid #000; border-collapsed: collapsed; padding: 2px'>R$ ".number_format($row_recptotal['valor'],2,',','.')."</td>
  	</tr>
- 	".$teste."
+	 ".$teste."
+	 <tr>
+ 		<td width='200' style='border: 1px solid #000; border-collapsed: collapsed; font-weight: bold; padding: 2px'>Campanhas:</td>
+ 		<td style='border: 1px solid #000; border-collapsed: collapsed; padding: 2px'>R$ ".number_format($totalcampanhas,2,',','.')."</td>
+	 </tr>
+	 <tr>
+ 		<td width='200' style='border: 1px solid #000; border-collapsed: collapsed; font-weight: bold; padding: 2px'>Consórcios:</td>
+ 		<td style='border: 1px solid #000; border-collapsed: collapsed; padding: 2px'>R$ ".number_format($totalconsorcio,2,',','.')."</td>
+ 	</tr>
  	<tr>
  		<td width='200' style='border: 1px solid #000; border-collapsed: collapsed; font-weight: bold; padding: 2px'>Mensalidades previstas:</td>
  		<td style='border: 1px solid #000; border-collapsed: collapsed; padding: 2px'>R$ ".number_format($row_mttotal['valor'],2,',','.')."</td>
@@ -359,7 +404,7 @@ $somasaldo = $fundogeral + $totalgeral;
  	</tr>
  	<tr>
  		<td width='200' style='border: 1px solid #000; border-collapsed: collapsed; font-weight: bold; padding: 2px'>Taxas de boletos:</td>
- 		<td style='border: 1px solid #000; border-collapsed: collapsed; padding: 2px'>R$ ".number_format($row_txtotal['valor'],2,',','.')."</td>
+ 		<td style='border: 1px solid #000; border-collapsed: collapsed; padding: 2px'>R$ ".number_format($row_txtotal['valor'] + $taxabolcamp,2,',','.')."</td>
  	</tr>
  	<tr>
  		<td width='200' style='background:#e4e4e4;border: 1px solid #000; border-collapsed: collapsed; font-weight: bold; padding: 2px'>Total de despesas:</td>
@@ -409,7 +454,7 @@ $somasaldo = $fundogeral + $totalgeral;
  	</tr>
  	<tr>
  		<td width='200' style='border: 1px solid #000; border-collapsed: collapsed; font-weight: bold; padding: 2px'>(-) Taxas de boletos:</td>
- 		<td style='border: 1px solid #000; border-collapsed: collapsed; padding: 2px'>R$ ".number_format($row_txtotal['valor'],2,',','.')."</td>
+ 		<td style='border: 1px solid #000; border-collapsed: collapsed; padding: 2px'>R$ ".number_format($row_txtotal['valor'] + $taxabolcamp,2,',','.')."</td>
  	</tr>
  	<tr>
  		<td width='200' style='border: 1px solid #000; border-collapsed: collapsed; font-weight: bold; padding: 2px'>(-) Despesas Ordinárias:</td>

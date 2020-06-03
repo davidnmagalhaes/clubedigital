@@ -1,4 +1,63 @@
+<?php 
+$sshowbal = "SELECT balanco FROM rfa_clubes WHERE id_clube='$clube'";
+$showbal = mysqli_query($link, $sshowbal) or die(mysqli_error($link));
+$row_showbal = mysqli_fetch_assoc($showbal);
+$ativabal = $row_showbal['balanco'];
+?>
+
+<!-- Modal -->
+<div class="modal fade" id="balanco" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Selecione a data do balanço financeiro</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="<?php if($signal == 1){echo "balanco";}else{echo "../mpdf/balanco-financeiro.php";}?>" method="post" target="_blank">
+      <div class="modal-body">
+        <div class="row">
+            <div class="col">
+                <select class="form-control" name="filtroano" style="width: 80%; margin: 10px auto;" required>
+                     <option value="" selected="selected">Selecione o ano</option>
+                     <option value="<?php echo date("Y");?>"><?php echo date("Y");?></option>
+                     <option value="<?php echo (date("Y")-1);?>"><?php echo (date("Y")-1);?></option>
+                     <option value="<?php echo (date("Y")-2);?>"><?php echo (date("Y")-2);?></option>
+                     <option value="<?php echo (date("Y")-3);?>"><?php echo (date("Y")-3);?></option>
+                </select>
+            </div>
+            <div class="col">
+                <select class="form-control" name="filtromes" style="width: 80%; margin: 10px auto;" required>
+                     <option value="" selected="selected">Selecione o mês</option>
+                     <option value="1">Janeiro</option>
+                     <option value="2">Fevereiro</option>
+                     <option value="3">Março</option>
+                     <option value="4">Abril</option>
+                     <option value="5">Maio</option>
+                     <option value="6">Junho</option>
+                     <option value="7">Julho</option>
+                     <option value="8">Agosto</option>
+                     <option value="9">Setembro</option>
+                     <option value="10">Outubro</option>
+                     <option value="11">Novembro</option>
+                     <option value="12">Dezembro</option>
+                </select>
+            </div>
+        </div>
+      </div>
+      <input type="hidden" name="clube" value="<?php echo $clube;?>">
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <button type="submit" class="btn btn-primary">Gerar balanço</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
 <header>
+
+
             <div class="container">
                <div class="header-top">
                   <div class="row">
@@ -22,9 +81,12 @@
                            <!-- end social icon -->
                            <!-- button section -->
                            <ul class="login">
-                              <!--<li class="login-modal">
-                                 <a href="../home" class="login"><i class="fas fa-file-invoice"></i>Balanço</a>
-                              </li>-->
+                              <?php if($ativabal==1){?>
+                              <li class="login-modal">
+                                 <a href="#" class="login" data-toggle="modal" data-target="#balanco"><i class="fas fa-file-invoice"></i>Balanço</a>
+                              </li>
+                              <?php }else{}?>
+                              
                               <li class="login-modal">
                                  <a href="https://www.clubedigital.ong.br/painel" class="login" target="_blank"><i class="fa fa-user"></i>Painel do Clube</a>
                               </li>

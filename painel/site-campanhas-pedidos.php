@@ -51,7 +51,8 @@ $totalRows_lish = mysqli_num_rows($lish);
     <script src="js/summernote-pt-BR.js"></script>
     <script src="js/summernote-ext-elfinder.js"></script>
  
-
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
 </head>
 
@@ -115,7 +116,15 @@ $totalRows_lish = mysqli_num_rows($lish);
       <td style="vertical-align:middle; text-align:center"><?php echo $row_lish['cpf_pedido']; ?></td>
       <td style="vertical-align:middle; text-align:center"><?php echo $row_lish['email_pedido']; ?></td>
       <td style="vertical-align:middle; text-align:center"><?php if($row_lish['metodopgto_pedido'] == 'pagseguro'){echo "<img src='images/logo-pagseguro.png' width='50'>";}elseif($row_lish['metodopgto_pedido'] == 'boleto'){echo "<img src='images/logo-paghiper.png' width='50'>";}else{echo "<i class='fas fa-box-open'></i>";} ?></td>
-      <td style="vertical-align:middle; text-align:center"><?php if($row_lish['status_pedido'] == 0 && $row_lish['tipodoacao_pedido'] == 'valor'){echo "<strong style='color: #ff0000'>Não Pago</strong>";}elseif($row_lish['status_pedido'] == 0 && $row_lish['tipodoacao_pedido'] == 'item'){echo "<strong style='color: #ff0000'>Não entregue</strong>";}elseif(($row_lish['status_pedido'] == 1 || $row_lish['status_pedido'] == 3 || $row_lish['status_pedido'] == 4) && $row_lish['tipodoacao_pedido'] == 'valor'){echo "<strong style='color: #179e07'>Pago</strong>";}else{echo "<strong style='color: #179e07'>Entregue</strong>";} ?></td>
+      <td style="vertical-align:middle; text-align:center"><?php if($row_lish['status_pedido'] == 0 && $row_lish['tipodoacao_pedido'] == 'valor'){echo "<strong style='color: #ff0000'>Não Pago</strong>";}elseif($row_lish['status_pedido'] == 0 && $row_lish['tipodoacao_pedido'] == 'item'){
+        ?>
+          <form action="site-campanhas-atualiza-entrega.php" method="post" id="formb" name="formb">
+         <input type="checkbox" id="statusentrega" onchange="teste()" data-toggle="toggle" data-on="Entregue" data-off="Não entregue" data-onstyle="success" data-offstyle="danger" name="statusentrega" value="<?php echo $row_lish['status_pedido'];?>">
+          <input type="hidden" name="protocolo" value="<?php echo $row_lish['protocolo_pedido'];?>"> 
+          <input type="hidden" name="clube" value="<?php echo $clube;?>">  
+          <input type="hidden" name="idcampanha" value="<?php echo $idcampanha;?>">
+        </form>
+        <?php }elseif(($row_lish['status_pedido'] == 1 || $row_lish['status_pedido'] == 3 || $row_lish['status_pedido'] == 4) && $row_lish['tipodoacao_pedido'] == 'valor'){echo "<strong style='color: #179e07'>Pago</strong>";}else{echo "<strong style='color: #179e07'>Entregue</strong>";} ?></td>
       <td style="text-align:center"><a href="mpdf/<?php if($row_lish['tipodoacao_pedido'] == 'valor'){echo "doc-campanha-valor.php";}else{echo "doc-campanha-item.php";} ?>?clube=<?php echo $clube; ?>&protocolo=<?php echo $row_lish['protocolo_pedido'];?><?php if($row_lish['tipodoacao_pedido'] == 'valor'){echo "&metodopagamento=".$row_lish['metodopgto_pedido'];}?>" target="_blank"><i class="far fa-file-alt"></i></a></td>
     </tr>
     <?php } ?>
@@ -146,7 +155,21 @@ $totalRows_lish = mysqli_num_rows($lish);
 
     </div>
 
-  
+    <script type="text/javascript">
+function teste() {
+    var input = document.querySelector('input[type=checkbox]');
+    
+    function check() {
+        var a = input.checked ? "1" : "0";
+        var func = document.getElementById('statusentrega');
+        func.value = a;
+        document.forms['formb'].submit();
+
+    }
+    input.onchange = check;
+    check();
+}
+</script>
 
 
     <!-- Bootstrap JS-->

@@ -4,6 +4,10 @@ include_once("../config.php");
 
 include('verificacao.php');
 
+$srecaptcha = "SELECT * FROM rfa_clubes WHERE id_clube='$clube'";
+$recaptcha = mysqli_query($link, $srecaptcha) or die(mysqli_error($link));
+$row_recaptcha = mysqli_fetch_assoc($recaptcha);
+
 $sql = "SELECT * FROM rfa_site_topo WHERE clube='$clube'";
 $topo = mysqli_query($link, $sql) or die(mysqli_error($link));
 $row_topo = mysqli_fetch_assoc($topo);
@@ -237,7 +241,7 @@ function somenteNumeros(e) {
                               </div>
                               </div>
                               <input type="hidden" name="clube" value="<?php echo $clube;?>"> 
-                              <div class="g-recaptcha" style="height: 180px; margin: 15px 0" data-sitekey="6LfPJOoUAAAAAP_Z6aYEp7sbzZbWInoG-2-7JzTs"></div>
+                              <div class="g-recaptcha" style="height: 180px; margin: 15px 0" data-sitekey="<?php if($signal == 0){echo "6Lf6B_wUAAAAAL5qoYrqRf-ycX3jgUWjt7omCybJ";}else{echo $row_recaptcha['site_key'];}?>"></div>
                               <li><input class="thbg-color" type="submit" value="Solicitar" style="background: #40a02e; color: #fff"></li>
                            </ul>
                            

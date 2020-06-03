@@ -56,7 +56,7 @@ $row_clubeinfo = mysqli_fetch_assoc($clubeinfo);
          </div>
          <div class="footer-bottom">
             <div class="container">
-               <p>Todos os direitos reservados <a href="https://www.clubefacil.ong.br/" target="_blank">Clube Digital</a> | Desenvolvido por David Magalhães</p>
+               <p>Todos os direitos reservados <a href="https://www.clubefacil.ong.br/" target="_blank">Clube Digital</a> | Desenvolvido por <a href="https://github.com/davidnmagalhaes" target="_blank">David Magalhães</a></p>
             </div>
          </div>
       </footer>

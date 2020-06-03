@@ -2,6 +2,8 @@
 //Conexão com banco de dados
 include_once("../config.php");
 
+include('verificacao.php');
+
 $clube = $_POST['clube'];
 $nome = mysqli_real_escape_string($link,$_POST['nome']);
 $idri = mysqli_real_escape_string($link,$_POST['idri']);
@@ -27,6 +29,15 @@ $referenciasocio = date('ymdHis').rand(0,100);
 $data = date('Y-m-d');
 $hora = date('H:i:s');
 
+$srecaptcha = "SELECT * FROM rfa_clubes WHERE id_clube='$clube'";
+$recaptcha = mysqli_query($link, $srecaptcha) or die(mysqli_error($link));
+$row_recaptcha = mysqli_fetch_assoc($recaptcha);
+if($signal == 1){
+$secretkey = $row_recaptcha['secret_key'];
+}else{
+$secretkey = "6Lf6B_wUAAAAAO6w9OpYt3bgXVWs5pmC7JImzrkr";
+}
+
 if (isset($_POST['g-recaptcha-response'])) {
     $captcha_data = $_POST['g-recaptcha-response'];
 }
@@ -36,7 +47,7 @@ if (!$captcha_data) {
     echo "<script>javascript:alert('Por medida de segurança você precisa confirmar o Recaptcha no final do formulário!');javascript:window.location='associar.php?clube=".$clube."'</script>";
 }else{
 
-	$resposta = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6LfxI-oUAAAAAJHf9arBHYIDSLWa6d9dGYGDG-AD&response=".$captcha_data."&remoteip=".$_SERVER['REMOTE_ADDR']);
+	$resposta = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secretkey."&response=".$captcha_data."&remoteip=".$_SERVER['REMOTE_ADDR']);
 
 	if ($resposta.success) {
 

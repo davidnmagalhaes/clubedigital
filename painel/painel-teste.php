@@ -14,6 +14,7 @@ $scl = "SELECT * FROM rfa_clubes WHERE id_clube='$clube'";
 $sclu = mysqli_query($link, $scl) or die(mysqli_error($link));
 $row_sclu = mysqli_fetch_assoc($sclu);
 $dominio = $row_sclu['urldominio'];
+$balanco = $row_sclu['balanco'];
 
 $scamb = "SELECT * FROM rfa_config_cambio WHERE id_cambio='1'";
 $camb = mysqli_query($link, $scamb) or die(mysqli_error($link));
@@ -35,6 +36,25 @@ $row_sldtotal = mysqli_fetch_assoc($sldtotal);
 $sqdt = "SELECT SUM(valor_pagar) as valor FROM rfa_pagar WHERE clube='$clube' AND MONTH(data_pagar) = '$filtromes' AND YEAR(data_pagar) = '$filtroano'";
 $despesatotal = mysqli_query($link, $sqdt) or die(mysqli_error($link));
 $row_despesatotal = mysqli_fetch_assoc($despesatotal);
+
+//////////////////////////////////// Campanhas Totais///////////////////////////////////////////
+$scmp = "SELECT rfa_campanhas.valor_campanha as valor, SUM(rfa_campanhas_pedidos.quantidade_pedido) as quantidade FROM rfa_campanhas_pedidos INNER JOIN rfa_campanhas ON rfa_campanhas_pedidos.cod_campanha=rfa_campanhas.cod_campanha WHERE rfa_campanhas_pedidos.tipodoacao_pedido='valor' AND rfa_campanhas_pedidos.status_pedido='1' AND (rfa_campanhas_pedidos.metodopgto_pedido='boleto' OR rfa_campanhas_pedidos.metodopgto_pedido='pagseguro') AND rfa_campanhas_pedidos.clube='$clube' AND MONTH(rfa_campanhas_pedidos.data_pagamento) = '$filtromes' AND YEAR(rfa_campanhas_pedidos.data_pagamento) = '$filtroano'";
+$cmp = mysqli_query($link, $scmp) or die(mysqli_error($link));
+$row_cmp = mysqli_fetch_assoc($cmp);
+$totalcampanhas = ($row_cmp['valor'] * $row_cmp['quantidade']);
+
+$scmptx = "SELECT * FROM rfa_campanhas_pedidos WHERE tipodoacao_pedido='valor' AND status_pedido='1' AND metodopgto_pedido='boleto' AND clube='$clube' AND MONTH(data_pagamento) = '$filtromes' AND YEAR(data_pagamento) = '$filtroano'";
+$cmptx = mysqli_query($link, $scmptx) or die(mysqli_error($link));
+$row_cmptx = mysqli_fetch_assoc($cmptx);
+$totalrow_cmptx = mysqli_num_rows($cmptx);
+
+$taxabolcamp = $totalrow_cmptx * 2.49;
+
+//////////////////////////////////// Consórcios Totais///////////////////////////////////////////
+$scns = "SELECT SUM(valor_pagamento) as valor FROM rfa_consorcio_pagamentos WHERE status_pagamento='1' AND clube='$clube' AND MONTH(data_pagamento) = '$filtromes' AND YEAR(data_pagamento) = '$filtroano'";
+$cns = mysqli_query($link, $scns) or die(mysqli_error($link));
+$row_cns = mysqli_fetch_assoc($cns);
+$totalconsorcio = $row_cns['valor'];
 
 //////////////////////////////////// Inadimplências Totais///////////////////////////////////////////
 $sqinad = "SELECT SUM(rfa_mensalidades.valor_mensalidade) as valor FROM rfa_mensalidades INNER JOIN rfs_socios ON rfa_mensalidades.id_socio=rfs_socios.id_socio WHERE rfa_mensalidades.clube='$clube' AND MONTH(rfa_mensalidades.data_mensalidade) <= '$filtromes' AND YEAR(rfa_mensalidades.data_mensalidade) <= '$filtroano' AND rfa_mensalidades.pagamento=0 AND rfa_mensalidades.data_mensalidade < '$datahoje' AND rfs_socios.status_socio='1' AND rfs_socios.status_cob='1'";
@@ -72,7 +92,7 @@ $sqdtfn = "SELECT SUM(valor_fundo) as valor FROM rfa_fundos WHERE clube='$clube'
 $fundototal = mysqli_query($link, $sqdtfn) or die(mysqli_error($link));
 $row_fundototal = mysqli_fetch_assoc($fundototal);
 
-$resultadodespesa = $row_despesatotal['valor'] + $row_txtotal['valor'] + $row_fundototal['valor'];//Despesa com taxa
+$resultadodespesa = $row_despesatotal['valor'] + $row_txtotal['valor'] + $row_fundototal['valor'] + $taxabolcamp;//Despesa com taxa
 $resultadodespesastaxa = $row_despesatotal['valor'];//Despesa sem taxa
 
 //////////////////////////////////// Taxa total do mês///////////////////////////////////////////
@@ -96,8 +116,8 @@ $sqmtp = "SELECT SUM(valor_mensalidade) as valor FROM rfa_mensalidades WHERE clu
 $mtptotal = mysqli_query($link, $sqmtp) or die(mysqli_error($link));
 $row_mtptotal = mysqli_fetch_assoc($mtptotal);
 
-$totalentrada = ($row_recptotal['valor'] + $row_mtptotal['valor']) - ($row_despesatotalp['valor'] + $row_txtotal['valor'] + $row_fundototal['valor']);
-$receitatotal = $row_mtptotal['valor'] + $row_recptotal['valor'];
+$totalentrada = ($row_recptotal['valor'] + $row_mtptotal['valor']+ $totalcampanhas + $totalconsorcio) - ($row_despesatotalp['valor'] + $row_txtotal['valor'] + $taxabolcamp + $row_fundototal['valor']);
+$receitatotal = $row_mtptotal['valor'] + $row_recptotal['valor'] + $totalcampanhas + $totalconsorcio;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////SALDO GERAL////////////////////////////////////////////
@@ -135,8 +155,26 @@ $sqfng1 = "SELECT SUM(valor_fundo) as valor FROM rfa_fundos WHERE clube='$clube'
 $fntotalg1 = mysqli_query($link, $sqfng1) or die(mysqli_error($link));
 $row_fntotalg1 = mysqli_fetch_assoc($fntotalg1);
 
+//////////////////////////////////// Campanhas Totais///////////////////////////////////////////
+$scmpg = "SELECT rfa_campanhas.valor_campanha as valor, SUM(rfa_campanhas_pedidos.quantidade_pedido) as quantidade FROM rfa_campanhas_pedidos INNER JOIN rfa_campanhas ON rfa_campanhas_pedidos.cod_campanha=rfa_campanhas.cod_campanha WHERE rfa_campanhas_pedidos.tipodoacao_pedido='valor' AND rfa_campanhas_pedidos.status_pedido='1' AND (rfa_campanhas_pedidos.metodopgto_pedido='boleto' OR rfa_campanhas_pedidos.metodopgto_pedido='pagseguro') AND rfa_campanhas_pedidos.clube='$clube'";
+$cmpg = mysqli_query($link, $scmpg) or die(mysqli_error($link));
+$row_cmpg = mysqli_fetch_assoc($cmpg);
+$totalcampanhasg = ($row_cmpg['valor'] * $row_cmpg['quantidade']);
 
-$totalgeral = ($row_mtgtotal1['valor'] + $row_recpgtotal1['valor'] + $row_sldtotal['valor']) - ($row_despesatotalg1['valor'] + $row_txtotalg1['valor'] + $row_fntotalg1['valor']);
+$scmptxg = "SELECT * FROM rfa_campanhas_pedidos WHERE tipodoacao_pedido='valor' AND status_pedido='1' AND metodopgto_pedido='boleto' AND clube='$clube'";
+$cmptxg = mysqli_query($link, $scmptxg) or die(mysqli_error($link));
+$row_cmptxg = mysqli_fetch_assoc($cmptxg);
+$totalrow_cmptxg = mysqli_num_rows($cmptxg);
+
+$taxabolcampg = $totalrow_cmptxg * 2.49;
+
+//////////////////////////////////// Consórcios Totais///////////////////////////////////////////
+$scnsg = "SELECT SUM(valor_pagamento) as valor FROM rfa_consorcio_pagamentos WHERE status_pagamento='1' AND clube='$clube'";
+$cnsg = mysqli_query($link, $scnsg) or die(mysqli_error($link));
+$row_cnsg = mysqli_fetch_assoc($cnsg);
+$totalconsorciog = $row_cnsg['valor'];
+
+$totalgeral = ($totalconsorciog + $totalcampanhasg + $row_mtgtotal1['valor'] + $row_recpgtotal1['valor'] + $row_sldtotal['valor']) - ($taxabolcampg + $row_despesatotalg1['valor'] + $row_txtotalg1['valor'] + $row_fntotalg1['valor']);
 $entradasgerais = ($row_mtgtotal['valor'] + $row_recpgtotal['valor'] + $row_sldtotal['valor']);
 $saidasgerais = ($row_despesatotalg['valor'] + $row_txtotalg['valor']);
 
@@ -145,6 +183,19 @@ $saidasgerais = ($row_despesatotalg['valor'] + $row_txtotalg['valor']);
 
 function receitagrafico($mes, $ano, $clube){
 include('config.php');
+
+//////////////////////////////////// Campanhas Totais///////////////////////////////////////////
+$scmp = "SELECT rfa_campanhas.valor_campanha as valor, SUM(rfa_campanhas_pedidos.quantidade_pedido) as quantidade FROM rfa_campanhas_pedidos INNER JOIN rfa_campanhas ON rfa_campanhas_pedidos.cod_campanha=rfa_campanhas.cod_campanha WHERE rfa_campanhas_pedidos.tipodoacao_pedido='valor' AND rfa_campanhas_pedidos.status_pedido='1' AND (rfa_campanhas_pedidos.metodopgto_pedido='boleto' OR rfa_campanhas_pedidos.metodopgto_pedido='pagseguro') AND rfa_campanhas_pedidos.clube='$clube' AND MONTH(rfa_campanhas_pedidos.data_pagamento) = '$mes' AND YEAR(rfa_campanhas_pedidos.data_pagamento) = '$ano'";
+$cmp = mysqli_query($link, $scmp) or die(mysqli_error($link));
+$row_cmp = mysqli_fetch_assoc($cmp);
+$totalcampanhas = ($row_cmp['valor'] * $row_cmp['quantidade']);
+
+//////////////////////////////////// Consórcios Totais///////////////////////////////////////////
+$scns = "SELECT SUM(valor_pagamento) as valor FROM rfa_consorcio_pagamentos WHERE status_pagamento='1' AND clube='$clube' AND MONTH(data_pagamento) = '$mes' AND YEAR(data_pagamento) = '$ano'";
+$cns = mysqli_query($link, $scns) or die(mysqli_error($link));
+$row_cns = mysqli_fetch_assoc($cns);
+$totalconsorcio = $row_cns['valor'];
+
 //////////////////////////////////// Mensalidades Totais para o Gráfico ///////////////////////////////////////////
 $sqmtgraf = "SELECT SUM(valor_mensalidade) as valor, data_mensalidade FROM rfa_mensalidades WHERE clube='$clube' AND pagamento=1 AND MONTH(data_pagamento) = '$mes' AND YEAR(data_pagamento) = '$ano'";
 $mtgraftotal = mysqli_query($link, $sqmtgraf) or die(mysqli_error($link));
@@ -155,12 +206,20 @@ $sqrecpgraf = "SELECT SUM(valor_receita) as valor FROM rfa_receitas WHERE clube=
 $recpgraftotal = mysqli_query($link, $sqrecpgraf) or die(mysqli_error($link));
 $row_recpgraftotal = mysqli_fetch_assoc($recpgraftotal);
 
-echo ($row_mtgraftotal['valor'] + $row_recpgraftotal['valor']);
+echo ($row_mtgraftotal['valor'] + $row_recpgraftotal['valor'] + $totalcampanhas + $totalconsorcio);
 
 }
 
 function despesagrafico($mespg, $anopg, $clubepg){
 include('config.php');
+
+$scmptx = "SELECT * FROM rfa_campanhas_pedidos WHERE tipodoacao_pedido='valor' AND status_pedido='1' AND metodopgto_pedido='boleto' AND clube='$clubepg' AND MONTH(data_pagamento) = '$mespg' AND YEAR(data_pagamento) = '$anopg'";
+$cmptx = mysqli_query($link, $scmptx) or die(mysqli_error($link));
+$row_cmptx = mysqli_fetch_assoc($cmptx);
+$totalrow_cmptx = mysqli_num_rows($cmptx);
+
+$taxabolcamp = $totalrow_cmptx * 2.49;
+
 //////////////////////////////////// Despesas Totais para o Gráfico ///////////////////////////////////////////
 $sqdtgraf = "SELECT SUM(valor_pagar) as valor, data_pagar FROM rfa_pagar WHERE clube='$clubepg' AND status_pagar=2 AND MONTH(data_pagar) = '$mespg' AND YEAR(data_pagar) = '$anopg'";
 $despesatotalgraf = mysqli_query($link, $sqdtgraf) or die(mysqli_error($link));
@@ -175,7 +234,7 @@ $sqdtfn = "SELECT SUM(valor_fundo) as valor FROM rfa_fundos WHERE clube='$clubep
 $fundototal = mysqli_query($link, $sqdtfn) or die(mysqli_error($link));
 $row_fundototal = mysqli_fetch_assoc($fundototal);
 
-echo $row_despesatotalgraf['valor'] + $row_mtgraftotaltx['valor'] + $row_fundototal['valor'];
+echo $row_despesatotalgraf['valor'] + $row_mtgraftotaltx['valor'] + $row_fundototal['valor'] + $taxabolcamp;
 
 }
 
@@ -187,7 +246,14 @@ echo $row_despesatotalgraf['valor'] + $row_mtgraftotaltx['valor'] + $row_fundoto
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Selecione a data do balanço</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Selecione a data do balanço 
+
+        <form action="ativa-balanco.php" method="POST" id="formb" style="margin: 20px 15px 15px 15px;"> 
+         <input type="checkbox" style="width: 45px" name="balanco" <?php if($balanco == 1){echo "checked";}?> onChange="document.forms['formb'].submit();" value="<?php if($balanco == 1){echo "0";}else{echo "1";}?>"> Ativar no site?
+         <input type="hidden" name="clube" value="<?php echo $clube;?>">
+        </form>
+
+        </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -427,7 +493,7 @@ echo $row_despesatotalgraf['valor'] + $row_mtgraftotaltx['valor'] + $row_fundoto
                         
                             <div class="col-sm-6 col-lg-2">
                                 <a href="a-pagar.php" class="col" style="margin:0; padding:0;">
-                                <div class="overview-item overview-item--c3" data-toggle="tooltip" data-html="true" title="Soma o total de despesas do mês + o total de taxas de boletos do mês + Fundos do mês.<br><br><strong>Taxas de boletos:</strong> R$ <?php echo number_format($row_txtotal['valor'],2,',','.');?><Br><strong>Despesas:</strong> R$ <?php echo number_format($resultadodespesastaxa,2,',','.');?><br><strong>Fundos:</strong> R$ <?php echo number_format($row_fundototal['valor'],2,',','.');?> ">
+                                <div class="overview-item overview-item--c3" data-toggle="tooltip" data-html="true" title="Soma o total de despesas do mês + o total de taxas de boletos do mês + Fundos do mês.<br><br><strong>Taxas de boletos:</strong> R$ <?php echo number_format($row_txtotal['valor']+$taxabolcamp,2,',','.');?><Br><strong>Despesas:</strong> R$ <?php echo number_format($resultadodespesastaxa,2,',','.');?><br><strong>Fundos:</strong> R$ <?php echo number_format($row_fundototal['valor'],2,',','.');?> ">
                                     <div class="overview__inner">
                                         <div class="overview-box clearfix">
                                             <div class="icon">
@@ -452,7 +518,7 @@ echo $row_despesatotalgraf['valor'] + $row_mtgraftotaltx['valor'] + $row_fundoto
 
                             <div class="col-sm-6 col-lg-2">
                                 <a href="receitas.php" class="col" style="margin:0; padding:0;">
-                                <div class="overview-item overview-item--c2" data-toggle="tooltip" data-html="true" title="Soma as receitas adicionais confirmadas do mês(Ex.: refeições, doações, etc...) + mensalidades pagas do mês. <br><br><strong>Receitas:</strong> R$ <?php echo number_format($row_recptotal['valor'],2,',','.');?><br><strong>Mensalidades pagas:</strong> R$ <?php echo number_format($row_mtptotal['valor'],2,',','.');?>">
+                                <div class="overview-item overview-item--c2" data-toggle="tooltip" data-html="true" title="Soma as receitas adicionais confirmadas do mês(Ex.: refeições, doações, consórcios, etc...) + mensalidades pagas do mês. <br><br><strong>Receitas:</strong> R$ <?php echo number_format($row_recptotal['valor'],2,',','.');?><br><strong>Mensalidades pagas:</strong> R$ <?php echo number_format($row_mtptotal['valor'],2,',','.');?><br><strong>Campanhas:</strong> R$ <?php echo number_format($totalcampanhas,2,',','.'); ?><br><strong>Consórcios:</strong> R$ <?php echo number_format($totalconsorcio,2,',','.'); ?>">
                                     <div class="overview__inner">
                                         <div class="overview-box clearfix">
                                             <div class="icon">

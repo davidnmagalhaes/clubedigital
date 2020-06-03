@@ -117,7 +117,6 @@ $regra10 = $totalRows_lissvcomun < 1 || $totalRows_lissvprof < 1 || $totalRows_l
 
     <!-- Title Page-->
     <title>Rotary Fortaleza Alagadiço</title>
-
     <?php include("head.php");?>
 
 <!--Mask Money-->

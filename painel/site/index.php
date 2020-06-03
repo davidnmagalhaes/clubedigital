@@ -1,3 +1,5 @@
+
+
 <?php 
 //Conexão com banco de dados
 include_once("../config.php");
@@ -194,11 +196,11 @@ foreach($pegaaniversariofilho as $pegaanifilho){
 
    </head>
    <body class="game_info" data-spy="scroll" data-target=".header">
-      <!-- LOADER 
+     <!--
       <div id="preloader">
-         <img class="preloader" src="images/loading-img.gif" alt="">
+         <img class="preloader" src="painel/site/images/loading-img.gif" alt="">
       </div>
-       END LOADER -->
+      -->
 
 <!-- Modal do vídeo -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

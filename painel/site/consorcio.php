@@ -152,7 +152,7 @@ function somenteNumeros(e) {
                               
                            
                               
-                              <li style="width: 100%; height: 240px"><div class="g-recaptcha custom-recaptcha" data-sitekey="<?php echo $row_recaptcha['site_key'];?>"></div></li>
+                              <li style="width: 100%; height: 240px"><div class="g-recaptcha custom-recaptcha" data-sitekey="<?php if($signal == 0){echo "6Lf6B_wUAAAAAL5qoYrqRf-ycX3jgUWjt7omCybJ";}else{echo $row_recaptcha['site_key'];}?>"></div></li>
                               <li><input style="border: solid #0cb309 1px; margin-bottom: 25px; background: #0cb309; color: #fff; font-size: 18px; font-weight: bold;" type="submit" value="CONTINUAR"></li>
                            </ul>
                            <input type="hidden" value="<?php echo $clube;?>" name="clube">

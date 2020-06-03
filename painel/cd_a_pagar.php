@@ -27,7 +27,9 @@ $totalRows_listatipobanco = mysqli_num_rows($listatipobanco);
     <meta name="description" content="Sistema de Gestão do Rotary Fortaleza Alagadiço">
     <meta name="author" content="David Magalhães">
     <meta name="keywords" content="rotary alagadiço, rotary fortaleza alagadiço, fortaleza alagadiço">
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <!-- Title Page-->
     <title>Cadastro de Contas a Pagar - Rotary Fortaleza Alagadiço</title>
 
@@ -98,11 +100,73 @@ function moeda(a, e, r, t) {
     return !1
 }
  </script>
-	
+
+ <script type="text/javascript">
+			function fMasc(objeto,mascara) {
+				obj=objeto
+				masc=mascara
+				setTimeout("fMascEx()",1)
+			}
+			function fMascEx() {
+				obj.value=masc(obj.value)
+			}
+			function mTel(tel) {
+				tel=tel.replace(/\D/g,"")
+				tel=tel.replace(/^(\d)/,"($1")
+				tel=tel.replace(/(.{3})(\d)/,"$1)$2")
+				if(tel.length == 9) {
+					tel=tel.replace(/(.{1})$/,"-$1")
+				} else if (tel.length == 10) {
+					tel=tel.replace(/(.{2})$/,"-$1")
+				} else if (tel.length == 11) {
+					tel=tel.replace(/(.{3})$/,"-$1")
+				} else if (tel.length == 12) {
+					tel=tel.replace(/(.{4})$/,"-$1")
+				} else if (tel.length > 12) {
+					tel=tel.replace(/(.{4})$/,"-$1")
+				}
+				return tel;
+			}
+			function mCNPJ(cnpj){
+				cnpj=cnpj.replace(/\D/g,"")
+				cnpj=cnpj.replace(/^(\d{2})(\d)/,"$1.$2")
+				cnpj=cnpj.replace(/^(\d{2})\.(\d{3})(\d)/,"$1.$2.$3")
+				cnpj=cnpj.replace(/\.(\d{3})(\d)/,".$1/$2")
+				cnpj=cnpj.replace(/(\d{4})(\d)/,"$1-$2")
+				return cnpj
+			}
+			function mCPF(cpf){
+				cpf=cpf.replace(/\D/g,"")
+				cpf=cpf.replace(/(\d{3})(\d)/,"$1.$2")
+				cpf=cpf.replace(/(\d{3})(\d)/,"$1.$2")
+				cpf=cpf.replace(/(\d{3})(\d{1,2})$/,"$1-$2")
+				return cpf
+			}
+			function mCEP(cep){
+				cep=cep.replace(/\D/g,"")
+				cep=cep.replace(/^(\d{2})(\d)/,"$1.$2")
+				cep=cep.replace(/\.(\d{3})(\d)/,".$1-$2")
+				return cep
+			}
+			function mNum(num){
+				num=num.replace(/\D/g,"")
+				return num
+			}
+			
+			
+			
+			
+		</script>
+    <style>
+    .toggle{
+        width: 110.453px !important;
+    height: 37.7266px !important;
+    }
+    </style>
 </head>
 
 <body class="animsition">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+
     <div class="page-wrapper">
 	
         <?php include("menu-desktop.php");?>
@@ -127,6 +191,8 @@ function moeda(a, e, r, t) {
                                         <small> despesas</small>
                                     </div>
                                     <div class="card-body card-block">
+                                        <div class="row">
+                                        <div class="col-12 col-md-10">
                                         <div class="form-group">
 											<label for="origem" class=" form-control-label">Origem </label>
                                                 <select name="origem_pagar" id="origem_pagar" class="form-control" required>
@@ -136,7 +202,24 @@ function moeda(a, e, r, t) {
 													<option value="<?php echo $row_listabancos['cod_banco'];?>"><?php echo $row_listabancos['favorecido'];?> <strong>(<?php echo $row_listabancos['nome_lista_banco'];?>)</strong></option>
 													<?php }while($row_listabancos = mysqli_fetch_assoc($listabancos));?>
 														<?php }?>
-                                                 </select>                                        </div>
+                                                 </select>
+                                        </div>
+                                        </div>
+                                        <div class="col-12 col-md-2">
+                                        <label>É salário?</label><br>
+                                        <input type="checkbox" id="salario" name="salario" data-toggle="toggle" data-on="Sim" data-off="Não" data-onstyle="success" data-offstyle="danger" value="">
+                                        </div> 
+                                        </div>
+                                        <div class="row" id="exibefuncionario" style="display:none; margin-bottom: 15px;">
+                                            <div class="col">
+                                                <label for="nomefuncionario">Nome do Funcionário</label>
+                                                <input type="text" name="nomefuncionario" class="form-control">
+                                            </div>
+                                            <div class="col">
+                                                <label for="nomefuncionario">CPF do Funcionário</label>
+                                                <input type="text" name="cpffuncionario" class="form-control" onkeydown="javascript: fMasc( this, mCPF );" maxlength="14">
+                                            </div>
+                                        </div>
 										<div class="row">
 										<div class="col">
 											<div class="form-group">
@@ -213,19 +296,28 @@ function moeda(a, e, r, t) {
 	
 	
 	
-	<!-- Start Script para trocar tipo de pessoa -->
-<script>
-		$('input[name="tipopessoa"]').change(function () {
-    if ($('input[name="tipopessoa"]:checked').val() === "pj") {
-        $('.exibetipopessoapj').show();
-		 $('.exibetipopessoapf').hide();
+
+    <script type="text/javascript">
+window.onload = function () {
+    var input = document.querySelector('input[type=checkbox]');
+    
+    function check() {
+        var a = input.checked ? "1" : "0";
+        var func = document.getElementById('exibefuncionario');
+        document.getElementById('salario').value = a;
+
+        if ($('input[name="salario"]:checked').val() === "1") {
+        $('#exibefuncionario').show();
     } else {
-        $('.exibetipopessoapj').hide();
-		$('.exibetipopessoapf').show();
+        $('#exibefuncionario').hide();
     }
-});
-	</script>
-	<!-- End Script para trocar tipo de pessoa -->
+
+    }
+    input.onchange = check;
+    check();
+}
+</script>
+
 	
     <?php include("scripts-footer.php"); ?>
 

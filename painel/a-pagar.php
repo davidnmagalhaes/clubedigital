@@ -228,7 +228,7 @@ function moeda(a, e, r, t) {
                                                 </td>
                                                 <td>R$ <?php echo number_format($row_lis['valor_pagar'], 2, ',', '.');?></td>
                                                 <td>
-                                                    <div class="table-data-feature">
+                                                    <div class="table-data-feature" style="text-align:center">
                                                         <!--<button class="item" data-toggle="tooltip" data-placement="top" title="Send">
                                                             <i class="zmdi zmdi-mail-send"></i>
                                                         </button>-->
@@ -238,9 +238,11 @@ function moeda(a, e, r, t) {
                                                         <a href="excluir-a-pagar.php?idpagar=<?php echo $row_lis['id_pagar'];?>&clube=<?php if($_GET['clube']){echo $clube;}else{echo $clube;}?>" class="item remove" data-toggle="tooltip" data-placement="top" title="Deletar">
                                                             <i class="zmdi zmdi-delete"></i>
                                                         </a>
-                                                        <!--<button class="item" data-toggle="tooltip" data-placement="top" title="Mais">
-                                                            <i class="zmdi zmdi-more"></i>
-                                                        </button>-->
+                                                        <?php if($row_lis['status_pagar'] == 2){?>
+                                                        <a href="mpdf/recibo-despesa.php?idpagar=<?php echo $row_lis['id_pagar'];?>&clube=<?php if($_GET['clube']){echo $clube;}else{echo $clube;}?>" class="item" data-toggle="tooltip" data-placement="top" title="Recibo" target="_blank">
+                                                            <i class="zmdi zmdi-receipt"></i>
+                                                        </a>
+                                                        <?php }?>
                                                     </div>
                                                 </td>
                                             </tr>

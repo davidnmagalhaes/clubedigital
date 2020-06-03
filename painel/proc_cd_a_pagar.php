@@ -18,6 +18,8 @@ $destino = mysqli_real_escape_string($link,$_POST['origem_pagar']);
 $descricao = mysqli_real_escape_string($link,$_POST['descricao_pagar']);
 $data = mysqli_real_escape_string($link,$_POST['data_pagar']);
 $status = mysqli_real_escape_string($link,$_POST['status_pagar']);
+$nomefuncionario = mysqli_real_escape_string($link,$_POST['nomefuncionario']);
+$cpffuncionario = mysqli_real_escape_string($link,$_POST['cpffuncionario']);
 
 $datacadastro = date('Y-m-d');
 
@@ -25,7 +27,7 @@ $valor = mysqli_real_escape_string($link,str_replace('.','',$_POST['valor_pagar'
 $valorat = str_replace(',','.',$valor);
 
 
-	$sql = "INSERT INTO rfa_pagar (origem_pagar, descricao_pagar, data_pagar, status_pagar, valor_pagar, por_pagar, user, data_cadastro, clube) VALUES ('$destino', '$descricao', '$data', '$status', '$valorat', '$por', '$user', '$datacadastro', '$club');";
+	$sql = "INSERT INTO rfa_pagar (nome_funcionario, cpf_funcionario, origem_pagar, descricao_pagar, data_pagar, status_pagar, valor_pagar, por_pagar, user, data_cadastro, clube) VALUES ('$nomefuncionario','$cpffuncionario','$destino', '$descricao', '$data', '$status', '$valorat', '$por', '$user', '$datacadastro', '$club');";
 
 	
 	if ($link->multi_query($sql) === TRUE) {
