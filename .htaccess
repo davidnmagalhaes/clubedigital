@@ -2,7 +2,11 @@
 RewriteEngine On
 
 
+
 RewriteRule ^/?$ painel/site/index.php [NC,L]
+
+RewriteRule ^inicio/?$ inicio.php [NC,L]
+
 RewriteRule ^socios/?$ painel/site/socios.php [NC,L]
 RewriteRule ^sobreclube/?$ painel/site/clube.php [NC,L]
 RewriteRule ^associar/?$ painel/site/associar.php [NC,L]
@@ -21,4 +25,7 @@ RewriteRule ^processadoacoes/?$ painel/site/proc-cd-doacoes.php [NC,L]
 RewriteRule ^processadoador/?$ painel/site/proc-cd-doador.php [NC,L]
 RewriteRule ^processacampanhas/?$ painel/site/proc-cd-campanha.php [NC,L]
 RewriteRule ^processaconsorcio/?$ painel/site/proc-cd-consorcio.php [NC,L]
+RewriteRule ^processaassociar/?$ painel/site/proc_associar.php [NC,L]
+RewriteRule ^processaboleto/?$ painel/site/boleto.php [NC,L]
+RewriteRule ^processapagseguro/?$ painel/integracao_pagseguro/integracao/pagseguro/clubedigital/compra/compra.php.php [NC,L]
 RewriteRule ^balanco/?$ painel/mpdf/balanco-financeiro.php [NC,L]
