@@ -265,10 +265,16 @@ $sqtxg1 = "SELECT SUM(taxa) as valor FROM rfa_mensalidades WHERE clube='$clube' 
 $txtotalg1 = mysqli_query($link, $sqtxg1) or die(mysqli_error($link));
 $row_txtotalg1 = mysqli_fetch_assoc($txtotalg1); 
 
+$sqrtg1 = "SELECT SUM(valor_retirada) as valor FROM rfa_retirada WHERE clube='$clube' AND data_retirada<='$dataatual'";
+$rttotalg1 = mysqli_query($link, $sqrtg1) or die(mysqli_error($link));
+$row_rttotalg1 = mysqli_fetch_assoc($rttotalg1);
+$retiradasgeral = $row_rttotalg1['valor'];
+
 $sqfng1 = "SELECT SUM(valor_fundo) as valor FROM rfa_fundos WHERE clube='$clube' AND status_fundo=2 AND data_fundo<='$dataatual'";
 $fntotalg1 = mysqli_query($link, $sqfng1) or die(mysqli_error($link));
 $row_fntotalg1 = mysqli_fetch_assoc($fntotalg1);
-$fundogeral = $row_fntotalg1['valor'];
+$fundogeral = $row_fntotalg1['valor'] - $retiradasgeral;
+
 //////////////////////////////////// Campanhas Totais///////////////////////////////////////////
 $scmpg = "SELECT rfa_campanhas.valor_campanha as valor, SUM(rfa_campanhas_pedidos.quantidade_pedido) as quantidade FROM rfa_campanhas_pedidos INNER JOIN rfa_campanhas ON rfa_campanhas_pedidos.cod_campanha=rfa_campanhas.cod_campanha WHERE rfa_campanhas_pedidos.tipodoacao_pedido='valor' AND rfa_campanhas_pedidos.status_pedido='1' AND (rfa_campanhas_pedidos.metodopgto_pedido='boleto' OR rfa_campanhas_pedidos.metodopgto_pedido='pagseguro') AND rfa_campanhas_pedidos.clube='$clube'";
 $cmpg = mysqli_query($link, $scmpg) or die(mysqli_error($link));
@@ -310,7 +316,7 @@ $fundoanterior = fundoAnterior($mespassado,$anopassado,$clube);
 $saldoacumanterior = saldoAcum($mespassado,$anopassado,$clube);//Saldo Acumulado do Mês Passado
 $fundoacumanterior = fundoAcum($mespassado,$anopassado,$clube);
 
-$somasaldo = $fundogeral + $totalgeral;
+$somasaldo = ($fundogeral + $totalgeral);
 
  $html = "
  <fieldset>
@@ -486,6 +492,10 @@ $somasaldo = $fundogeral + $totalgeral;
  	<tr>
  		<td width='200' style='border: 1px solid #000; border-collapsed: collapsed; font-weight: bold; padding: 2px'>(+) Acumulado Fundo de Reserva:</td>
  		<td style='border: 1px solid #000; border-collapsed: collapsed; padding: 2px'>R$ ".number_format($fundogeral,2,',','.')."</td>
+	 </tr>
+	 <tr>
+ 		<td width='200' style='border: 1px solid #000; border-collapsed: collapsed; font-weight: bold; padding: 2px'>(-) Acumulado Retiradas de Fundo:</td>
+ 		<td style='border: 1px solid #000; border-collapsed: collapsed; padding: 2px'>R$ ".number_format($retiradasgeral,2,',','.')."</td>
  	</tr>
  	<tr>
  		<td width='200' style='background: #e4e4e4;border: 1px solid #000; border-collapsed: collapsed; font-weight: bold; padding: 2px'>Saldo total:</td>
@@ -509,10 +519,14 @@ $somasaldo = $fundogeral + $totalgeral;
  	<tr>
  		<td width='200' style='border: 1px solid #000; border-collapsed: collapsed; font-weight: bold; padding: 2px'>Fundo (acumulado anterior):</td>
  		<td style='border: 1px solid #000; border-collapsed: collapsed; padding: 2px'>R$ ".number_format($fundoacumanterior,2,',','.')."</td>
+	 </tr>
+	 <tr>
+ 		<td width='200' style='border: 1px solid #000; border-collapsed: collapsed; font-weight: bold; padding: 2px'>(-) Acumulado Retiradas de Fundo:</td>
+ 		<td style='border: 1px solid #000; border-collapsed: collapsed; padding: 2px'>R$ ".number_format($retiradasgeral,2,',','.')."</td>
  	</tr>
  	<tr>
- 		<td width='200' style='border: 1px solid #000; border-collapsed: collapsed; font-weight: bold; padding: 2px'>Fundo (acumulado atual):</td>
- 		<td style='border: 1px solid #000; border-collapsed: collapsed; padding: 2px'>R$ ".number_format($fundogeral,2,',','.')."</td>
+ 		<td width='200' style='background: #e4e4e4; border: 1px solid #000; border-collapsed: collapsed; font-weight: bold; padding: 2px'>Fundo (acumulado atual):</td>
+ 		<td style='background: #e4e4e4; border: 1px solid #000; border-collapsed: collapsed; padding: 2px'>R$ ".number_format($fundogeral,2,',','.')."</td>
  	</tr>
 
 

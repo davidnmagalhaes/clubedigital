@@ -4,7 +4,7 @@
     $idconsorcio = $_GET['idconsorcio'];
     $clube = $_GET['clube'];
     
-    $result_usuario = "DELETE FROM rfa_consorcio WHERE id_consorcio='$idconsorcio' AND clube='$clube';";
+    $result_usuario = "DELETE FROM rfa_consorcio WHERE cod_consorcio='$idconsorcio' AND clube='$clube';";
 	
 
 if ($link->multi_query($result_usuario) === TRUE) {

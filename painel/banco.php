@@ -242,14 +242,19 @@ function somenteNumeros(e) {
                                                             <span>
                                                                 <strong>
                                                                     <?php 
-                                                                        $orgbnccx = $row_listacx['cod_banco'];
-                                                                        $saldcx = $row_listacx['saldo'];
-                                                                        $mhjcx = date('m');
-                                                                        $ahjcx = date('Y');
-                                                                        $dtjcx = date('Y-m-d');
-                                                                        $spgcx = "SELECT SUM(valor_pagar) as valor FROM rfa_pagar WHERE clube='$clube' AND data_pagar <= '$dtjcx' AND status_pagar=2 AND origem_pagar='$orgbnccx'";
+                                                                            $orgbnccx = $row_listacx['cod_banco'];
+                                                                            $saldcx = $row_listacx['saldo'];
+                                                                            $mhjcx = date('m');
+                                                                            $ahjcx = date('Y');
+                                                                            $dtjcx = date('Y-m-d');
+                                                                            $spgcx = "SELECT SUM(valor_pagar) as valor FROM rfa_pagar WHERE clube='$clube' AND data_pagar <= '$dtjcx' AND status_pagar=2 AND origem_pagar='$orgbnccx'";
                                                                             $pgcx = mysqli_query($link, $spgcx) or die(mysqli_error($link));
                                                                             $row_pgcx = mysqli_fetch_array($pgcx);
+
+                                                                            //////////////////////////////////// Mensalidades em Dinheiro ///////////////////////////////////////////
+                                                                            $smsdin = "SELECT SUM(valor_mensalidade) as valor FROM rfa_mensalidades WHERE clube='$clube' AND data_pagamento <= '$dtjcx' AND tipo_pagamento=2";
+                                                                            $msdin = mysqli_query($link, $smsdin) or die(mysqli_error($link));
+                                                                            $row_msdin = mysqli_fetch_array($msdin);
                                                                             
                                                                             //////////////////////////////////// Receitas Pagas no Geral ///////////////////////////////////////////
                                                                             $srccx = "SELECT SUM(valor_receita) as valor FROM rfa_receitas WHERE clube='$clube' AND data_receita <= '$dtjcx' AND status_receita=2 AND destino_receita='$orgbnccx'";
@@ -257,7 +262,7 @@ function somenteNumeros(e) {
                                                                             $row_rccx = mysqli_fetch_array($rccx);
 
                                                                             
-                                                                            $ttgcx = $saldcx + ($row_rccx['valor'] - $row_pgcx['valor']);
+                                                                            $ttgcx = $saldcx + (($row_rccx['valor']+$row_msdin['valor']) - ($row_pgcx['valor']));
                                                                              
                                                                     ?>
 
@@ -298,7 +303,9 @@ function somenteNumeros(e) {
 														</button>
 													  </div>
 													  <div class="modal-body">
-													  
+													  <div class="alert alert-danger" role="alert">
+                                                        <strong>Atenção!</strong> Este é o saldo inicial, ao realizar uma alteração você estará ciente de que este valor influenciará nos saldos finais. Tenha certeza antes de mudar.
+                                                    </div>
 													  <!--Formulário de edição da conta bancária-->
 														<form method="post" action="proc_edt_banco.php">
 														
@@ -377,26 +384,45 @@ function somenteNumeros(e) {
                                                                         $mhj = date('m');
                                                                         $ahj = date('Y');
                                                                         $dthj = date('Y-m-d');
-                                                                        $spg = "SELECT SUM(valor_pagar) as valor FROM rfa_pagar WHERE clube='$clube' AND data_pagar <= '$dthj' AND status_pagar=2 AND origem_pagar='$orgbnc'";
+                                                                        $spg = "SELECT SUM(valor_pagar) as valor FROM rfa_pagar WHERE clube='$clube' AND status_pagar=2 AND origem_pagar='$orgbnc'";
                                                                             $pg = mysqli_query($link, $spg) or die(mysqli_error($link));
                                                                             $row_pg = mysqli_fetch_array($pg);
                                                                             //////////////////////////////////// Mensalidades Pagas no Geral ///////////////////////////////////////////
-                                                                            $sms = "SELECT SUM(valor_mensalidade) as valor FROM rfa_mensalidades WHERE clube='$clube' AND data_mensalidade <= '$dthj' AND pagamento=1";
+                                                                            $sms = "SELECT SUM(valor_mensalidade) as valor FROM rfa_mensalidades WHERE clube='$clube' AND  pagamento=1 AND (tipo_pagamento=1 OR tipo_pagamento=3 OR tipo_pagamento=4 OR tipo_pagamento IS NULL)";
                                                                             $ms = mysqli_query($link, $sms) or die(mysqli_error($link));
                                                                             $row_ms = mysqli_fetch_array($ms);
+
+                                                                            $srt = "SELECT SUM(valor_retirada) as valor FROM rfa_retirada WHERE clube='$clube' AND origem_retirada='$orgbnc'";
+                                                                            $rt = mysqli_query($link, $srt) or die(mysqli_error($link));
+                                                                            $row_rt = mysqli_fetch_array($rt);
+
                                                                             //////////////////////////////////// Taxas no Geral ///////////////////////////////////////////
-                                                                            $smstx = "SELECT SUM(taxa) as valor FROM rfa_mensalidades WHERE clube='$clube' AND data_mensalidade <= '$dthj' AND pagamento=1";
+                                                                            $smstx = "SELECT SUM(taxa) as valor FROM rfa_mensalidades WHERE clube='$clube' AND  pagamento=1 AND (tipo_pagamento=1 OR tipo_pagamento=3 OR tipo_pagamento=4 OR tipo_pagamento IS NULL)";
                                                                             $mstx = mysqli_query($link, $smstx) or die(mysqli_error($link));
                                                                             $row_mstx = mysqli_fetch_array($mstx);
+
+
+                                                                            $scmpg = "SELECT rfa_campanhas.valor_campanha as valor, SUM(rfa_campanhas_pedidos.quantidade_pedido) as quantidade FROM rfa_campanhas_pedidos INNER JOIN rfa_campanhas ON rfa_campanhas_pedidos.cod_campanha=rfa_campanhas.cod_campanha WHERE rfa_campanhas_pedidos.tipodoacao_pedido='valor' AND rfa_campanhas_pedidos.status_pedido='1' AND (rfa_campanhas_pedidos.metodopgto_pedido='boleto' OR rfa_campanhas_pedidos.metodopgto_pedido='pagseguro') AND rfa_campanhas_pedidos.clube='$clube'";
+                                                                            $cmpg = mysqli_query($link, $scmpg) or die(mysqli_error($link));
+                                                                            $row_cmpg = mysqli_fetch_assoc($cmpg);
+                                                                            $totalcampanhasg = ($row_cmpg['valor'] * $row_cmpg['quantidade']);
+
+                                                                            $scmptxg = "SELECT * FROM rfa_campanhas_pedidos WHERE tipodoacao_pedido='valor' AND status_pedido='1' AND metodopgto_pedido='boleto' AND clube='$clube'";
+                                                                            $cmptxg = mysqli_query($link, $scmptxg) or die(mysqli_error($link));
+                                                                            $row_cmptxg = mysqli_fetch_assoc($cmptxg);
+                                                                            $totalrow_cmptxg = mysqli_num_rows($cmptxg);
+
+                                                                            $taxabolcampg = $totalrow_cmptxg * 2.49;
+
                                                                             //////////////////////////////////// Receitas Pagas no Geral ///////////////////////////////////////////
-                                                                            $src = "SELECT SUM(valor_receita) as valor FROM rfa_receitas WHERE clube='$clube' AND data_receita <= '$dthj' AND status_receita=2 AND destino_receita='$orgbnc'";
+                                                                            $src = "SELECT SUM(valor_receita) as valor FROM rfa_receitas WHERE clube='$clube' AND  status_receita=2 AND destino_receita='$orgbnc'";
                                                                             $rc = mysqli_query($link, $src) or die(mysqli_error($link));
                                                                             $row_rc = mysqli_fetch_array($rc);
 
                                                                             if($cntmens == 1){
-                                                                            $ttg = ($row_ms['valor'] + $row_rc['valor'] + $saldmes) - ($row_pg['valor'] + $row_mstx['valor']);
+                                                                            $ttg = ($totalcampanhasg + $row_ms['valor'] + $row_rc['valor'] + $saldmes) - ($taxabolcampg + $row_pg['valor'] + $row_mstx['valor'] + $row_rt['valor']);
                                                                              }else{
-                                                                            $ttg = $saldmes + ($row_rc['valor'] - $row_pg['valor'] - $row_mstx['valor']);
+                                                                            $ttg = $saldmes + ($row_rc['valor'] - ($row_pg['valor'] + $row_mstx['valor'] + $row_rt['valor']));
                                                                              }
                                                                     ?>
 

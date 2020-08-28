@@ -83,6 +83,10 @@
                                     <a href="receitas<?php if($_GET['clube']){echo $clube;}?>">
                                         Receitas</a>
                                 </li>
+                                <li>
+                                    <a href="retiradas<?php if($_GET['clube']){echo $clube;}?>">
+                                        Retirada de Fundos</a>
+                                </li>
 							
                             <li>
                                     <a href="mensalidadespagas<?php if($_GET['clube']){echo $clube;}?>">

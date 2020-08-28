@@ -25,6 +25,12 @@ $nasctoconjuge = mysqli_real_escape_string($link,$_POST['nasctoconjuge']);
 $nomefilho = $_POST['nomefilho'];
 $nasctofilho = $_POST['nasctofilho'];
 
+if($signal == 1){
+	$answer = "associar";
+}else{
+	$answer = "associar.php?clube=".$clube;
+}
+
 $referenciasocio = date('ymdHis').rand(0,100);
 $data = date('Y-m-d');
 $hora = date('H:i:s');
@@ -60,7 +66,7 @@ if (!$captcha_data) {
 		}
 		
 		if ($link->multi_query($sql) === TRUE) {
-			echo "<script>javascript:alert('Sua solicitação foi realizada com sucesso! Nossa equipe analisará suas informações e estará entrando em contato em breve!');javascript:window.location='associar.php?clube=".$clube."'</script>";
+			echo "<script>javascript:alert('Sua solicitação foi realizada com sucesso! Nossa equipe analisará suas informações e estará entrando em contato em breve!');javascript:window.location='".$answer."'</script>";
 		
 		} else {
 			echo "Error: " . $sql . "<br>" . $link->error;

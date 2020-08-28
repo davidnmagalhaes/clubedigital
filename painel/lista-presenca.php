@@ -3,11 +3,9 @@ $page = 6;
 $idpauta = $_GET['id_pauta'];
 
 include('config-header.php');
+$hoje = date('Y-m-d');
 
-//Seleciona todos os sócios
-$qr = "SELECT * FROM rfs_socios WHERE clube='$clube' ORDER BY nome_socio ASC";
-$lis = mysqli_query($link, $qr) or die(mysqli_error($link));
-$totalRows_lis = mysqli_num_rows($lis);
+
 
 //Pega pauta
 $query = "SELECT * FROM rfa_pauta WHERE cod_pauta='$idpauta' AND clube='$clube'";
@@ -19,9 +17,13 @@ $idreuniao = $row_verpauta['ref_reuniao'];
 $qreu = "SELECT * FROM rfa_reuniao WHERE id_reuniao='$idreuniao' AND clube='$clube'";
 $verreu = mysqli_query($link, $qreu) or die(mysqli_error($link));
 $row_verreu = mysqli_fetch_assoc($verreu);
+$datar = date('Y-m-d',strtotime($row_verreu['data_reuniao']));
 
+//Seleciona todos os sócios
+$qr = "SELECT * FROM rfs_socios WHERE clube='$clube' AND (status_socio='1' OR data_inativo>='$datar') ORDER BY nome_socio ASC";
+$lis = mysqli_query($link, $qr) or die(mysqli_error($link));
+$totalRows_lis = mysqli_num_rows($lis);
 
-$hoje = date('Y-m-d');
 $semana = date('Y-m-d', strtotime($hoje. ' + 7 days'));
 $mes = date('Y-m-d', strtotime($hoje. ' + 1 month'));
 

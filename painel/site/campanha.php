@@ -9,7 +9,7 @@ $srecaptcha = "SELECT * FROM rfa_clubes WHERE id_clube='$clube'";
 $recaptcha = mysqli_query($link, $srecaptcha) or die(mysqli_error($link));
 $row_recaptcha = mysqli_fetch_assoc($recaptcha);
 
-$sqlcmp = "SELECT * FROM rfa_campanhas WHERE clube='$clube' AND cod_campanha='$idcmp'";
+$sqlcmp = "SELECT * FROM rfa_campanhas WHERE clube='$clube' AND cod_campanha='$idcmp' AND ativo='1'";
 $cmp = mysqli_query($link, $sqlcmp) or die(mysqli_error($link));
 $row_cmp = mysqli_fetch_assoc($cmp);
 $totalRows_cmp = mysqli_num_rows($cmp);
@@ -103,6 +103,8 @@ function somenteNumeros(e) {
          </div>
 
       </section>
+
+      <?php if($totalRows_cmp==0){echo "<section id='contant' class='contant main-heading team'><div class='row'><div class='container'><div class='col'><strong style='font-size: 25px'>Esta campanha não está habilitada!</strong></div></div></div></section>";}else{?>
       <section id="contant" class="contant main-heading team">
          <div class="row">
             <div class="container">
@@ -175,6 +177,7 @@ function somenteNumeros(e) {
                                  <input type="text" name="numero" id="numero" placeholder="Número" style="width: 48% !important;" required>
                                  <input type="text" name="cidade" id="cidade" placeholder="Cidade" style="width: 48% !important; margin-left: 4%;" required>
                               </li>
+                              <input type="hidden" id="tipocampanha" value="<?php echo $tipocampanha;?>">
                               <?php if($tipocampanha == 'ambos'){?>
                               <li>
                                  <select name="tipodoacao" class="select" id="tipodoacao">
@@ -222,6 +225,8 @@ function somenteNumeros(e) {
             </div>
          </div>
       </section>
+
+                              <?php }?>
       
 <?php include('footer.php'); ?>
 
@@ -231,7 +236,7 @@ function somenteNumeros(e) {
 
       <script type="text/javascript">
 
-if( $('#tipodoacao').val()!="valor"){
+if( $('#tipocampanha').val()!="valor"){
     $("#payment").hide();
     }
 

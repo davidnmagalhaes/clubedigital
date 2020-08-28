@@ -27,7 +27,7 @@ $sql = "UPDATE rfa_prev_fixas SET valor_percapta_ri='$valorat' WHERE clube='$clu
 }elseif($md == 5){
 $valordi = mysqli_real_escape_string($link,str_replace('.','',$_POST['valor-percaptadi']));
 $valorat = str_replace(',','.',$valordi);
- 
+
 $sql = "UPDATE rfa_prev_fixas SET valor_percapta_di='$valorat' WHERE clube='$club';";
 }elseif($md == 6){
 $qtdalmocos = mysqli_real_escape_string($link,$_POST['qtd-almocos']);

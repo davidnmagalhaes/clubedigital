@@ -185,7 +185,7 @@ function moeda(a, e, r, t) {
  <div class="main-content">
 			<form method="post" action="proc_cd_a_pagar.php" name="form-contabancaria">
             <div class="col-lg-12">
-                                <div class="card">
+                                <div class="card"> 
                                     <div class="card-header">
                                         <strong>Cadastro</strong>
                                         <small> despesas</small>
@@ -210,7 +210,8 @@ function moeda(a, e, r, t) {
                                         <input type="checkbox" id="salario" name="salario" data-toggle="toggle" data-on="Sim" data-off="Não" data-onstyle="success" data-offstyle="danger" value="">
                                         </div> 
                                         </div>
-                                        <div class="row" id="exibefuncionario" style="display:none; margin-bottom: 15px;">
+                                        <div class="alert alert-success" id="exibefuncionario" style="display:none; margin-bottom: 15px;">
+                                        <div class="row" >
                                             <div class="col">
                                                 <label for="nomefuncionario">Nome do Funcionário</label>
                                                 <input type="text" name="nomefuncionario" class="form-control">
@@ -219,22 +220,177 @@ function moeda(a, e, r, t) {
                                                 <label for="nomefuncionario">CPF do Funcionário</label>
                                                 <input type="text" name="cpffuncionario" class="form-control" onkeydown="javascript: fMasc( this, mCPF );" maxlength="14">
                                             </div>
+                                            <div class="col">
+                                                <label for="nomefuncionario">Cargo</label>
+                                                <input type="text" name="cargofuncionario" class="form-control">
+                                            </div>
                                         </div>
-										<div class="row">
-										<div class="col">
+                                        <div class="row" style="margin-top: 15px">
+                                            <div class="col">
+                                                    <label>Mês de Referência</label>
+                                                    <select class="form-control" name="mesreferencia">
+                                                    <option disabled selected>Selecione...</option>
+                                                        <?php 
+                                                            for($i=1; $i<=12; $i++){
+                                                                echo "<option value='".$i."'>".$i."</option>";
+                                                            }
+                                                        ?>
+                                                       
+                                                    </select>
+                                            </div>
+                                            <div class="col">
+                                                    <label>Ano de Referência</label>
+                                                    <select class="form-control" name="anoreferencia">
+                                                    <option disable selected>Selecione...</option>
+                                                    <?php 
+                                                            $anoseguinte = date('Y')+1;
+                                                            for($i=2000; $i<=$anoseguinte; $i++){
+                                                                echo "<option value='".$i."'>".$i."</option>";
+                                                            }
+                                                        ?>
+                                                    </select>
+                                            </div>
+                                            <div class="col">
+                                                        <label>Data de Pagamento</label>
+                                                        <input type="date" name="datapagamento" class="form-control">
+                                                    </div>
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label for="status" class="form-control-label">Status</label>
+												<select name="status_pagar2" class="form-control">
+													<option value="1">Pendente</option>
+													<option value="2">Pago</option>
+												</select>
+											
+                                                </div>
+												
+                                            </div>
+                                        </div>
+                                        <div class="row" style="margin-top: 15px; margin-bottom: 15px">
+                                                <div class="col">
+                                                    <h3>Detalhes financeiros <button class="badge badge-primary" id="addvencimento" type="button">+ Vencimentos</button></h3>
+                                                </div>
+                                        </div>
+                                        <div class="row">
+                                                    <div class="col">
+                                                        <label>Descrição</label>
+                                                        <input type="text" disabled class="form-control" value="SALÁRIO">
+                                                    </div>
+                                                    
+                                                    <div class="col">
+                                                            <div class="form-group">
+                                                            <label for="valor_pagar" class=" form-control-label">Valor do Salário</label>
+                                                            <div class="input-group mb-2">
+                                                            <div class="input-group-prepend">
+                                                            <div class="input-group-text">R$</div>
+                                                            </div>
+                                                            <input type="text" name="valor_salario" onKeyPress="return(moeda(this,'.',',',event))" id="valor_salario" class="form-control">
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                            <div class="form-group">
+                                                            <label for="valor_pagar" class=" form-control-label">Descontos</label>
+                                                            <div class="input-group mb-2">
+                                                            <div class="input-group-prepend">
+                                                            <div class="input-group-text">R$</div>
+                                                            </div>
+                                                            <input type="text" name="descontos_salario" onKeyPress="return(moeda(this,'.',',',event))" id="descontos_salario" class="form-control">
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <label>Referência</label>
+                                                        <input type="text" name="referenciasalario" class="form-control" placeholder="Ex.: 30 dias">
+                                                    </div>
+                                        </div>
+                                        
+                                        <div id="vencimentos"></div>
+                                        <div class="row" style="margin-top: 15px; margin-bottom: 15px">
+                                                <div class="col">
+                                                    <h3>Contribuições</h3>
+                                                </div>
+                                        </div>
+                                        <div class="row">
+                                        <div class="col">
+                                                            <div class="form-group">
+                                                            <label for="valor_pagar" class=" form-control-label">Sal. Contr. INSS</label>
+                                                            <div class="input-group mb-2">
+                                                            <div class="input-group-prepend">
+                                                            <div class="input-group-text">R$</div>
+                                                            </div>
+                                                            <input type="text" name="contrinss" onKeyPress="return(moeda(this,'.',',',event))" id="contr_inss" class="form-control">
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                            <div class="form-group">
+                                                            <label for="valor_pagar" class=" form-control-label">Base Cálc. FGTS</label>
+                                                            <div class="input-group mb-2">
+                                                            <div class="input-group-prepend">
+                                                            <div class="input-group-text">R$</div>
+                                                            </div>
+                                                            <input type="text" name="basefgts" onKeyPress="return(moeda(this,'.',',',event))" id="base_fgts" class="form-control">
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                            <div class="form-group">
+                                                            <label for="valor_pagar" class=" form-control-label">FGTS do Mês</label>
+                                                            <div class="input-group mb-2">
+                                                            <div class="input-group-prepend">
+                                                            <div class="input-group-text">R$</div>
+                                                            </div>
+                                                            <input type="text" name="fgts_mes" onKeyPress="return(moeda(this,'.',',',event))" id="fgts_mes" class="form-control">
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                            <div class="form-group">
+                                                            <label for="valor_pagar" class=" form-control-label">Base Cálc. IRRF</label>
+                                                            <div class="input-group mb-2">
+                                                            <div class="input-group-prepend">
+                                                            <div class="input-group-text">R$</div>
+                                                            </div>
+                                                            <input type="text" name="base_irrf" onKeyPress="return(moeda(this,'.',',',event))" id="base_irrf" class="form-control">
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                            
+                                                            <label for="valor_pagar" class=" form-control-label">Faixa IRRF</label>
+                                                            
+                                                            <input type="text" name="faixa_irrf" id="faixa_irrf" class="form-control">
+                                                            
+                                                            
+                                                       
+                                                    </div>
+                                        </div>
+
+
+
+                                        </div>
+										<div class="row" id="padrao1">
+										<div class="col" >
 											<div class="form-group">
 												<label for="descricao_pagar" class=" form-control-label">Descrição</label>
-												<input type="text" name="descricao_pagar" id="descricao_pagar" placeholder="Ex.: Conta de Luz" class="form-control" required>
+												<input type="text" name="descricao_pagar" id="descricao_pagar" placeholder="Ex.: Conta de Luz" class="form-control">
 											</div>
 										</div>
-										<div class="col">
+										<div class="col" >
 											<div class="form-group">
 												<label for="data_pagar" class=" form-control-label">Vencimento</label>
-												<input type="date" name="data_pagar" id="data_pagar" class="form-control" required>
+												<input type="date" name="data_pagar" id="data_pagar" class="form-control">
 											</div>
 										</div>
 										</div>
-                                        <div class="row form-group">
+                                        <div class="row form-group" id="padrao2">
                                             
                                             <div class="col">
                                                 <div class="form-group exibetipopessoapf">
@@ -254,7 +410,7 @@ function moeda(a, e, r, t) {
 													<div class="input-group-prepend">
 													  <div class="input-group-text">R$</div>
 													</div>
-													<input type="text" name="valor_pagar" onKeyPress="return(moeda(this,'.',',',event))" id="valor_pagar" class="form-control" required data-toggle="tooltip" data-placement="top" title="Este valor será debitado da conta de origem escolhida.">
+													<input type="text" name="valor_pagar" onKeyPress="return(moeda(this,'.',',',event))" id="valor_pagar" class="form-control">
 													</div>
                                                     
                                                 </div>
@@ -295,9 +451,30 @@ function moeda(a, e, r, t) {
     </div>
 	
 	
+	<script>
+    
+    $(document).ready(function(){
+	var i=1;
+	$('#addvencimento').click(function(){
+		i++;
+		$('#vencimentos').append('<div class="row" id="row'+i+'"><div class="col"><label>Descrição<button class="badge badge-danger btn_remove" id="'+i+'" type="button">X</button></label><input type="text" class="form-control" name="descricao_vencimento[]" placeholder="Ex.: SALÁRIO FAMÍLIA"></div><div class="col"><div class="form-group"><label for="valor_pagar" class=" form-control-label">Valor do Vencimento</label><div class="input-group mb-2"><div class="input-group-prepend"><div class="input-group-text">R$</div></div><input type="text" name="valor_vencimento[]" onKeyPress="return(moeda(this,\'.\',\',\',event))" id="valor_vencimento" class="form-control" required></div></div></div><div class="col"><div class="form-group"><label for="valor_pagar" class=" form-control-label">Descontos</label><div class="input-group mb-2"><div class="input-group-prepend"><div class="input-group-text">R$</div></div><input type="text" name="descontos_vencimento[]" onKeyPress="return(moeda(this,\'.\',\',\',event))" id="descontos_vencimento" class="form-control" required></div></div></div><div class="col"><label>Referência</label><input type="text" name="referencia_vencimento[]" class="form-control" placeholder="Ex.: 30 dias"></div></div>');
 	
+	});
+
+	
+	$(document).on('click', '.btn_remove', function(){
+		var button_id = $(this).attr("id"); 
+		$('#row'+button_id+'').remove();
+	});
+	
+	
+	
+});
+    </script>
 
     <script type="text/javascript">
+
+
 window.onload = function () {
     var input = document.querySelector('input[type=checkbox]');
     
@@ -308,8 +485,12 @@ window.onload = function () {
 
         if ($('input[name="salario"]:checked').val() === "1") {
         $('#exibefuncionario').show();
+        $('#padrao1').hide();
+        $('#padrao2').hide();
     } else {
         $('#exibefuncionario').hide();
+        $('#padrao1').show();
+        $('#padrao2').show();
     }
 
     }

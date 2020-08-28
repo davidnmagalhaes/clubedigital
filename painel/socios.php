@@ -18,24 +18,24 @@ $cambio = $row_cambi['valor_cambio'];
 
 if(empty($search)){
 //Seleciona todos os sócios representativos
-$qr = "SELECT * FROM rfs_socios WHERE clube='$clube' AND categoria_socio='rp' ORDER BY nome_socio ASC";
+$qr = "SELECT * FROM rfs_socios WHERE clube='$clube' AND categoria_socio='rp' AND status_socio=1 ORDER BY nome_socio ASC";
 $lis = mysqli_query($link, $qr) or die(mysqli_error($link));
 $totalRows_lis = mysqli_num_rows($lis);
 }else{
 //Seleciona todos os sócios representativos
-$qr = "SELECT * FROM rfs_socios WHERE clube='$clube' AND categoria_socio='rp' AND nome_socio LIKE '%".$search."%' ORDER BY nome_socio ASC";
+$qr = "SELECT * FROM rfs_socios WHERE clube='$clube' AND categoria_socio='rp' AND status_socio=1 AND nome_socio LIKE '%".$search."%' ORDER BY nome_socio ASC";
 $lis = mysqli_query($link, $qr) or die(mysqli_error($link));
 $totalRows_lis = mysqli_num_rows($lis);
 }
 
 if(empty($search)){
 //Seleciona todos os sócios honorários
-$qrh = "SELECT * FROM rfs_socios WHERE clube='$clube' AND categoria_socio='hn' ORDER BY nome_socio ASC";
+$qrh = "SELECT * FROM rfs_socios WHERE clube='$clube' AND categoria_socio='hn' AND status_socio=1 ORDER BY nome_socio ASC";
 $lish = mysqli_query($link, $qrh) or die(mysqli_error($link));
 $totalRows_lish = mysqli_num_rows($lish);
 }else{
 //Seleciona todos os sócios honorários
-$qrh = "SELECT * FROM rfs_socios WHERE clube='$clube' AND categoria_socio='hn' AND nome_socio LIKE '%".$search."%' ORDER BY nome_socio ASC";
+$qrh = "SELECT * FROM rfs_socios WHERE clube='$clube' AND categoria_socio='hn' AND status_socio=1 AND nome_socio LIKE '%".$search."%' ORDER BY nome_socio ASC";
 $lish = mysqli_query($link, $qrh) or die(mysqli_error($link));
 $totalRows_lish = mysqli_num_rows($lish);
 }
@@ -546,7 +546,7 @@ input:checked + .slider:before {
 													<td>Mensalidade</td>
                           <td>Cobrança</td>
                           <td>Ativo?</td>
-                                                    <td colspan="4" align="center"><?php echo "<strong style='margin-right: 5px; color: #ff0000;'>Total de sócios: </strong>".$totalRows_lis;?></td>
+                                                    <td colspan="4" align="center"><?php echo "<strong style='margin-right: 5px; color: #ff0000;'>Total de sócios ativos: </strong>".$totalRows_lis;?></td>
 													
                                                 </tr>
                                             </thead>

@@ -237,7 +237,7 @@ $row_pegaata = mysqli_fetch_assoc($pegaata);
 	padding:15px 15px 30px;
 	border-radius:3px;
 	border:1px solid #F7E98D;
-	font:13px Tahoma, cursive;
+	font:20px Tahoma, cursive;
 	transition:box-shadow 0.5s ease;
 	box-shadow:0 4px 6px rgba(0,0,0,0.1);
 	font-smoothing:subpixel-antialiased;
@@ -435,7 +435,7 @@ function showDiv(divId, element)
             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <strong>Ata Pós-Reunião</strong>
+                                        <strong>Ata Pós-Reunião <a href="mpdf/doc-ata.php?clube=<?php echo $clube;?>&cod_ata=<?php echo $row_pegaata['cod_ata'];?>" class="btn btn-success"><i class="fas fa-print"></i> Imprimir Ata</a></strong>
                                         
                                     </div>
                                     <div class="card-body card-block">

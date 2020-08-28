@@ -373,7 +373,7 @@ function somenteNumeros(e) {
     
       <td style="vertical-align:middle;text-align:center"><a href="#" data-toggle="modal" data-target="#add<?php echo $row_lish['cod_consorcio']; ?>"><i class="fas fa-plus-circle"></i></a></td>
       <td style="vertical-align:middle;text-align:center"><a href="#" data-toggle="modal" data-target="#edt<?php echo $row_lish['cod_consorcio']; ?>"><i class="fas fa-pen-alt"></i></a></td>
-      <td style="vertical-align:middle;text-align:center"><a href="excluir-consorcio.php?idconsorcio=<?php echo $row_lish['id_campanha']; ?>&clube=<?php if($_GET['clube']){echo $clube;}else{echo $clube;}?>"><i class="fas fa-trash"></i></a></td>
+      <td style="vertical-align:middle;text-align:center"><a href="excluir-consorcio.php?idconsorcio=<?php echo $row_lish['cod_consorcio']; ?>&clube=<?php if($_GET['clube']){echo $clube;}else{echo $clube;}?>"><i class="fas fa-trash"></i></a></td>
       
     </tr>
     <?php } ?>

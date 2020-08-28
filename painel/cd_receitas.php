@@ -6,7 +6,7 @@ include('config-header.php');
 //Seleciona todos os bancos em ordem crescente pelo nome nome do banco
 $sql = "SELECT * FROM rfa_bancos INNER JOIN rfa_lista_bancos ON rfa_bancos.banco = rfa_lista_bancos.cod_lista_banco WHERE rfa_bancos.clube='$clube' ORDER BY rfa_bancos.favorecido ASC";
 $listabancos = mysqli_query($link, $sql) or die(mysqli_error($link));
-$row_listabancos = mysqli_fetch_assoc($listabancos);
+
 $totalRows_listabancos = mysqli_num_rows($listabancos);
 
 //Seleciona todos os tipos de bancos em ordem crescente pelo nome nome do tipo de banco
@@ -114,9 +114,9 @@ function moeda(a, e, r, t) {
                                                 <select name="destino_receita" id="destino_receita" class="form-control" required>
                                                     <option value="">Selecione uma conta...</option>
 													<?php if($totalRows_listabancos <= 0){}else{?>
-                                                    <?php do{?>
+                                                    <?php while($row_listabancos = mysqli_fetch_array($listabancos)){?>
 													<option value="<?php echo $row_listabancos['cod_banco'];?>"><?php echo $row_listabancos['favorecido'];?> <strong>(<?php echo $row_listabancos['nome_lista_banco'];?>)</strong></option>
-													<?php }while($row_listabancos = mysqli_fetch_assoc($listabancos));?>
+													<?php }?>
 													<?php }?>
                                                  </select>                                        
 												 </div>

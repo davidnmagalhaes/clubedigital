@@ -258,13 +258,19 @@ function moeda(a, e, r, t) {
 										</div>
 										
 										<div class="row">
-										<div class="col-12 col-md-6">
+										<div class="col-12 col-md-4">
+											<div class="form-group">
+												<label for="descricao_receber" class=" form-control-label">CNPJ</label>
+												<input type="text" name="cnpj_clube" id="cnpj_clube" class="form-control" value="<?php echo $row_clubeinfo['cnpj_clube'];?>" onkeydown="javascript: fMasc( this, mCNPJ );" required>
+											</div>
+										</div>
+										<div class="col-12 col-md-4">
 											<div class="form-group">
 												<label for="descricao_receber" class=" form-control-label">Telefone</label>
 												<input type="text" name="telefone_clube" id="telefone_clube" class="form-control" value="<?php echo $row_clubeinfo['telefone_clube'];?>" maxlength="14" onkeydown="javascript: fMasc( this, mTel );" required>
 											</div>
 										</div>
-										<div class="col-12 col-md-6">
+										<div class="col-12 col-md-4">
 											<div class="form-group">
 												<label for="n_conta" class=" form-control-label">E-mail</label>
 												<input type="text" name="email_clube" id="email_clube" class="form-control" value="<?php echo $row_clubeinfo['email_clube'];?>" required>

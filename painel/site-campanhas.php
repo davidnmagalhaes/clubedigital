@@ -44,7 +44,8 @@ $totalRows_lish = mysqli_num_rows($lish);
     <script src="js/summernote-pt-BR.js"></script>
     <script src="js/summernote-ext-elfinder.js"></script>
  
-
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
 </head>
 
@@ -139,6 +140,7 @@ $totalRows_lish = mysqli_num_rows($lish);
     <tr>
       <th scope="col" style="text-align:center">Nome da Campanha</th>
       <th scope="col" style="text-align:center">Tipo de Campanha</th>
+      <th scope="col" style="text-align:center">Habilitar</th>
       <th scope="col"></th>
       <th scope="col"></th>
       <th scope="col"></th>
@@ -153,6 +155,13 @@ $totalRows_lish = mysqli_num_rows($lish);
       
       <td style="vertical-align:middle; text-align:center"><?php echo $row_lish['nome_campanha']; ?></td>
       <td style="vertical-align:middle;text-align:center"><?php if($row_lish['tipo_campanha'] == 'valor'){echo "Campanha de valor";}elseif($row_lish['tipo_campanha'] == 'itens'){echo "Campanha de Itens";}else{echo "Campanha de Valor ou Itens";} ?></td>
+      <td style="vertical-align:middle;text-align:center">
+        <form action="status-site-campanha.php" method="POST" id="form<?php echo $row_lish['cod_campanha'];?>"> 
+          <input type="checkbox" <?php if($row_lish['ativo'] == 1){echo "checked";}else{} ?> data-toggle="toggle" onChange="document.forms['form<?php echo $row_lish['cod_campanha'];?>'].submit();" data-on="Sim" data-off="Não" data-onstyle="success" data-offstyle="danger" name="statussite" value="<?php if($row_lish['ativo'] == 1){echo "0";}else{echo "1";} ?>">
+          <input type="hidden" name="idcampanha" value="<?php echo $row_lish['cod_campanha'];?>">
+          <input type="hidden" name="clube" value="<?php echo $clube;?>">
+        </form>
+      </td> 
       <td style="text-align:center"><a href="<?php echo "https://".$_SERVER['HTTP_HOST']."/".basename(__DIR__)."/site/campanha.php?idcmp=".$row_lish['cod_campanha']."&clube=".$clube; ?>" target="_blank"><i class="fas fa-link"></i></a></td>
       <td style="text-align:center"><a href="site-campanhas-pedidos.php?idcampanha=<?php echo $row_lish['cod_campanha']; ?>&clube=<?php if($_GET['clube']){echo $clube;}else{echo $clube;}?>"><i class="fas fa-hand-holding-medical"></i></a></td>
       <td style="vertical-align:middle;text-align:center"><a href="edt-campanha.php?idcampanha=<?php echo $row_lish['cod_campanha']; ?>&clube=<?php if($_GET['clube']){echo $clube;}else{echo $clube;}?>"><i class="fas fa-pen-alt"></i></a></td>

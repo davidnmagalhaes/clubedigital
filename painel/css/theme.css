@@ -3160,28 +3160,28 @@ section {
     background-image: -moz-linear-gradient(90deg, #11998e 0%, #38ef7d 100%);
     background-image: -webkit-linear-gradient(90deg, #11998e 0%, #38ef7d 100%);
     background-image: -ms-linear-gradient(90deg, #11998e 0%, #38ef7d 100%);
-	height: 240px;
+	height: 270px;
 }
 
 .overview-item--c5 {
     background-image: -moz-linear-gradient(90deg, #11998e 0%, #38ef7d 100%);
     background-image: -webkit-linear-gradient(90deg, #484e95 0%, #252a5d 100%);
     background-image: -ms-linear-gradient(90deg, #11998e 0%, #38ef7d 100%);
-    height: 240px;
+    height: 270px;
 }
 
 .overview-item--c3 {
     background-image: -moz-linear-gradient(90deg, #ee0979 0%, #ff6a00 100%);
     background-image: -webkit-linear-gradient(90deg, #ee0979 0%, #ff6a00 100%);
     background-image: -ms-linear-gradient(90deg, #ee0979 0%, #ff6a00 100%);
-	height: 240px;
+	height: 270px;
 }
 
 .overview-item--c4 {
     background-image: -moz-linear-gradient(90deg, #45b649 0%, #dce35b 100%);
     background-image: -webkit-linear-gradient(90deg, #2087e0 0%, #1a69ab 100%);
     background-image: -ms-linear-gradient(90deg, #45b649 0%, #dce35b 100%);
-	height: 240px;
+	height: 270px;
 }
 
 .overview-box .icon {

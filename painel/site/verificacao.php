@@ -20,6 +20,8 @@ $clube = $_GET['clube'];
 }else{
 $clube = $_POST['clube'];
 }
+header('Location: https://www.clubedigital.ong.br/inicio');
+exit;
 }
 
 ?>

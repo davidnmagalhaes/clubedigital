@@ -147,6 +147,7 @@ $sqdtg1 = "SELECT SUM(valor_pagar) as valor FROM rfa_pagar WHERE clube='$clube' 
 $despesatotalg1 = mysqli_query($link, $sqdtg1) or die(mysqli_error($link));
 $row_despesatotalg1 = mysqli_fetch_assoc($despesatotalg1);
 
+
 $sqtxg1 = "SELECT SUM(taxa) as valor FROM rfa_mensalidades WHERE clube='$clube' AND pagamento=1";
 $txtotalg1 = mysqli_query($link, $sqtxg1) or die(mysqli_error($link));
 $row_txtotalg1 = mysqli_fetch_assoc($txtotalg1);
@@ -154,6 +155,10 @@ $row_txtotalg1 = mysqli_fetch_assoc($txtotalg1);
 $sqfng1 = "SELECT SUM(valor_fundo) as valor FROM rfa_fundos WHERE clube='$clube' AND status_fundo=2";
 $fntotalg1 = mysqli_query($link, $sqfng1) or die(mysqli_error($link));
 $row_fntotalg1 = mysqli_fetch_assoc($fntotalg1);
+
+$sqrtg1 = "SELECT SUM(valor_retirada) as valor FROM rfa_retirada WHERE clube='$clube'";
+$rttotalg1 = mysqli_query($link, $sqrtg1) or die(mysqli_error($link));
+$row_rttotalg1 = mysqli_fetch_assoc($rttotalg1);
 
 //////////////////////////////////// Campanhas Totais///////////////////////////////////////////
 $scmpg = "SELECT rfa_campanhas.valor_campanha as valor, SUM(rfa_campanhas_pedidos.quantidade_pedido) as quantidade FROM rfa_campanhas_pedidos INNER JOIN rfa_campanhas ON rfa_campanhas_pedidos.cod_campanha=rfa_campanhas.cod_campanha WHERE rfa_campanhas_pedidos.tipodoacao_pedido='valor' AND rfa_campanhas_pedidos.status_pedido='1' AND (rfa_campanhas_pedidos.metodopgto_pedido='boleto' OR rfa_campanhas_pedidos.metodopgto_pedido='pagseguro') AND rfa_campanhas_pedidos.clube='$clube'";
@@ -339,7 +344,7 @@ echo $row_despesatotalgraf['valor'] + $row_mtgraftotaltx['valor'] + $row_fundoto
                                     <a href="fundos.php<?php if($_GET['clube']){echo '?clube='.$clube;}?>" role="button" class=" btn btn-secondary btrespons">
                                         <i class="fas fa-plus-circle" style="margin-right: 10px"></i> Fundos</a>
 
-                                    
+                                     
                                     <a href="#" role="button" class=" btn btn-info btrespons">
                                         <i class="fas fa-dollar-sign" style="margin-right: 10px"></i> Câmbio <strong>(R$ <?php echo number_format($cambio,2,',','.'); ?>)</strong></a>
                                     
@@ -506,6 +511,7 @@ echo $row_despesatotalgraf['valor'] + $row_mtgraftotaltx['valor'] + $row_fundoto
 												?>
 												</h2>
                                                 <span>Despesas /mês</span>
+                                                
                                             </div>
                                         </div>
                                         <!--<div class="overview-chart">
@@ -601,15 +607,17 @@ echo $row_despesatotalgraf['valor'] + $row_mtgraftotaltx['valor'] + $row_fundoto
                                                 <i class="zmdi zmdi-money"></i>
                                             </div>-->
                                             <div class="text">
-                                                <span style="font-size: 16px !important">Saldo Acumulado</span>
+                                                <span style="font-size: 16px !important">Bancos + Caixa</span>
                                                 <h2 style="font-size: 18px !important; margin: 0 0 10px 0 !important;">R$ 
 												<?php 
 													if($totalgeral == 0){echo "0,00";}else{echo number_format($totalgeral,2,',','.');};
 												?></h2>
                                                 <span style="font-size: 16px !important">Fundo Acumulado</span>
-                                                <h2 style="font-size: 18px !important; margin: 0 0 10px 0 !important;">R$ <?php echo number_format($row_fntotalg1['valor'],2,',','.'); ?></h2>
-                                                <span style="font-size: 16px !important">Saldo + Fundo</span>
-                                                <h2 style="font-size: 18px !important; margin: 0 !important;">R$ <?php echo number_format(($row_fntotalg1['valor'] + $totalgeral),2,',','.'); ?></h2>
+                                                <h2 style="font-size: 18px !important; margin: 0 0 10px 0 !important;">R$ <?php echo number_format(($row_fntotalg1['valor']-$row_rttotalg1['valor']),2,',','.'); ?></h2>
+                                                <span style="font-size: 16px !important">Retiradas Fundo</span>
+                                                <h2 style="font-size: 18px !important; margin: 0 0 10px 0 !important;">R$ <?php echo number_format(($row_rttotalg1['valor']),2,',','.'); ?></h2>
+                                                <span style="font-size: 16px !important">Bancos + Caixa + Fundo</span>
+                                                <h2 style="font-size: 18px !important; margin: 0 !important;">R$ <?php echo number_format((($row_fntotalg1['valor']-$row_rttotalg1['valor']) + $totalgeral),2,',','.'); ?></h2>
                                             </div>
                                         </div>
                                         <!--<div class="overview-chart">

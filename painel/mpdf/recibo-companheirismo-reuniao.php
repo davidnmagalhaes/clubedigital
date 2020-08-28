@@ -122,7 +122,7 @@ if($dataimp  == ""){$dataimp  .= "Não há datas importantes esta semana!<br>";}
 }
 
 //Aniversariantes Sócios
-$sani = "SELECT * FROM rfs_socios WHERE clube='$clube' ORDER BY DAY(data_nascto_socio) ASC";
+$sani = "SELECT * FROM rfs_socios WHERE clube='$clube' AND status_socio=1 ORDER BY DAY(data_nascto_socio) ASC";
 $pegaaniversario= mysqli_query($link, $sani) or die(mysqli_error($link));
 $row_pegaaniversario = mysqli_fetch_assoc($pegaaniversario);
 $totalRows_pegaaniversario = mysqli_num_rows($pegaaniversario);
@@ -140,7 +140,7 @@ if($dataani == ""){$dataani .= "Não há sócios aniversariando esta semana!<br>
 
 
 //Aniversariantes Cônjuges
-$sanicon = "SELECT * FROM rfs_socios WHERE clube='$clube' ORDER BY DAY(data_nascto_conjuge) ASC";
+$sanicon = "SELECT * FROM rfs_socios WHERE clube='$clube' AND status_socio=1 ORDER BY DAY(data_nascto_conjuge) ASC";
 $pegaaniversariocon= mysqli_query($link, $sanicon) or die(mysqli_error($link));
 $row_pegaaniversariocon = mysqli_fetch_assoc($pegaaniversariocon);
 $totalRows_pegaaniversariocon = mysqli_num_rows($pegaaniversariocon);
@@ -157,7 +157,7 @@ if($dataanicon == ""){$dataanicon .= "Não há cônjuges aniversariando esta sem
 }
 
 //Aniversariantes Filhos
-$sanifilho = "SELECT * FROM rfa_socios_filhos INNER JOIN rfs_socios ON rfa_socios_filhos.id_socio = rfs_socios.ref_socio WHERE clube='$clube' ORDER BY DAY(data_nascto_filho) ASC";
+$sanifilho = "SELECT * FROM rfa_socios_filhos INNER JOIN rfs_socios ON rfa_socios_filhos.id_socio = rfs_socios.ref_socio WHERE rfs_socios.clube='$clube' AND rfs_socios.status_socio=1 ORDER BY DAY(rfa_socios_filhos.data_nascto_filho) ASC";
 $pegaaniversariofilho= mysqli_query($link, $sanifilho) or die(mysqli_error($link));
 $row_pegaaniversariofilho = mysqli_fetch_assoc($pegaaniversariofilho);
 $totalRows_pegaaniversariofilho = mysqli_num_rows($pegaaniversariofilho);
@@ -175,7 +175,7 @@ if($dataanifilho == ""){$dataanifilho .= "Não há filhos de sócios aniversaria
 
 
 //Aniversário de Admissão
-$sadmiss = "SELECT * FROM rfs_socios WHERE clube='$clube' ORDER BY DAY(data_admissao) ASC";
+$sadmiss = "SELECT * FROM rfs_socios WHERE clube='$clube' AND status_socio=1 ORDER BY DAY(data_admissao) ASC";
 $pegaadmiss= mysqli_query($link, $sadmiss) or die(mysqli_error($link));
 $row_pegaadmiss = mysqli_fetch_assoc($pegaadmiss);
 $totalRows_pegaadmiss = mysqli_num_rows($pegaadmiss);
@@ -203,7 +203,7 @@ if($dataadmiss == ""){$dataadmiss .= "Não há aniversários de admissão nesta 
 
 
 //Aniversário de Casamento
-$scasam = "SELECT * FROM rfs_socios WHERE clube='$clube' ORDER BY DAY(data_casamento) ASC";
+$scasam = "SELECT * FROM rfs_socios WHERE clube='$clube' AND status_socio=1 ORDER BY DAY(data_casamento) ASC";
 $pegacasam= mysqli_query($link, $scasam) or die(mysqli_error($link));
 $row_pegacasam = mysqli_fetch_assoc($pegacasam);
 $totalRows_pegacasam = mysqli_num_rows($pegacasam);

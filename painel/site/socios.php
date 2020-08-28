@@ -14,7 +14,7 @@ $sblog = "SELECT * FROM rfa_site_blog WHERE clube='$clube' ORDER BY data_blog, h
 $blog = mysqli_query($link, $sblog) or die(mysqli_error($link));
 $totalRows_blog = mysqli_num_rows($blog);
 
-$ssoc = "SELECT * FROM rfs_socios WHERE clube='$clube' ORDER BY nome_socio ASC";
+$ssoc = "SELECT * FROM rfs_socios WHERE clube='$clube' AND status_socio='1' ORDER BY nome_socio ASC";
 $socios = mysqli_query($link, $ssoc) or die(mysqli_error($link));
 
 $totalRows_socios = mysqli_num_rows($socios);

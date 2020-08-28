@@ -61,7 +61,7 @@ var_dump($_POST['telefone_socio']);*/
   $Codigos = $_POST['checksocios']; //array
 
    $teste =  explode(',',$Codigos);
-
+   var_dump($teste);
 
 
 ?>

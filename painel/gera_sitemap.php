@@ -28,62 +28,7 @@ $xml = '<?xml version="1.0" encoding="UTF-8"?>
         <lastmod>'.$date.'</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.00</priority>
-    </url>
-    <url>
-        <loc>'.$urldominio.'/blog</loc>
-        <lastmod>'.$date.'</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>1.00</priority>
-    </url>
-    <url>
-        <loc>'.$urldominio.'/socios</loc>
-        <lastmod>'.$date.'</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>1.00</priority>
-    </url>
-    <url>
-        <loc>'.$urldominio.'/sobreclube</loc>
-        <lastmod>'.$date.'</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>1.00</priority>
-    </url>
-    <url>
-        <loc>'.$urldominio.'/associar</loc>
-        <lastmod>'.$date.'</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>1.00</priority>
-    </url>
-    <url>
-        <loc>'.$urldominio.'/galeriapresidentes</loc>
-        <lastmod>'.$date.'</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>1.00</priority>
-    </url>
-    <url>
-        <loc>'.$urldominio.'/galeriagovernadores</loc>
-        <lastmod>'.$date.'</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>1.00</priority>
-    </url>
-    <url>
-        <loc>'.$urldominio.'/consorcio</loc>
-        <lastmod>'.$date.'</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>1.00</priority>
-    </url>
-    <url>
-        <loc>'.$urldominio.'/doacoes</loc>
-        <lastmod>'.$date.'</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>1.00</priority>
-    </url>
-    <url>
-        <loc>'.$urldominio.'/sejadoador</loc>
-        <lastmod>'.$date.'</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>1.00</priority>
-    </url>
-    ';
+    </url>';
     $sqlblog = "SELECT * FROM rfa_site_blog WHERE clube='$idclube' AND slug_blog!=''";
     $blog = mysqli_query($link, $sqlblog) or die(mysqli_error($link));
     $row_blog = mysqli_fetch_assoc($blog);

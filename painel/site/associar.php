@@ -191,7 +191,7 @@ function somenteNumeros(e) {
                   </div>
                   <div class="col-md-6">
                      <div class="contact-us">
-                        <form method="post" action="proc_associar.php">
+                        <form method="post" action="<?php if($signal == 1){echo "processaassociar";}else{echo "proc_associar.php";}?>">
                            <ul>
                               <li><input type="text" autofocus id="nome" name="nome" class="required" placeholder="Nome completo" required></li>
                               <li>
@@ -241,6 +241,7 @@ function somenteNumeros(e) {
                               </div>
                               </div>
                               <input type="hidden" name="clube" value="<?php echo $clube;?>"> 
+                              <input type="hidden" name="signal" value="<?php echo $signal;?>">
                               <div class="g-recaptcha" style="height: 180px; margin: 15px 0" data-sitekey="<?php if($signal == 0){echo "6Lf6B_wUAAAAAL5qoYrqRf-ycX3jgUWjt7omCybJ";}else{echo $row_recaptcha['site_key'];}?>"></div>
                               <li><input class="thbg-color" type="submit" value="Solicitar" style="background: #40a02e; color: #fff"></li>
                            </ul>

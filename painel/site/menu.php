@@ -263,7 +263,7 @@ $totalRows_iclub = mysqli_num_rows($iclub);
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="min-height: 20px !important;  width: 300px">
 
           <?php 
-            $querycmp = "SELECT * FROM rfa_campanhas WHERE clube='$clube'";
+            $querycmp = "SELECT * FROM rfa_campanhas WHERE clube='$clube' AND ativo='1'";
             $licmp = mysqli_query($link, $querycmp) or die(mysqli_error($link));
             while($row_licmp = mysqli_fetch_array($licmp)){
               if($signal == 1){
@@ -287,7 +287,7 @@ $totalRows_iclub = mysqli_num_rows($iclub);
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="min-height: 20px !important;  width: 300px">
 
           <?php 
-            $querycmp = "SELECT * FROM rfa_campanhas WHERE clube='$clube'";
+            $querycmp = "SELECT * FROM rfa_campanhas WHERE clube='$clube' AND ativo='1'";
             $licmp = mysqli_query($link, $querycmp) or die(mysqli_error($link));
             while($row_licmp = mysqli_fetch_array($licmp)){
                 if($signal == 1){
