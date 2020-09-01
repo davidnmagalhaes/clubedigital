@@ -41,6 +41,7 @@ $publickey = $row_buscadados['publickey_recaptcha'];
     <link rel="stylesheet" href="css/preloader.css">
     <!-- Main CSS -->
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="modal-video/css/modal-video.min.css">
     <title>Clube Digital - Gestão de Clubes Rotarianos</title>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -113,20 +114,6 @@ $publickey = $row_buscadados['publickey_recaptcha'];
             </div>
         </nav>
 
-        <div class="modal fade" id="modalVideo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      
-      <div class="modal-body">
-      <iframe width="750" height="400" src="https://www.youtube.com/embed/OXrVsl2wURQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
         <!-- /// BANNER /// -->
         <div class="banner">
             <div class="container">
@@ -136,7 +123,23 @@ $publickey = $row_buscadados['publickey_recaptcha'];
                         <div class="caption">
                             <h1>Torne seu clube digital</h1>
                             <p class="sub">Facilite suas tarefas, economize tempo e dinheiro com a mais nova ferramente para <strong>gestão de clubes</strong></p>
-                           <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#modalVideo"><i class="fab fa-youtube"></i> Veja como funciona</a>
+                           
+                           <div id="video-popup">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-8 col-sm-offset-2 video-box">
+                    <div class="play-button">
+                        <a class="bla-2 wow flipInY js-video-button" data-video-id='OXrVsl2wURQ' data-wow-duration=".5s" data-wow-delay=".4s" href="#" data-toggle="modal" data-target="#modalVideo"><i class="material-icons">play_arrow</i></a>
+                        <div class="waves-block">
+                            <div class="waves wave-1"></div>
+                            <div class="waves wave-2"></div>
+                            <div class="waves wave-3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
                             <!-- / Macbook IMG / -->
                             <img class="img-fluid mx-auto wow fadeInUp" data-wow-duration="1s" data-wow-delay=".3s" src="imgs/macbook.png" alt="macbook">
                         </div>
@@ -145,6 +148,7 @@ $publickey = $row_buscadados['publickey_recaptcha'];
             </div>
         </div>
     </header>
+
 
     <!-- ==============================================
     ABOUT 
@@ -732,7 +736,7 @@ $publickey = $row_buscadados['publickey_recaptcha'];
                 <div class="col-xs-12 col-sm-8 col-sm-offset-2 video-box">
                     <img src="imgs/video-bg.png" class="img-fluid wow rotateIn" data-wow-duration=".5s" data-wow-delay=".2s" alt="popup">
                     <div class="play-button">
-                        <a class="bla-2 wow flipInY" data-wow-duration=".5s" data-wow-delay=".4s" href="#" data-toggle="modal" data-target="#modalVideo"><i class="material-icons">play_arrow</i></a>
+                        <a class="bla-2 wow flipInY js-video-button" data-video-id='OXrVsl2wURQ' data-wow-duration=".5s" data-wow-delay=".4s" href="#" data-toggle="modal" data-target="#modalVideo"><i class="material-icons">play_arrow</i></a>
                         <div class="waves-block">
                             <div class="waves wave-1"></div>
                             <div class="waves wave-2"></div>
@@ -878,10 +882,22 @@ $publickey = $row_buscadados['publickey_recaptcha'];
 
                 
             </form>
-            <p>Clube Digital &copy; Todos os direitos reservados 2019 Desenvolvido por David Magalhães</p>
+            <p>Clube Digital &copy; Todos os direitos reservados <?php echo date('Y');?> Desenvolvido por David Magalhães</p>
         </div>
     </section>
-
+    <script
+	src="https://code.jquery.com/jquery-2.2.4.min.js"
+	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+	crossorigin="anonymous"></script>
+	<script src="modal-video/js/jquery-modal-video.min.js"></script>
+	<script>
+		$(".js-video-button").modalVideo({
+			youtube:{
+				controls:0,
+				nocookie: true
+			}
+		});
+	</script>
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Popper.js -->
