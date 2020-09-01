@@ -10,6 +10,15 @@ define('MINUTOS_BLOQUEIO', 30);
 // Require da classe de conexão
 require 'conexao.php';
 
+$conexao = Conexao::getInstance();
+
+$select = $conexao->query("
+SELECT *
+FROM rfa_config_email
+WHERE id_config='1'");
+$result = $select->fetch(PDO::FETCH_ASSOC);
+$publickey = $result['publickey_recaptcha'];
+
 if (isset($_POST['g-recaptcha-response'])):
     $captcha_data = $_POST['g-recaptcha-response'];
 endif;
@@ -19,7 +28,7 @@ if (!$captcha_data):
     echo "<script>javascript:alert('Por medida de segurança você precisa confirmar o Recaptcha!');javascript:window.location='../'</script>";
 else:
 
-	$resposta = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6LfxI-oUAAAAAJHf9arBHYIDSLWa6d9dGYGDG-AD&response=".$captcha_data."&remoteip=".$_SERVER['REMOTE_ADDR']);
+	$resposta = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$publickey."&response=".$captcha_data."&remoteip=".$_SERVER['REMOTE_ADDR']);
 
 	if ($resposta.success):
 // Dica 1 - Verifica se a origem da requisição é do mesmo domínio da aplicação
@@ -32,7 +41,7 @@ endif;*/
 
 
 // Instancia Conexão PDO
-$conexao = Conexao::getInstance();
+
 
 // Recebe os dados do formulário
 $email = (isset($_POST['email'])) ? $_POST['email'] : '' ;

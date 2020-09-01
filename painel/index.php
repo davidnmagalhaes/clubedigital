@@ -10,7 +10,14 @@ session_start();
  
 if(isset($_SESSION['logado']) &&  $_SESSION['logado'] == 'SIM'):
 	header("Location: home.php");
-endif;
+endif; 
+
+include('config.php');
+
+$qdados = "SELECT * FROM rfa_config_email WHERE id_config='1'";
+$buscadados = mysqli_query($link, $qdados) or die(mysqli_error($link));
+$row_buscadados = mysqli_fetch_assoc($buscadados);
+$publickey = $row_buscadados['publickey_recaptcha'];
 
 ?>
 <!DOCTYPE html>
@@ -76,7 +83,7 @@ endif;
 					
 					<div class="text-center w-full p-t-25" style="color: #cccccc;">
 						<div>
-							<div class="g-recaptcha custom-recaptcha" style="width: 80%; margin:0 auto" data-sitekey="6LfPJOoUAAAAAP_Z6aYEp7sbzZbWInoG-2-7JzTs"></div>
+							<div class="g-recaptcha custom-recaptcha" style="width: 80%; margin:0 auto" data-sitekey="<?php echo $publickey; ?>"></div>
 						</div>	
 						<input type="checkbox" onclick="myFunction()" style="margin-right: 5px;">Mostrar senha
 					</div>
