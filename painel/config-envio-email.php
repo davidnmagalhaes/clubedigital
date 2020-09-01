@@ -106,6 +106,21 @@ $row_envioemail = mysqli_fetch_assoc($envioemail);
 												
                                             </div>
                                         </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <h2>Recaptcha</h2>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="margin-bottom: 30px">
+                                            <div class="col">
+                                                <label>Public Key</label>
+                                                <input type="text" class="form-control" name="publickey" value="<?php echo $row_envioemail['publickey_recaptcha'];?>">
+                                            </div>
+                                            <div class="col">
+                                                <label>Secret Key</label>
+                                                <input type="text" class="form-control" name="secretkey" value="<?php echo $row_envioemail['secretkey_recaptcha'];?>">
+                                            </div>
+                                        </div>
 										
 										
 										

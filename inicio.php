@@ -1,10 +1,18 @@
 <?php 
+
+include('painel/config.php');
+
 if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === "off") {
     $location = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
     header('HTTP/1.1 301 Moved Permanently');
     header('Location: ' . $location);
     exit;
 }
+
+$qdados = "SELECT * FROM rfa_config_email WHERE id_config='1'";
+$buscadados = mysqli_query($link, $qdados) or die(mysqli_error($link));
+$row_buscadados = mysqli_fetch_assoc($buscadados);
+$publickey = $row_buscadados['publickey_recaptcha'];
 ?>
 
 <!doctype html>
@@ -34,10 +42,21 @@ if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === "off") {
     <!-- Main CSS -->
     <link rel="stylesheet" href="css/style.css">
     <title>Clube Digital - Gestão de Clubes Rotarianos</title>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-176708721-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-176708721-1');
+</script>
+<script src='https://www.google.com/recaptcha/api.js'></script> 
 </head>
 
 <body data-spy="scroll" data-target=".navbar">
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
     <!-- ==============================================
     PRELOADER
     =============================================== -->
@@ -94,6 +113,20 @@ if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === "off") {
             </div>
         </nav>
 
+        <div class="modal fade" id="modalVideo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      
+      <div class="modal-body">
+      <iframe width="750" height="400" src="https://www.youtube.com/embed/OXrVsl2wURQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
         <!-- /// BANNER /// -->
         <div class="banner">
             <div class="container">
@@ -103,7 +136,7 @@ if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === "off") {
                         <div class="caption">
                             <h1>Torne seu clube digital</h1>
                             <p class="sub">Facilite suas tarefas, economize tempo e dinheiro com a mais nova ferramente para <strong>gestão de clubes</strong></p>
-                            <!--<a class="btn btn-primary" href="#">Experimente</a>-->
+                           <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#modalVideo"><i class="fab fa-youtube"></i> Veja como funciona</a>
                             <!-- / Macbook IMG / -->
                             <img class="img-fluid mx-auto wow fadeInUp" data-wow-duration="1s" data-wow-delay=".3s" src="imgs/macbook.png" alt="macbook">
                         </div>
@@ -699,7 +732,7 @@ if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === "off") {
                 <div class="col-xs-12 col-sm-8 col-sm-offset-2 video-box">
                     <img src="imgs/video-bg.png" class="img-fluid wow rotateIn" data-wow-duration=".5s" data-wow-delay=".2s" alt="popup">
                     <div class="play-button">
-                        <a class="bla-2 wow flipInY" data-wow-duration=".5s" data-wow-delay=".4s" href="#"><i class="material-icons">play_arrow</i></a>
+                        <a class="bla-2 wow flipInY" data-wow-duration=".5s" data-wow-delay=".4s" href="#" data-toggle="modal" data-target="#modalVideo"><i class="material-icons">play_arrow</i></a>
                         <div class="waves-block">
                             <div class="waves wave-1"></div>
                             <div class="waves wave-2"></div>
@@ -811,27 +844,39 @@ if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === "off") {
 
             <!-- /// CONTACT FORMS /// -->
 
-            <form>
+            <form action="painel/enviar-contato.php" method="post">
                 <div class="form-row">
                     <div class="form-group col-xs-12 col-sm-4">
                         <label>Nome:</label>
-                        <input type="text" class="form-control" id="inputName4">
+                        <input type="text" class="form-control" id="nome" name="nome">
                     </div>
                     <div class="form-group col-xs-12 col-sm-4">
                         <label for="inputPassword4">E-mail:</label>
-                        <input type="email" class="form-control" id="inputPassword4">
+                        <input type="email" class="form-control" id="email" name="email">
                     </div>
                     <div class="form-group col-xs-12 col-sm-4">
                         <label>Telefone:</label>
-                        <input type="text" class="form-control" id="inputPhone">
+                        <input type="text" class="form-control" id="telefone" name="telefone">
                     </div>
                 </div>
                 
                 <div class="form-group">
                     <label>Mensagem:</label>
-                    <textarea id="form-message" cols="30" rows="5" class="form-control"></textarea>
+                    <textarea id="mensagem" cols="30" rows="5" class="form-control" name="mensagem"></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Enviar dúvida</button>
+
+                <div class="row">
+                    <div class="col" style="display:flex; justify-content:center">
+                        <div class="g-recaptcha custom-recaptcha" data-sitekey="<?php echo $publickey;?>"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col" style="display:flex; justify-content:center">
+                        <button type="submit" class="btn btn-primary">Enviar dúvida</button>
+                    </div>
+                </div>
+
+                
             </form>
             <p>Clube Digital &copy; Todos os direitos reservados 2019 Desenvolvido por David Magalhães</p>
         </div>
