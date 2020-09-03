@@ -112,7 +112,7 @@ body {
   background-position: center center; }
 
 .main {
-  padding: 130px 0; }
+  padding: 40px 0; }
 
 .container {
   width: 1070px;
@@ -150,7 +150,13 @@ h3 {
   padding: 70px 43px 70px 80px;
   position: relative; }
 
-input, textarea {
+.select-form{
+  background: #f8f8f8;
+  border: 0;
+  height: 50px;
+}
+
+input, textarea, select {
   box-sizing: border-box;
   background: #f8f8f8;
   border: none;

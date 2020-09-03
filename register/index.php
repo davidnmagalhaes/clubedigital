@@ -1,8 +1,22 @@
 <?php 
-include("../config.php");
+include("../painel/config.php");
 
 $plano = $_GET['plan'];
 
+$sql = "SELECT * FROM rfa_distritos";
+$distritos = mysqli_query($link, $sql) or die(mysqli_error($link));
+
+if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === "off") {
+    $location = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+    header('HTTP/1.1 301 Moved Permanently');
+    header('Location: ' . $location);
+    exit;
+}
+
+$qdados = "SELECT * FROM rfa_config_email WHERE id_config='1'";
+$buscadados = mysqli_query($link, $qdados) or die(mysqli_error($link));
+$row_buscadados = mysqli_fetch_assoc($buscadados);
+$publickey = $row_buscadados['publickey_recaptcha'];
 
 ?>
 
@@ -11,17 +25,16 @@ $plano = $_GET['plan'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="author" content="colorlib.com">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Cadastro Clube Digital</title>
 
     <!-- Font Icon -->
     <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
     <link rel="stylesheet" href="vendor/boostrap/bootstrap.min.css">
-    <link rel="stylesheet" href="vendor/acc-wizard-master/release/acc-wizard.min.css">
+
 
     <!-- Main css -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?version=<?php echo rand();?>">
 <script src="https://kit.fontawesome.com/13f03eba23.js" crossorigin="anonymous"></script>
     <script type="text/javascript">
             function fMasc(objeto,mascara) {
@@ -93,16 +106,25 @@ function somenteNumeros(e) {
         }
     }
 </script>
-
+<script src='https://llwhatsapp.blob.core.windows.net/whatschat-scripts/whatschat-cc20acfb281c4fb6b9c1a98385317aca.js'></script>
 </head>
 <body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+<div class="container" style="margin-top: 35px;background:none; -webkit-box-shadow: 0px 10px 9.9px 0.1px rgb(0 0 0 / 0%);">
+    <div class="row">
+        <div class="col" style="display:flex; justify-content: center; ">
+            <a href="../inicio" style="display:contents"><img src="../imgs/clube-digital.png" style="width:35%"></a>
+         </div>
+     </div>
+</div>
     <div class="main">
 
         <div class="container">
+                
                 <div class="row">
                 <div class="col" style="text-align:center;padding-top: 5px;">
-                    <h1><strong>Cadastro no Clube Digital</strong></h1>
+                    <h1><strong style="color: #57a5f0;">Faça sua avaliação gratuita por 90 dias!</strong></h1>
+                  
                 </div>
             </div>
             <div class="acc-wizard">
@@ -116,7 +138,7 @@ function somenteNumeros(e) {
 
                         <div id="collapseOne" class="panel-collapse collapse in">
                             <div class="panel-body">
-                                <form method="POST" action="../login-seguro/proc_assinatura.php">
+                                <form method="POST" action="../painel/login-seguro/proc_assinatura.php">
                                     <input type="hidden" name="plano" value="<?php echo $plano;?>">
                                     <fieldset>
                                         <div class="form-row">
@@ -132,23 +154,15 @@ function somenteNumeros(e) {
                                         </div>
     
                                         <div class="form-row">
-                                            <div class="form-group-flex">
+                                            <div class="form-group">
                                                 
-                                                <div class="form-date">
+                                                
                                                     <label for="birth_date" class="form-label">Data de Nascimento</label>
-                                                <div class="form-date-group">
                                                     
-                                                        <div class="form-date-item">
-                                                            <select id="birth_date" name="birth_day" required></select>
-                                                        </div>
-                                                        <div class="form-date-item">
-                                                        <select id="birth_month" name="birth_month" required></select>
-                                                    </div>
-                                                        <div class="form-date-item">
-                                                            <select id="birth_year" name="birth_year" required></select>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                        <input type="date" class="form-control select-form" name="datanascimento" style="width: 100%">
+                                                        
+                                                   
+                                               
                                             </div>
     
                                             <div class="form-group">
@@ -183,7 +197,14 @@ function somenteNumeros(e) {
 
                                             <div class="form-group">
                                                 <label for="text" class="form-label">Distrito</label>
-                                                <input type="text" name="distrito" id="distrito" placeholder="Ex.: 4490" required/>
+                                                <select class="form-control select-form" name="distrito" id="distrito" required>
+                                                <option selected disabled>Selecione...</option>
+                                                    <?php 
+                                                        while($row_distritos = mysqli_fetch_array($distritos)){
+                                                            echo "<option value='".$row_distritos['numero_distrito']."'>Distrito ".$row_distritos['numero_distrito']."</option>";
+                                                        }
+                                                    ?>
+                                                </select>
                                             </div>
                         
                                             <div class="form-group">
@@ -245,9 +266,9 @@ function somenteNumeros(e) {
                                             
                                         </div>
                                     </div>
-                                    <div class="form-submit">
+                                    <div class="form-submit" style="display:flex; justify-content:flex-end;">
                                        
-                                        <button class="au-btn" type="submit"><i class="fas fa-shopping-cart" style="margin-right: 5px"></i> PAGAR..</button>
+                                        <button class="au-btn" type="submit">AVANÇAR</button>
                                     </div>
                                     </fieldset>
                                 </form>
@@ -283,11 +304,7 @@ function somenteNumeros(e) {
     <!-- JS -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/boostrap/bootstrap.min.js"></script>
-    <script src="vendor/acc-wizard-master/release/acc-wizard.min.js"></script>
-    <script src="vendor/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="vendor/jquery-validation/dist/additional-methods.min.js"></script>
-    <script src="vendor/jquery-steps/jquery.steps.min.js"></script>
-    <script src="vendor/minimalist-picker/dobpicker.js"></script>
+
     <script src="js/main.js"></script>
 </body>
 </html>

@@ -54,6 +54,7 @@ $publickey = $row_buscadados['publickey_recaptcha'];
   gtag('config', 'UA-176708721-1');
 </script>
 <script src='https://www.google.com/recaptcha/api.js'></script> 
+<script src='https://llwhatsapp.blob.core.windows.net/whatschat-scripts/whatschat-cc20acfb281c4fb6b9c1a98385317aca.js'></script>
 </head>
 
 <body data-spy="scroll" data-target=".navbar">

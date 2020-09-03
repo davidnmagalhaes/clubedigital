@@ -6,9 +6,7 @@ $nome = $_POST['primeiro_nome'];
 $ultnome = $_POST['ultimo_nome'];
 $nomecompleto = $nome." ".$ultnome;
 $email = $_POST['email'];
-$dianascto = $_POST['birth_day'];
-$mesnascto = $_POST['birth_month'];
-$anonascto = $_POST['birth_year'];
+$datanascimento = $_POST['datanascimento'];
 $nomeclube = $_POST['clube'];
 $distrito = $_POST['distrito'];
 $cep = $_POST['cep'];
@@ -26,106 +24,63 @@ $stmt = $conexao->prepare("SELECT * FROM rfa_usuario WHERE email='$email'");
 $stmt->execute();
 $number_of_rows = $stmt->fetchColumn();
 
-$select = $conexao->query("
-SELECT *
-FROM rfa_clubes
-ORDER BY id_clube DESC");
-$result = $select->fetch(PDO::FETCH_ASSOC);
-
-
-//Start - Gera ID e Verifica se existe
-$coduser = rand();
-
-
-$stmu = $conexao->prepare("SELECT * FROM rfa_usuario WHERE cod_usuario='$coduser'");
-$stmu->execute();
-$numberrows_user = $stmu->fetchColumn();
-
-if($numberrows_user > 0){
-	$coduser += rand();
-}
-
-//End - Gera ID e Verifica se existe
-
-//Start - Gera ID e Verifica se existe
-$codbanco = rand();
-
-$stmb = $conexao->prepare("SELECT * FROM rfa_bancos WHERE cod_banco='$codbanco'");
-$stmb->execute();
-$numberrows_banco = $stmb->fetchColumn();
-
-if($numberrows_banco > 0){
-	$codbanco += rand();
-}
-
-//End - Gera ID e Verifica se existe
-
-//Start - Gera ID e Verifica se existe
-$codlisbanco = rand();
-
-
-$stm = $conexao->prepare("SELECT * FROM rfa_lista_bancos WHERE cod_lista_banco='$codlisbanco'");
-$stm->execute();
-$numberrows_listabanco = $stm->fetchColumn();
-
-if($numberrows_listabanco > 0){
-	$codlisbanco += rand();
-}
-
-//End - Gera ID e Verifica se existe
-
-//Start - Gera ID e Verifica se existe
-$codtipobanco = rand();
-
-
-$stmp = $conexao->prepare("SELECT * FROM rfa_lista_tipo_banco WHERE cod_lista_tipo_banco='$codtipobanco'");
-$stmp->execute();
-$numberrows_tipobanco = $stmp->fetchColumn();
-
-if($numberrows_tipobanco > 0){
-	$codtipobanco += rand();
-}
-
-$cdlisbanc = $codlisbanco;
-$cdtipobanc = $codtipobanco;
-
-//End - Gera ID e Verifica se existe
-
-
 if($number_of_rows > 0){
-	echo "<script>javascript:alert('O e-mail j\u00e1rio existe, tente cadastrar com outro e-mail.');javascript:window.location='../register/index.php'</script>";
+	echo "<script>javascript:alert('O e-mail j\u00e1rio existe, tente cadastrar com outro e-mail.');javascript:window.location='../../register'</script>";
 
 }else{
 
 
+	/*$select = $conexao->query("
+	SELECT *
+	FROM rfa_clubes
+	ORDER BY id_clube DESC");
+	$result = $select->fetch(PDO::FETCH_ASSOC);*/
+	
+	
+	//Start - Gera ID e Verifica se existe
+	$coduser = date('YmdHi').rand(10,99);
+	//End - Gera ID e Verifica se existe
+	
+	//Start - Gera ID e Verifica se existe
+	$codbanco = date('YmdHi').rand(10,99);
+	//End - Gera ID e Verifica se existe
+	
+	//Start - Gera ID e Verifica se existe
+	$codlisbanco = date('YmdHi').rand(10,99);
+	//End - Gera ID e Verifica se existe
+	
+	//Start - Gera ID e Verifica se existe
+	$codtipobanco = date('YmdHi').rand(10,99);
+
+	
+	$cdlisbanc = $codlisbanco;
+	$cdtipobanc = $codtipobanco;
+
 
 //$usuario = $_POST['usuario'];
 $senha = password_hash($_POST['senha'],PASSWORD_DEFAULT);
-$plano = $_POST['plano'];
 
-$select2 = $conexao->query("
+/*$select2 = $conexao->query("
 SELECT *
 FROM rfa_planos
 WHERE id_plano = '$plano'");
 $result2 = $select2->fetch(PDO::FETCH_ASSOC);
-$codplano = $result2['cod_plano'];
+$codplano = $result2['cod_plano'];*/
 
 //$formapagamento = $_POST['formapagamento'];
 
-$lastclub = $result['id_clube'] + 1;
-
+$lastclub = date('YmdHi').rand(10,99);
+$datacadastro = date("Y-m-d");
 
 // Insere usuários no banco de dados
 
-$sql = "INSERT INTO rfa_usuario(cod_usuario, nome, email, senha, funcao, plano, clube)VALUES('{$coduser}','{$nomecompleto}', '{$email}', '{$senha}', '{$funcao}', '{$plano}', '{$lastclub}')";
+$sql = "INSERT INTO rfa_usuario(datanascimento, cod_usuario, nome, email, senha, funcao, plano, clube, status, ativo, data_cadastro)VALUES('{$datanascimento}','{$coduser}','{$nomecompleto}', '{$email}', '{$senha}', '{$funcao}', '{$plano}', '{$lastclub}', 'A', 1, '{$datacadastro}')";
 $stm = $conexao->prepare($sql);
 $executa = $stm->execute();
 
-
-$sqc = "INSERT INTO rfa_clubes(nome_clube, cep_clube, endereco_clube, numero_clube, bairro_clube, cidade_clube, estado_clube, telefone_clube, email_clube, whatsapp, distrito)VALUES('{$nomeclube}', '{$cep}', '{$endereco}', '{$numero}', '{$bairro}', '{$cidade}', '{$estado}', '{$telefone}', '{$email}','{$whatsapp}', '{$distrito}')";
+$sqc = "INSERT INTO rfa_clubes(data_cadastro, id_clube, nome_clube, cep_clube, endereco_clube, numero_clube, bairro_clube, cidade_clube, estado_clube, telefone_clube, email_clube, whatsapp, distrito, cnpj_clube)VALUES('{$datacadastro}','{$lastclub}','{$nomeclube}', '{$cep}', '{$endereco}', '{$numero}', '{$bairro}', '{$cidade}', '{$estado}', '{$telefone}', '{$email}','{$whatsapp}', '{$distrito}', '{$cnpj}')";
 $stc = $conexao->prepare($sqc);
 $executc = $stc->execute();
-
 
 $sv = "INSERT INTO rfa_lista_bancos(cod_lista_banco, nome_lista_banco, clube)VALUES('{$codlisbanco}','Caixa', '{$lastclub}')";
 $stv = $conexao->prepare($sv);
@@ -135,7 +90,6 @@ $slt = "INSERT INTO rfa_lista_tipo_banco(cod_lista_tipo_banco, nome_lista_tipo, 
 $stlt = $conexao->prepare($slt);
 $executlt = $stlt->execute();
 
-$datacadastro = date("Y-m-d");
 $s = "INSERT INTO rfa_bancos(cod_banco, favorecido, saldo, ativo, clube, data_cadastro, banco, tipo_conta)VALUES('{$codbanco}','Caixa', '0.00', '1', '{$lastclub}', '{$datacadastro}', '{$cdlisbanc}', '{$cdtipobanc}')";
 $st = $conexao->prepare($s);
 $exec = $st->execute();
@@ -226,9 +180,10 @@ $execupermi15 = $spermi15->execute();
 
 
 if($executa){
-		echo "<script>javascript:window.location='https://sandbox.pagseguro.uol.com.br/v2/pre-approvals/request.html?code=".$codplano."'</script>";
+		//echo "<script>javascript:window.location='https://sandbox.pagseguro.uol.com.br/v2/pre-approvals/request.html?code=".$codplano."'</script>";
+		echo "<script>javascript:alert('Sucesso!');javascript:window.location='../../register/index.php'</script>";
 }else{
-		echo "<script>javascript:alert('Erro! Tente novamente mais tarde');javascript:window.location='../register/index.php'</script>";
+		echo "<script>javascript:alert('Erro! Tente novamente mais tarde');javascript:window.location='../../register/index.php'</script>";
 }
 
 }

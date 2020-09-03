@@ -4,7 +4,7 @@ $page = 10;
 include('config-header.php');
 
 //Seleciona todos os tipos de contas bancárias
-$qr = "SELECT * FROM rfa_usuario";
+$qr = "SELECT * FROM rfa_usuario ORDER BY funcao ASC";
 $lis = mysqli_query($link, $qr) or die(mysqli_error($link));
 
 
@@ -122,17 +122,7 @@ input:checked + .slider:before {
 										<a href="cd_usuario.php" class="au-btn au-btn-icon au-btn--green au-btn--small">
                                             <i class="zmdi zmdi-plus"></i>Adicionar</a>
 										</h3>
-                                    <div class="filters m-b-45">
-                                        <div class="rs-select2--dark rs-select2--md m-r-10 rs-select2--border">
-                                            <select class="js-select2" name="property">
-                                                <option selected="selected">Tudo</option>
-                                                <option value="">Administrador</option>
-                                                <option value="">Padr&atilde;o</option>
-                                            </select>
-                                            <div class="dropDownSelect2"></div>
-                                        </div>
-                                        
-                                    </div>
+                                    
 									
 									<div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin: 0 25px">
   Esta &eacute; uma &aacute;rea administrativa. Aqui &eacute; poss&iacute;vel ver todos os usu&aacute;rios cadastrados de todos os clubes registrados.
@@ -179,6 +169,10 @@ input:checked + .slider:before {
                                                             <h6><?php echo $row_lis['nome']; ?></h6>
                                                             <span>
                                                                 <a href="#"><?php echo $row_lis['email']; ?></a>
+                                                            </span>
+                                                            <Br>
+                                                            <span>
+                                                                <strong>Cadastro: </strong><?php echo date('d/m/Y',strtotime($row_lis['data_cadastro'])); ?>
                                                             </span>
                                                         </div>
                                                     </td>

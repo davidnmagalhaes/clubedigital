@@ -258,6 +258,7 @@ function moeda(a, e, r, t) {
                                                 <div class="form-group">
                                                     <label for="status" class="form-control-label">Status</label>
 												<select name="status_pagar2" class="form-control">
+                                                    <option selected></option>
 													<option value="1">Pendente</option>
 													<option value="2">Pago</option>
 												</select>
