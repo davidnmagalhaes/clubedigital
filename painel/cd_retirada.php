@@ -4,9 +4,9 @@ $page = 3;
 include('config-header.php');
 
 //Seleciona todos os bancos em ordem crescente pelo nome nome do banco
-$sql = "SELECT * FROM rfa_bancos INNER JOIN rfa_lista_bancos ON rfa_bancos.banco = rfa_lista_bancos.cod_lista_banco WHERE rfa_bancos.clube='$clube' AND rfa_bancos.favorecido!='Caixa' ORDER BY rfa_bancos.favorecido ASC";
+$sql = "SELECT * FROM rfa_bancos WHERE clube='$clube' AND favorecido!='Caixa' ORDER BY favorecido ASC";
 $listabancos = mysqli_query($link, $sql) or die(mysqli_error($link));
-$row_listabancos = mysqli_fetch_assoc($listabancos);
+
 $totalRows_listabancos = mysqli_num_rows($listabancos);
 
 //Seleciona todos os tipos de bancos em ordem crescente pelo nome nome do tipo de banco
@@ -196,11 +196,11 @@ function moeda(a, e, r, t) {
                                         <div class="form-group">
 											<label for="origem" class=" form-control-label">Origem </label>
                                                 <select name="origem_retirada" id="origem_retirada" class="form-control" required>
-                                                    <option value="">Selecione uma conta...</option>
+                                                    <option selected disabled>Selecione uma conta...</option>
 													<?php if($totalRows_listabancos <= 0){}else{?>
-                                                    <?php do{?>
-													<option value="<?php echo $row_listabancos['cod_banco'];?>"><?php echo $row_listabancos['favorecido'];?> <strong>(<?php echo $row_listabancos['nome_lista_banco'];?>)</strong></option>
-													<?php }while($row_listabancos = mysqli_fetch_assoc($listabancos));?>
+                                                    <?php while($row_listabancos = mysqli_fetch_array($listabancos)){?>
+													<option value="<?php echo $row_listabancos['cod_banco'];?>"><?php echo $row_listabancos['favorecido'];?> </option>
+													<?php }?>
 														<?php }?>
                                                  </select>
                                         </div>

@@ -217,7 +217,8 @@ input:checked + .slider:before {
                                                         </label>
                                                     </td>-->
 													<td>
-														<img src="login-seguro/<?php echo $row_lis['imagem']; ?>" width="100" style="border-radius: 100px" />
+
+                            <img src="<?php if(empty($row_lis['imagem'])){echo "images/001-user.svg";}else{echo "login-seguro/".$row_lis['imagem'];}?>"  width="100" style="border-radius: 100px"/>
 													</td>
                                                     <td>
                                                         <div class="table-data__info">

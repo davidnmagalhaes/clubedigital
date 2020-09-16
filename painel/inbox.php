@@ -78,7 +78,8 @@ $sqlanalisa .= "UPDATE rfa_notificacao SET notificacao=1 WHERE id_usuario='$user
                                                 <div class="au-chat-info">
                                                     
                                                         <div class="avatar avatar--small">
-                                                            <img src="login-seguro/<?= $_SESSION['imagem'] ?>" />
+                                                     
+                                                            <?php if($_SESSION['imagem']==""){echo "<img src='images/001-user.svg'/>";}else{echo "<img src='login-seguro/".$_SESSION['imagem']."'";}?>
                                                         </div>
                                                     
                                                     <span class="nick">

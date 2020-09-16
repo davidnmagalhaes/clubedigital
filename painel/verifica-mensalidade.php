@@ -11,6 +11,8 @@ $exbtx = mysqli_query($link, $sqcl) or die(mysqli_error($link));
 $row_exbtx = mysqli_fetch_array($exbtx);
 $txph = $row_exbtx['paghiper_taxa'];
 
+
+
 foreach($versocios as $soci){
 
     $mesat = date('m');

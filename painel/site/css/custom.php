@@ -24,12 +24,22 @@ $sc = "SELECT * FROM rfa_site_conteudo WHERE clube='$clube'";
 $pegaconteudo = mysqli_query($link, $sc) or die(mysqli_error($link));
 $row_pegaconteudo = mysqli_fetch_assoc($pegaconteudo);
 $totalRows_pegaconteudo = mysqli_num_rows($pegaconteudo);
-
+ 
 $imgvideo = $row_pegaconteudo['background_video'];
 
 $corprincipal = '#0e55b6';
 
+$sqsl = "SELECT * FROM rfa_site_slides WHERE clube='$clube'";
+$pegaslide = mysqli_query($link, $sqsl) or die(mysqli_error($link));
 
+
+while($row_pegaslide = mysqli_fetch_array($pegaslide)){
+     if($row_pegaslide['img_mobile_topo']!=''){
+          echo ".slide".$row_pegaslide['id_slide']."{background-image: url('../../".$row_pegaslide['img_banner_topo']."') !important;}@media(max-width:768px){.slide".$row_pegaslide['id_slide']."{background-image: url('../../".$row_pegaslide['img_mobile_topo']."') !important;}}";
+     }else{
+          echo ".slide".$row_pegaslide['id_slide']."{background-image: url('../../".$row_pegaslide['img_banner_topo']."') !important;}@media(max-width:768px){.slide".$row_pegaslide['id_slide']."{background-image: url('../../".$row_pegaslide['img_banner_topo']."') !important;}}";
+     }
+}
 
 ?>
 

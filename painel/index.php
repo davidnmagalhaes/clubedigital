@@ -19,6 +19,8 @@ $buscadados = mysqli_query($link, $qdados) or die(mysqli_error($link));
 $row_buscadados = mysqli_fetch_assoc($buscadados);
 $publickey = $row_buscadados['publickey_recaptcha'];
 
+$cadastrosucesso = $_GET['cadastrosucesso'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,6 +47,7 @@ $publickey = $row_buscadados['publickey_recaptcha'];
 	<link rel="stylesheet" type="text/css" href="login-seguro/css/main.css">
 <!--===============================================================================================-->
 <script src='https://www.google.com/recaptcha/api.js'></script>
+
 </head>
 <body>
 	
@@ -56,10 +59,16 @@ $publickey = $row_buscadados['publickey_recaptcha'];
 					<!--<div class="login100-form-avatar">
 						<img src="login-seguro/images/avatar-01.jpg" alt="AVATAR">
 					</div>-->
-
+					
 					<span class="login100-form-title p-t-20 p-b-45">
 						<img src="images/clube-digital-white.png" width="350">
 					</span>
+					<?php if($cadastrosucesso==1){?>
+					<div class="alert alert-success" id="success-alert">
+  <button type="button" class="close" data-dismiss="alert">x</button>
+  <strong>Parabéns! </strong> <br>Agora aproveite seu período de avaliação para desfrutar de todas as ferramentas do Clube Digital!
+</div>
+					<?php } ?>
 
 					<div class="wrap-input100 validate-input m-b-10" data-validate = "Digite um e-mail">
 						<input class="input100" type="email" name="email" placeholder="E-mail">
@@ -80,6 +89,8 @@ $publickey = $row_buscadados['publickey_recaptcha'];
 							
 						
 					</div>
+
+					
 					
 					<div class="text-center w-full p-t-25" style="color: #cccccc;">
 						<div>
@@ -103,8 +114,8 @@ $publickey = $row_buscadados['publickey_recaptcha'];
 					</div>
 
 					<div class="text-center w-full">
-						<a class="txt1" href="#">
-							Contratar plano
+						<a class="txt1" href="/register">
+							Cadastro
 							<i class="fa fa-long-arrow-right"></i>						
 						</a>
 					</div>
@@ -123,7 +134,18 @@ $publickey = $row_buscadados['publickey_recaptcha'];
   }
 }
 	</script>
-	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+  $("#success-alert").hide();
+
+    $("#success-alert").fadeTo(6000, 500).slideUp(500, function() {
+      $("#success-alert").slideUp(500);
+    });
+
+});
+    </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
     <script src="login-seguro/custom.js"></script>   
 	
@@ -131,7 +153,7 @@ $publickey = $row_buscadados['publickey_recaptcha'];
 	<script src="login-seguro/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
 	<script src="login-seguro/vendor/bootstrap/js/popper.js"></script>
-	<script src="login-seguro/vendor/bootstrap/js/bootstrap.min.js"></script>
+
 <!--===============================================================================================-->
 	<script src="login-seguro/vendor/select2/select2.min.js"></script>
 <!--===============================================================================================-->

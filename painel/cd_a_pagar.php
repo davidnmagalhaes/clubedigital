@@ -4,9 +4,9 @@ $page = 3;
 include('config-header.php');
 
 //Seleciona todos os bancos em ordem crescente pelo nome nome do banco
-$sql = "SELECT * FROM rfa_bancos INNER JOIN rfa_lista_bancos ON rfa_bancos.banco = rfa_lista_bancos.cod_lista_banco WHERE rfa_bancos.clube='$clube' ORDER BY rfa_bancos.favorecido ASC";
+$sql = "SELECT * FROM rfa_bancos WHERE clube='$clube' ORDER BY favorecido ASC";
 $listabancos = mysqli_query($link, $sql) or die(mysqli_error($link));
-$row_listabancos = mysqli_fetch_assoc($listabancos);
+
 $totalRows_listabancos = mysqli_num_rows($listabancos);
 
 //Seleciona todos os tipos de bancos em ordem crescente pelo nome nome do tipo de banco
@@ -15,7 +15,7 @@ $listatipobanco = mysqli_query($link, $query) or die(mysqli_error($link));
 $row_listatipobanco = mysqli_fetch_assoc($listatipobanco);
 $totalRows_listatipobanco = mysqli_num_rows($listatipobanco);
 
-?>
+?> 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -189,6 +189,7 @@ function moeda(a, e, r, t) {
                                     <div class="card-header">
                                         <strong>Cadastro</strong>
                                         <small> despesas</small>
+                                        
                                     </div>
                                     <div class="card-body card-block">
                                         <div class="row">
@@ -196,31 +197,51 @@ function moeda(a, e, r, t) {
                                         <div class="form-group">
 											<label for="origem" class=" form-control-label">Origem </label>
                                                 <select name="origem_pagar" id="origem_pagar" class="form-control" required>
-                                                    <option value="">Selecione uma conta...</option>
+                                                    <option selected disabled>Selecione uma conta...</option>
 													<?php if($totalRows_listabancos <= 0){}else{?>
-                                                    <?php do{?>
-													<option value="<?php echo $row_listabancos['cod_banco'];?>"><?php echo $row_listabancos['favorecido'];?> <strong>(<?php echo $row_listabancos['nome_lista_banco'];?>)</strong></option>
-													<?php }while($row_listabancos = mysqli_fetch_assoc($listabancos));?>
+                                                    <?php while($row_listabancos = mysqli_fetch_array($listabancos)){?>
+													<option value="<?php echo $row_listabancos['cod_banco'];?>"><?php echo $row_listabancos['favorecido'];?> </option>
+													<?php }?>
 														<?php }?>
                                                  </select>
                                         </div>
                                         </div>
-                                        <div class="col-12 col-md-2">
+                                        <div class="col-12 col-md-1"> 
                                         <label>É salário?</label><br>
                                         <input type="checkbox" id="salario" name="salario" data-toggle="toggle" data-on="Sim" data-off="Não" data-onstyle="success" data-offstyle="danger" value="">
                                         </div> 
+                                        <div class="col-12 col-md-1">
+                                        <label>Recorrente?</label><br>
+                                        <input type="checkbox" id="recorrente" name="recorrente" data-toggle="toggle" data-on="Sim" data-off="Não" data-onstyle="success" data-offstyle="danger" value="">
+                                        </div> 
                                         </div>
+
+                                        <div class="alert alert-success row" id="datasrecorrencias" style="display:none;">
+                                                        <div class="col">
+                                                            <label>Dia de vencimento</label>
+                                                            <input type="number" class="form-control" name="diavencimento_recorrencia">
+                                                        </div>
+                                                        <div class="col">
+                                                            <label>Data inicial</label>
+                                                            <input type="month" class="form-control" name="datainicial_recorrencia">
+                                                        </div>
+                                                        <div class="col">
+                                                            <label>Data final</label>
+                                                            <input type="month" class="form-control" name="datafinal_recorrencia">
+                                                        </div>
+                                        </div>
+
                                         <div class="alert alert-success" id="exibefuncionario" style="display:none; margin-bottom: 15px;">
                                         <div class="row" >
-                                            <div class="col">
+                                            <div class="col-12 col-md-4">
                                                 <label for="nomefuncionario">Nome do Funcionário</label>
                                                 <input type="text" name="nomefuncionario" class="form-control">
                                             </div>
-                                            <div class="col">
+                                            <div class="col-12 col-md-4">
                                                 <label for="nomefuncionario">CPF do Funcionário</label>
                                                 <input type="text" name="cpffuncionario" class="form-control" onkeydown="javascript: fMasc( this, mCPF );" maxlength="14">
                                             </div>
-                                            <div class="col">
+                                            <div class="col-12 col-md-4">
                                                 <label for="nomefuncionario">Cargo</label>
                                                 <input type="text" name="cargofuncionario" class="form-control">
                                             </div>
@@ -268,17 +289,17 @@ function moeda(a, e, r, t) {
                                             </div>
                                         </div>
                                         <div class="row" style="margin-top: 15px; margin-bottom: 15px">
-                                                <div class="col">
+                                                <div class="col-12">
                                                     <h3>Detalhes financeiros <button class="badge badge-primary" id="addvencimento" type="button">+ Vencimentos</button></h3>
                                                 </div>
                                         </div>
                                         <div class="row">
-                                                    <div class="col">
+                                                    <div class="col-12 col-md-3">
                                                         <label>Descrição</label>
                                                         <input type="text" disabled class="form-control" value="SALÁRIO">
                                                     </div>
                                                     
-                                                    <div class="col">
+                                                    <div class="col-12 col-md-3">
                                                             <div class="form-group">
                                                             <label for="valor_pagar" class=" form-control-label">Valor do Salário</label>
                                                             <div class="input-group mb-2">
@@ -290,7 +311,7 @@ function moeda(a, e, r, t) {
                                                             
                                                         </div>
                                                     </div>
-                                                    <div class="col">
+                                                    <div class="col-12 col-md-3">
                                                             <div class="form-group">
                                                             <label for="valor_pagar" class=" form-control-label">Descontos</label>
                                                             <div class="input-group mb-2">
@@ -302,7 +323,7 @@ function moeda(a, e, r, t) {
                                                             
                                                         </div>
                                                     </div>
-                                                    <div class="col">
+                                                    <div class="col-12 col-md-3">
                                                         <label>Referência</label>
                                                         <input type="text" name="referenciasalario" class="form-control" placeholder="Ex.: 30 dias">
                                                     </div>
@@ -315,7 +336,7 @@ function moeda(a, e, r, t) {
                                                 </div>
                                         </div>
                                         <div class="row">
-                                        <div class="col">
+                                        <div class="col-6 col-md-3">
                                                             <div class="form-group">
                                                             <label for="valor_pagar" class=" form-control-label">Sal. Contr. INSS</label>
                                                             <div class="input-group mb-2">
@@ -327,7 +348,7 @@ function moeda(a, e, r, t) {
                                                             
                                                         </div>
                                                     </div>
-                                                    <div class="col">
+                                                    <div class="col-6 col-md-3">
                                                             <div class="form-group">
                                                             <label for="valor_pagar" class=" form-control-label">Base Cálc. FGTS</label>
                                                             <div class="input-group mb-2">
@@ -339,7 +360,7 @@ function moeda(a, e, r, t) {
                                                             
                                                         </div>
                                                     </div>
-                                                    <div class="col">
+                                                    <div class="col-6 col-md-3">
                                                             <div class="form-group">
                                                             <label for="valor_pagar" class=" form-control-label">FGTS do Mês</label>
                                                             <div class="input-group mb-2">
@@ -351,7 +372,7 @@ function moeda(a, e, r, t) {
                                                             
                                                         </div>
                                                     </div>
-                                                    <div class="col">
+                                                    <div class="col-6 col-md-2">
                                                             <div class="form-group">
                                                             <label for="valor_pagar" class=" form-control-label">Base Cálc. IRRF</label>
                                                             <div class="input-group mb-2">
@@ -363,7 +384,7 @@ function moeda(a, e, r, t) {
                                                             
                                                         </div>
                                                     </div>
-                                                    <div class="col">
+                                                    <div class="col-12 col-md-1">
                                                             
                                                             <label for="valor_pagar" class=" form-control-label">Faixa IRRF</label>
                                                             
@@ -458,7 +479,7 @@ function moeda(a, e, r, t) {
 	var i=1;
 	$('#addvencimento').click(function(){
 		i++;
-		$('#vencimentos').append('<div class="row" id="row'+i+'"><div class="col"><label>Descrição<button class="badge badge-danger btn_remove" id="'+i+'" type="button">X</button></label><input type="text" class="form-control" name="descricao_vencimento[]" placeholder="Ex.: SALÁRIO FAMÍLIA"></div><div class="col"><div class="form-group"><label for="valor_pagar" class=" form-control-label">Valor do Vencimento</label><div class="input-group mb-2"><div class="input-group-prepend"><div class="input-group-text">R$</div></div><input type="text" name="valor_vencimento[]" onKeyPress="return(moeda(this,\'.\',\',\',event))" id="valor_vencimento" class="form-control" required></div></div></div><div class="col"><div class="form-group"><label for="valor_pagar" class=" form-control-label">Descontos</label><div class="input-group mb-2"><div class="input-group-prepend"><div class="input-group-text">R$</div></div><input type="text" name="descontos_vencimento[]" onKeyPress="return(moeda(this,\'.\',\',\',event))" id="descontos_vencimento" class="form-control" required></div></div></div><div class="col"><label>Referência</label><input type="text" name="referencia_vencimento[]" class="form-control" placeholder="Ex.: 30 dias"></div></div>');
+		$('#vencimentos').append('<div class="row" id="row'+i+'"><div class="col-12 col-md-3"><label>Descrição<button class="badge badge-danger btn_remove" id="'+i+'" type="button">X</button></label><input type="text" class="form-control" name="descricao_vencimento[]" placeholder="Ex.: SALÁRIO FAMÍLIA"></div><div class="col-12 col-md-3"><div class="form-group"><label for="valor_pagar" class=" form-control-label">Valor do Vencimento</label><div class="input-group mb-2"><div class="input-group-prepend"><div class="input-group-text">R$</div></div><input type="text" name="valor_vencimento[]" onKeyPress="return(moeda(this,\'.\',\',\',event))" id="valor_vencimento" class="form-control" required></div></div></div><div class="col-12 col-md-3"><div class="form-group"><label for="valor_pagar" class=" form-control-label">Descontos</label><div class="input-group mb-2"><div class="input-group-prepend"><div class="input-group-text">R$</div></div><input type="text" name="descontos_vencimento[]" onKeyPress="return(moeda(this,\'.\',\',\',event))" id="descontos_vencimento" class="form-control" required></div></div></div><div class="col-12 col-md-3"><label>Referência</label><input type="text" name="referencia_vencimento[]" class="form-control" placeholder="Ex.: 30 dias"></div></div>');
 	
 	});
 
@@ -478,6 +499,7 @@ function moeda(a, e, r, t) {
 
 window.onload = function () {
     var input = document.querySelector('input[type=checkbox]');
+    var input2 = document.querySelector('input[name="recorrente"]');
     
     function check() {
         var a = input.checked ? "1" : "0";
@@ -497,8 +519,27 @@ window.onload = function () {
     }
     input.onchange = check;
     check();
+
+
+    function check2() {
+        var a = input2.checked ? "1" : "0";
+        var func = document.getElementById('datasrecorrencias');
+        document.getElementById('recorrente').value = a;
+
+        if ($('input[name="recorrente"]:checked').val() === "1") {
+        $('#datasrecorrencias').show();
+        $('#vencimento').hide();
+    } else {
+        $('#datasrecorrencias').hide();
+        $('#vencimento').show();
+    }
+
+    }
+    input2.onchange = check2;
+    check2();
 }
 </script>
+
 
 	
     <?php include("scripts-footer.php"); ?>

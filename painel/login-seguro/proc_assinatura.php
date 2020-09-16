@@ -90,7 +90,7 @@ $slt = "INSERT INTO rfa_lista_tipo_banco(cod_lista_tipo_banco, nome_lista_tipo, 
 $stlt = $conexao->prepare($slt);
 $executlt = $stlt->execute();
 
-$s = "INSERT INTO rfa_bancos(cod_banco, favorecido, saldo, ativo, clube, data_cadastro, banco, tipo_conta)VALUES('{$codbanco}','Caixa', '0.00', '1', '{$lastclub}', '{$datacadastro}', '{$cdlisbanc}', '{$cdtipobanc}')";
+$s = "INSERT INTO rfa_bancos(cod_banco, favorecido, saldo, ativo, clube, data_cadastro, banco, tipo_conta)VALUES('{$codbanco}','Caixa', '0.00', '1', '{$lastclub}', '{$datacadastro}', '{$codlisbanco}', '{$codtipobanco}')";
 $st = $conexao->prepare($s);
 $exec = $st->execute();
 
@@ -181,7 +181,7 @@ $execupermi15 = $spermi15->execute();
 
 if($executa){
 		//echo "<script>javascript:window.location='https://sandbox.pagseguro.uol.com.br/v2/pre-approvals/request.html?code=".$codplano."'</script>";
-		echo "<script>javascript:alert('Sucesso!');javascript:window.location='../../register/index.php'</script>";
+		echo "<script>javascript:window.location='../?cadastrosucesso=1'</script>";
 }else{
 		echo "<script>javascript:alert('Erro! Tente novamente mais tarde');javascript:window.location='../../register/index.php'</script>";
 }

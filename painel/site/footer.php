@@ -13,7 +13,7 @@ $row_clubeinfo = mysqli_fetch_assoc($clubeinfo);
                   <div class="full">
                      <div class="footer-widget">
                         <div class="footer-logo">
-                           <a href="index.php"><img src="<?php if($signal == 1){echo "painel/".$row_topo['logo_topo'];}else{echo "../".$row_topo['logo_topo'];}?>" alt="#" class="img-logo" /></a>
+                        <a href="<?php if($signal == 1){echo "/";}else{echo "clube".$clube;}?>"><img src="<?php if($signal == 1 && isset($row_topo['logo_topo'])){echo "painel/".$row_topo['logo_topo'];}elseif($signal == 0 && isset($row_topo['logo_topo'])){echo "../".$row_topo['logo_topo'];}else{echo "../images/clube-digital.png";}?>" alt="#" class="img-logo" /></a>
                         </div>
                         <p><?php if(empty($row_topo['description_seo'])){echo "Não há descrição sobre o clube ainda!";}else{echo $row_topo['description_seo'];} ?></p>
                         <ul class="social-icons style-4 pull-left">
@@ -56,7 +56,7 @@ $row_clubeinfo = mysqli_fetch_assoc($clubeinfo);
          </div>
          <div class="footer-bottom">
             <div class="container">
-               <p>Todos os direitos reservados <a href="https://www.clubefacil.ong.br/" target="_blank">Clube Digital</a> | Desenvolvido por <a href="https://github.com/davidnmagalhaes" target="_blank">David Magalhães</a></p>
+               <p>Todos os direitos reservados <a href="https://www.clubedigital.ong.br/" target="_blank">Clube Digital</a> | Desenvolvido por <a href="https://github.com/davidnmagalhaes" target="_blank">David Magalhães</a></p>
             </div>
          </div>
       </footer>

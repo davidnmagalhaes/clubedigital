@@ -130,7 +130,7 @@ $publickey = $row_buscadados['publickey_recaptcha'];
             <div class="row">
                 <div class="col-xs-12 col-sm-8 col-sm-offset-2 video-box">
                     <div class="play-button">
-                        <a class="bla-2 wow flipInY js-video-button" data-video-id='OXrVsl2wURQ' data-wow-duration=".5s" data-wow-delay=".4s" href="#" data-toggle="modal" data-target="#modalVideo"><i class="material-icons">play_arrow</i></a>
+                        <a class="bla-2 wow flipInY js-video-button" data-video-id='qGEfZsEHABg' data-wow-duration=".5s" data-wow-delay=".4s" href="#" data-toggle="modal" data-target="#modalVideo"><i class="material-icons">play_arrow</i></a>
                         <div class="waves-block">
                             <div class="waves wave-1"></div>
                             <div class="waves wave-2"></div>
@@ -737,7 +737,7 @@ $publickey = $row_buscadados['publickey_recaptcha'];
                 <div class="col-xs-12 col-sm-8 col-sm-offset-2 video-box">
                     <img src="imgs/video-bg.png" class="img-fluid wow rotateIn" data-wow-duration=".5s" data-wow-delay=".2s" alt="popup">
                     <div class="play-button">
-                        <a class="bla-2 wow flipInY js-video-button" data-video-id='OXrVsl2wURQ' data-wow-duration=".5s" data-wow-delay=".4s" href="#" data-toggle="modal" data-target="#modalVideo"><i class="material-icons">play_arrow</i></a>
+                        <a class="bla-2 wow flipInY js-video-button" data-video-id='qGEfZsEHABg' data-wow-duration=".5s" data-wow-delay=".4s" href="#" data-toggle="modal" data-target="#modalVideo"><i class="material-icons">play_arrow</i></a>
                         <div class="waves-block">
                             <div class="waves wave-1"></div>
                             <div class="waves wave-2"></div>

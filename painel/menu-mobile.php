@@ -7,7 +7,7 @@
                 <div class="menu-sidebar2__content js-scrollbar2">
                     <div class="account2">
                     <div class="image img-cir img-120">
-                        <img src="login-seguro/<?= $_SESSION['imagem'] ?>" alt="John Doe" />
+                        <img src="<?php if(empty($_SESSION['imagem'])){echo "images/001-user.svg";}else{echo "login-seguro/".$_SESSION['imagem'];}?>" />
                     </div>
                     <h4 class="name"><?= $_SESSION['nome'] ?></h4>
 										<?php if($_SESSION['funcao'] == 1){echo "Administrador";}elseif($_SESSION['funcao'] == 2){echo "Presidente de Clube";}elseif($_SESSION['funcao'] == 3){echo "Secretário de Clube";}elseif($_SESSION['funcao'] == 4){echo "Contador de Clube";}else{echo "Secretário Executivo de Clube";} ?>

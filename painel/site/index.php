@@ -8,8 +8,16 @@ include('verificacao.php');
 
 $sql = "SELECT * FROM rfa_site_topo WHERE clube='$clube'";
 $topo = mysqli_query($link, $sql) or die(mysqli_error($link));
-$row_topo = mysqli_fetch_assoc($topo);
+$row_topo = mysqli_fetch_assoc($topo); 
 $totalRows_top = mysqli_num_rows($topo);
+
+$sqlsld = "SELECT * FROM rfa_site_slides WHERE clube='$clube'";
+$toposld = mysqli_query($link, $sqlsld) or die(mysqli_error($link));
+$totalRows_topsld = mysqli_num_rows($toposld);
+
+$sqlsld2 = "SELECT * FROM rfa_site_slides WHERE clube='$clube'";
+$toposld2 = mysqli_query($link, $sqlsld2) or die(mysqli_error($link));
+$totalRows_topsld2 = mysqli_num_rows($toposld2);
 
 $hoje = date('Y-m-d');
 $sqr = "SELECT * FROM rfa_reuniao WHERE clube='$clube' AND data_reuniao >= '$hoje' ORDER BY data_reuniao ASC";
@@ -228,32 +236,59 @@ foreach($pegaaniversariofilho as $pegaanifilho){
             <div id="carousel-example-generic" class="carousel slide">
                <!-- Indicators -->
                <ol class="carousel-indicators">
-                  <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                  <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                  <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+
+                  <?php 
+                     $count = 0;
+                     while($row_toposld2 = mysqli_fetch_array($toposld2)){
+                     $count += 1;
+                  ?>
+
+                      <li data-target='#carousel-example-generic' data-slide-to="<?php echo ($count-1);?>" <?php if($row_toposld2['ativo']=="active"){echo "class='active'";}?>></li>
+                   
+                   <?php } ?>
+
                </ol>
                <!-- Wrapper for slides -->
                <div class="carousel-inner" role="listbox">
                   <!-- First slide -->
-                  <div class="item active deepskyblue" data-ride="carousel" data-interval="5000">
+                  <?php if($totalRows_topsld<1){?>
+                     <div class="item active" data-ride="carousel" data-interval="5000" style="background-image: url('../images/avatarbanner.jpg')">
+                     <div class="carousel-caption">
+                     <div class="container">
+                     <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12"></div>
+                           <div class="col-lg-8 col-md-5 col-sm-12 col-xs-12">
+                           <div class="slider-contant" data-animation="animated fadeInRight">
+                              <h3>Cadastre seu slide aqui</h3>
+                              <p>Use uma descrição para o slide aqui</p>
+                              <button class="btn btn-primary btn-lg">Nome do botão</button>
+                           </div>
+                        </div>
+                        </div>
+                     </div>
+                  </div>
+                  <?php }else{?>
+                     <?php while($row_toposld = mysqli_fetch_assoc($toposld)){?>
+                  <div class="item <?php echo $row_toposld['ativo']; ?> slide<?php echo $row_toposld['id_slide']; ?>"  data-ride="carousel" data-interval="5000">
                      <div class="carousel-caption">
                         <div class="container">
-                        <div class="col-lg-8 col-md-5 col-sm-12 col-xs-12">
+                        <?php if($row_toposld['lado']=="left"){?>
+                           <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12"></div>
+                           <div class="col-lg-8 col-md-5 col-sm-12 col-xs-12">
+                        <?php }else{?>
+                           <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12"></div>
+                           <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                        <?php } ?>
                            <div class="slider-contant" data-animation="animated fadeInRight">
-                              <h3><!--<span class="color-yellow"></span>--><?php if(empty($row_topo['banner_title'])){echo "Título do Banner";}else{echo $row_topo['banner_title'];} ?></h3>
-                              <p><?php if(empty($row_topo['banner_sub'])){echo "Subtítulo do Banner";}else{echo $row_topo['banner_sub'];} ?>
+                              <h3><!--<span class="color-yellow"></span>--><?php if(empty($row_toposld['banner_title'])){echo "";}else{echo $row_toposld['banner_title'];} ?></h3>
+                              <p><?php if(empty($row_toposld['banner_sub'])){echo "";}else{echo $row_toposld['banner_sub'];} ?>
                               </p>
-                              <p style="width: 100%; height: 50px">
-                              <a href="<?php echo $row_topo['link_botao']; ?>" class="btn btn-primary btn-lg" style="line-height: 30px"><?php if(empty($row_topo['banner_btn'])){echo "Saiba mais";}else{echo $row_topo['banner_btn'];} ?></a>
-                           </p>
-                           <p style="width: 100%; height: 50px">
-                              <a href="<?php if($signal == 1){echo "associar";}else{echo "associar".$clube;}?>" class="btn btn-primary btn-lg" style="line-height: 30px">Junte-se a nós</a>
-                           </p>
+                              <a href="<?php echo $row_toposld['link_botao']; ?>" class="btn btn-primary btn-lg" style="line-height: 30px"><?php if(empty($row_toposld['banner_btn'])){echo "Saiba mais";}else{echo $row_toposld['banner_btn'];} ?></a>
                            </div>
                         </div>
                      </div>
                      </div>
                   </div>
+                  <?php } }?>
                   <!-- /.item -->
                   <!-- Second slide
                   <div class="item skyblue" data-ride="carousel" data-interval="5000">

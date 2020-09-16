@@ -16,11 +16,7 @@ $row_sclu = mysqli_fetch_assoc($sclu);
 $dominio = $row_sclu['urldominio'];
 $balanco = $row_sclu['balanco'];
 
-$scamb = "SELECT * FROM rfa_config_cambio WHERE id_cambio='1'";
-$camb = mysqli_query($link, $scamb) or die(mysqli_error($link));
-$row_camb = mysqli_fetch_assoc($camb);
 
-$cambio = $row_camb['valor_cambio'];
 
 //////////////////////////////////// Exibe todas as mensalidades do mês ///////////////////////////////////////////
 $sqmsm = "SELECT * FROM rfa_mensalidades INNER JOIN rfs_socios ON rfa_mensalidades.id_socio = rfs_socios.id_socio WHERE rfa_mensalidades.clube='$clube' AND MONTH(rfa_mensalidades.data_mensalidade) = '$filtromes' AND YEAR(rfa_mensalidades.data_mensalidade) = '$filtroano' ORDER BY rfs_socios.nome_socio ASC";
@@ -345,10 +341,6 @@ echo $row_despesatotalgraf['valor'] + $row_mtgraftotaltx['valor'] + $row_fundoto
                                         <i class="fas fa-plus-circle" style="margin-right: 10px"></i> Fundos</a>
 
                                      
-                                    <a href="#" role="button" class=" btn btn-info btrespons">
-                                        <i class="fas fa-dollar-sign" style="margin-right: 10px"></i> Câmbio <strong>(R$ <?php echo number_format($cambio,2,',','.'); ?>)</strong></a>
-                                    
-
                                     
                                        <?php if(empty($row_logotopo['urldominio'])){ ?>
                                     <a href="site/clube<?php if($_GET['clube']){echo $clube;}else{echo $clube;}?>" role="button" class=" btn btn-primary btrespons" target="_blank">
@@ -365,11 +357,7 @@ echo $row_despesatotalgraf['valor'] + $row_mtgraftotaltx['valor'] + $row_fundoto
                                     <a href="consorcio<?php echo $clube;?>" role="button" class="btn btn-warning btrespons">
                                         <i class="fas fa-donate" style="margin-right: 10px"></i> Consórcios </a>
 
-                                    <?php if($_SESSION['funcao'] == 1){?>
-                                        <form method="post" action="atualizar_cambio.php">
-                                         <input type="text" class="form-control" placeholder="Câmbio" onBlur="this.form.submit()" onKeyPress="return(moeda(this,'.',',',event))" name="cambio" style="width: 20%;float: left;margin: 0 5px;" value="<?php echo $cambio; ?>">                          
-                                        </form>
-                                   <?php } ?>
+                                    
                                     </div>
                                     
 										

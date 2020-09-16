@@ -10,13 +10,16 @@
                                 </a>
                             </div>
                             <div class="header-button2 no-print">
-							
+                            <div class="header-button-item js-item-menu cambio" style="font-size: 16px">
+                            <i class="fas fa-dollar-sign" style="margin-right: 10px"></i> Câmbio <strong>(R$ <?php echo number_format($cambio,2,',','.'); ?>)</strong>
+                            </div>
+
                                 <div class="header-button-item js-item-menu">
 								
-                                    <i class="zmdi zmdi-search"></i>
+                                    <i class="zmdi zmdi-search icon-mobile"></i>
                                     <div class="search-dropdown js-dropdown">
                                         <form action="socios.php" method="get">
-										
+                                            
                                             <input class="au-input au-input--full au-input--h65" type="text" name="search" placeholder="Pesquisar sócios..." />
                                             <span class="search-dropdown__icon">
                                                 <i class="zmdi zmdi-search"></i>
@@ -63,7 +66,7 @@
                                     </div>
                                 </div>-->
                                 <div class="header-button-item mr-0 js-sidebar-btn">
-                                    <i class="zmdi zmdi-menu"></i>
+                                    <i class="zmdi zmdi-menu icon-mobile"></i>
                                 </div>
                                 <div class="setting-menu js-right-sidebar d-none d-lg-block">
                                     <div class="account-dropdown__body">

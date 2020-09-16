@@ -5,8 +5,9 @@ session_start();
 //Carrega conexão com banco
 include("config.php");
 
-if($_GET['clube']){
-$clube = $_GET['clube'];
+if($_POST['clube']){
+$_SESSION['clube'] = $_POST['clube'];
+$clube = $_SESSION['clube'];
 }else{
 $clube = $_SESSION['clube'];
 }
@@ -46,6 +47,10 @@ $sqlogo = "SELECT * FROM rfa_clubes WHERE id_clube='$clube'";
 $logotopo = mysqli_query($link, $sqlogo) or die(mysqli_error($link));
 $row_logotopo = mysqli_fetch_assoc($logotopo);
 
+$scamb = "SELECT * FROM rfa_config_cambio WHERE id_cambio='1'";
+$camb = mysqli_query($link, $scamb) or die(mysqli_error($link));
+$row_camb = mysqli_fetch_assoc($camb);
 
+$cambio = $row_camb['valor_cambio'];
 
 ?>

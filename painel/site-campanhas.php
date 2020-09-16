@@ -133,7 +133,7 @@ $totalRows_lish = mysqli_num_rows($lish);
                                     </div>
                                     <div class="card-body card-block">
                   
-                                      
+                              <div class="table-responsive">        
 <table class="table table-striped">
   <?php if($totalRows_lish <= 0){echo "<tr><td colspan='5' align='center'><strong>Não há campanhas cadastradas!</strong></td></tr>";}else{ ?>
   <thead>
@@ -162,8 +162,8 @@ $totalRows_lish = mysqli_num_rows($lish);
           <input type="hidden" name="clube" value="<?php echo $clube;?>">
         </form>
       </td> 
-      <td style="text-align:center"><a href="<?php echo "https://".$_SERVER['HTTP_HOST']."/".basename(__DIR__)."/site/campanha.php?idcmp=".$row_lish['cod_campanha']."&clube=".$clube; ?>" target="_blank"><i class="fas fa-link"></i></a></td>
-      <td style="text-align:center"><a href="site-campanhas-pedidos.php?idcampanha=<?php echo $row_lish['cod_campanha']; ?>&clube=<?php if($_GET['clube']){echo $clube;}else{echo $clube;}?>"><i class="fas fa-hand-holding-medical"></i></a></td>
+      <td style="vertical-align:middle;text-align:center"><a href="<?php echo "https://".$_SERVER['HTTP_HOST']."/".basename(__DIR__)."/site/campanha.php?idcmp=".$row_lish['cod_campanha']."&clube=".$clube; ?>" target="_blank"><i class="fas fa-link"></i></a></td>
+      <td style="vertical-align:middle;text-align:center"><a href="site-campanhas-pedidos.php?idcampanha=<?php echo $row_lish['cod_campanha']; ?>&clube=<?php if($_GET['clube']){echo $clube;}else{echo $clube;}?>"><i class="fas fa-hand-holding-medical"></i></a></td>
       <td style="vertical-align:middle;text-align:center"><a href="edt-campanha.php?idcampanha=<?php echo $row_lish['cod_campanha']; ?>&clube=<?php if($_GET['clube']){echo $clube;}else{echo $clube;}?>"><i class="fas fa-pen-alt"></i></a></td>
       <td style="vertical-align:middle;text-align:center"><a href="excluir-campanha.php?idcampanha=<?php echo $row_lish['id_campanha']; ?>&clube=<?php if($_GET['clube']){echo $clube;}else{echo $clube;}?>"><i class="fas fa-trash"></i></a></td>
     </tr>
@@ -173,7 +173,7 @@ $totalRows_lish = mysqli_num_rows($lish);
   <?php } ?>
 </table>
 
-                                        
+    </div>                   
                                     </div>
                                 </div>
                                 <!-- END USER DATA-->

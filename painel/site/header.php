@@ -64,7 +64,7 @@ $ativabal = $row_showbal['balanco'];
                      <div class="col-md-6">
                         <div class="full">
                            <div class="logo">
-                              <a href="<?php if($signal == 1){echo "/";}else{echo "clube".$clube;}?>"><img src="<?php if($signal == 1){echo "painel/";}else{echo "../";}?><?php echo $row_topo['logo_topo']; ?>" alt="#" class="img-logo" /></a>
+                              <a href="<?php if($signal == 1){echo "/";}else{echo "clube".$clube;}?>"><img src="<?php if($signal == 1 && isset($row_topo['logo_topo'])){echo "painel/".$row_topo['logo_topo'];}elseif($signal == 0 && isset($row_topo['logo_topo'])){echo "../".$row_topo['logo_topo'];}else{echo "../images/clube-digital.png";}?>" alt="#" class="img-logo" /></a>
                            </div>
                         </div>
                      </div>

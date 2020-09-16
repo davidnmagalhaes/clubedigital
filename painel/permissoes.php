@@ -257,7 +257,7 @@ $cacesso11 = explode(',', $cac11);
 											<input type="hidden" name="page" value="<?php echo $page2;?>">
 										  <div class="card">
 										    <div class="card-header" id="menu2">
-										      <h5 class="mb-0">
+										      <h5 class="mb-0 space-bt">
 										        <button class="btn btn-link title-acc" type="button" data-toggle="collapse" data-target="#notificacao" aria-expanded="true" aria-controls="notificacao">
 										         <i class="fas fa-bell"></i> Notificações
 										          <button class="btn btn-primary" type="submit" style="margin-left: 30px;">Atualizar</button>
@@ -269,7 +269,7 @@ $cacesso11 = explode(',', $cac11);
 										      <div class="card-body">
 										        
 										        <div class="row">
-										        	<div class="col">
+										        	<div class="col-12 col-md-2">
 												      	<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="presidente" value="<?php if($nacesso2[0] == $nivel_presidente){echo $cacesso2[0];}  ?>" onclick="alteraValor(this)" <?php if($cacesso2[0] == 1 && $nacesso2[0] == $nivel_presidente){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -278,7 +278,7 @@ $cacesso11 = explode(',', $cac11);
 														</div>
 													</div>
 
-													<div class="col">
+													<div class="col-12 col-md-2">
 														<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="secretario" value="<?php if($nacesso2[1] == $nivel_secretario){echo $cacesso2[1];}  ?>" onclick="alteraValor(this)" <?php if($cacesso2[1] == 1 && $nacesso2[1] == $nivel_secretario){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -287,7 +287,7 @@ $cacesso11 = explode(',', $cac11);
 														</div>
 													</div>
 
-													<div class="col">
+													<div class="col-12 col-md-2">
 														<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="contador" value="<?php if($nacesso2[2] == $nivel_contador){echo $cacesso2[2];}  ?>" onclick="alteraValor(this)" <?php if($cacesso2[2] == 1 && $nacesso2[2] == $nivel_contador){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -296,7 +296,7 @@ $cacesso11 = explode(',', $cac11);
 														</div>
 													</div>
 
-													<div class="col">
+													<div class="col-12 col-md-2">
 														<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="secretarioex" value="<?php if($nacesso2[3] == $nivel_secretarioex){echo $cacesso2[3];}  ?>" onclick="alteraValor(this)" <?php if($cacesso2[3] == 1 && $nacesso2[3] == $nivel_secretarioex){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -305,7 +305,7 @@ $cacesso11 = explode(',', $cac11);
 														</div>
 													</div>
 
-													<div class="col">
+													<div class="col-12 col-md-2">
 														<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="tesoureiro" value="<?php if($nacesso2[4] == $nivel_tesoureiro){echo $cacesso2[4];}  ?>" onclick="alteraValor(this)" <?php if($cacesso2[4] == 1 && $nacesso2[4] == $nivel_tesoureiro){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -326,7 +326,7 @@ $cacesso11 = explode(',', $cac11);
 										  	<input type="hidden" name="page" value="<?php echo $page3;?>">
 										  <div class="card">
 										    <div class="card-header" id="menu3">
-										      <h5 class="mb-0">
+										      <h5 class="mb-0 space-bt">
 										        <button class="btn btn-link collapsed title-acc" type="button" data-toggle="collapse" data-target="#financeiro" aria-expanded="false" aria-controls="financeiro">
 										          <i class="fas fa-dollar-sign"></i> Financeiro
 										          <button class="btn btn-primary" type="submit" style="margin-left: 30px;">Atualizar</button>
@@ -338,7 +338,7 @@ $cacesso11 = explode(',', $cac11);
 
 
 										        <div class="row">
-										        	<div class="col">
+										        	<div class="col-12 col-md-2">
 												      	<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="presidente" value="<?php if($nacesso3[0] == $nivel_presidente){echo $cacesso3[0];}  ?>" onclick="alteraValor(this)" <?php if($cacesso3[0] == 1 && $nacesso3[0] == $nivel_presidente){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -347,7 +347,7 @@ $cacesso11 = explode(',', $cac11);
 														</div>
 													</div>
 
-													<div class="col">
+													<div class="col-12 col-md-2">
 														<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="secretario" value="<?php if($nacesso3[1] == $nivel_secretario){echo $cacesso3[1];}  ?>" onclick="alteraValor(this)" <?php if($cacesso3[1] == 1 && $nacesso3[1] == $nivel_secretario){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -356,7 +356,7 @@ $cacesso11 = explode(',', $cac11);
 														</div>
 													</div>
 
-													<div class="col">
+													<div class="col-12 col-md-2">
 														<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="contador" value="<?php if($nacesso3[2] == $nivel_contador){echo $cacesso3[2];}  ?>" onclick="alteraValor(this)" <?php if($cacesso3[2] == 1 && $nacesso3[2] == $nivel_contador){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -365,7 +365,7 @@ $cacesso11 = explode(',', $cac11);
 														</div>
 													</div>
 
-													<div class="col">
+													<div class="col-12 col-md-2">
 														<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="secretarioex" value="<?php if($nacesso3[3] == $nivel_secretarioex){echo $cacesso3[3];}  ?>" onclick="alteraValor(this)" <?php if($cacesso3[3] == 1 && $nacesso3[3] == $nivel_secretarioex){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -374,7 +374,7 @@ $cacesso11 = explode(',', $cac11);
 														</div>
 													</div>
 
-													<div class="col">
+													<div class="col-12 col-md-2">
 														<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="tesoureiro" value="<?php if($nacesso3[4] == $nivel_tesoureiro){echo $cacesso3[4];}  ?>" onclick="alteraValor(this)" <?php if($cacesso3[4] == 1 && $nacesso3[4] == $nivel_tesoureiro){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -396,7 +396,7 @@ $cacesso11 = explode(',', $cac11);
 										  	<input type="hidden" name="page" value="<?php echo $page4;?>">
 										  <div class="card">
 										    <div class="card-header" id="menu4">
-										      <h5 class="mb-0">
+										      <h5 class="mb-0 space-bt">
 										        <button class="btn btn-link collapsed title-acc" type="button" data-toggle="collapse" data-target="#site" aria-expanded="false" aria-controls="site">
 										          <i class="far fa-window-restore"></i> Site
 										          <button class="btn btn-primary" type="submit" style="margin-left: 30px;">Atualizar</button>
@@ -408,7 +408,7 @@ $cacesso11 = explode(',', $cac11);
 
 
 										        <div class="row">
-										        	<div class="col">
+										        	<div class="col-12 col-md-2">
 												      	<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="presidente" value="<?php if($nacesso4[0] == $nivel_presidente){echo $cacesso4[0];}  ?>" onclick="alteraValor(this)" <?php if($cacesso4[0] == 1 && $nacesso4[0] == $nivel_presidente){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -417,7 +417,7 @@ $cacesso11 = explode(',', $cac11);
 														</div>
 													</div>
 
-													<div class="col">
+													<div class="col-12 col-md-2">
 														<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="secretario" value="<?php if($nacesso4[1] == $nivel_secretario){echo $cacesso4[1];}  ?>" onclick="alteraValor(this)" <?php if($cacesso4[1] == 1 && $nacesso4[1] == $nivel_secretario){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -426,7 +426,7 @@ $cacesso11 = explode(',', $cac11);
 														</div>
 													</div>
 
-													<div class="col">
+													<div class="col-12 col-md-2">
 														<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="contador" value="<?php if($nacesso4[2] == $nivel_contador){echo $cacesso4[2];}  ?>" onclick="alteraValor(this)" <?php if($cacesso4[2] == 1 && $nacesso4[2] == $nivel_contador){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -435,7 +435,7 @@ $cacesso11 = explode(',', $cac11);
 														</div>
 													</div>
 
-													<div class="col">
+													<div class="col-12 col-md-2">
 														<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="secretarioex" value="<?php if($nacesso4[3] == $nivel_secretarioex){echo $cacesso4[3];}  ?>" onclick="alteraValor(this)" <?php if($cacesso4[3] == 1 && $nacesso4[3] == $nivel_secretarioex){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -444,7 +444,7 @@ $cacesso11 = explode(',', $cac11);
 														</div>
 													</div>
 
-													<div class="col">
+													<div class="col-12 col-md-2">
 														<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="tesoureiro" value="<?php if($nacesso4[4] == $nivel_tesoureiro){echo $cacesso4[4];}  ?>" onclick="alteraValor(this)" <?php if($cacesso4[4] == 1 && $nacesso4[4] == $nivel_tesoureiro){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -466,7 +466,7 @@ $cacesso11 = explode(',', $cac11);
 										  	<input type="hidden" name="page" value="<?php echo $page5;?>">
 										  <div class="card">
 										    <div class="card-header" id="menu5">
-										      <h5 class="mb-0">
+										      <h5 class="mb-0 space-bt">
 										        <button class="btn btn-link collapsed title-acc" type="button" data-toggle="collapse" data-target="#socios" aria-expanded="false" aria-controls="socios">
 										          <i class="fas fa-users"></i> Sócios
 										          <button class="btn btn-primary" type="submit" style="margin-left: 30px;">Atualizar</button>
@@ -478,7 +478,7 @@ $cacesso11 = explode(',', $cac11);
 
 
 										        <div class="row">
-										        	<div class="col">
+										        	<div class="col-12 col-md-2">
 												      	<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="presidente" value="<?php if($nacesso5[0] == $nivel_presidente){echo $cacesso5[0];}  ?>" onclick="alteraValor(this)" <?php if($cacesso5[0] == 1 && $nacesso5[0] == $nivel_presidente){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -487,7 +487,7 @@ $cacesso11 = explode(',', $cac11);
 														</div>
 													</div>
 
-													<div class="col">
+													<div class="col-12 col-md-2">
 														<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="secretario" value="<?php if($nacesso5[1] == $nivel_secretario){echo $cacesso5[1];}  ?>" onclick="alteraValor(this)" <?php if($cacesso5[1] == 1 && $nacesso5[1] == $nivel_secretario){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -496,7 +496,7 @@ $cacesso11 = explode(',', $cac11);
 														</div>
 													</div>
 
-													<div class="col">
+													<div class="col-12 col-md-2">
 														<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="contador" value="<?php if($nacesso5[2] == $nivel_contador){echo $cacesso5[2];}  ?>" onclick="alteraValor(this)" <?php if($cacesso5[0] == 1 && $nacesso5[2] == $nivel_contador){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -505,7 +505,7 @@ $cacesso11 = explode(',', $cac11);
 														</div>
 													</div>
 
-													<div class="col">
+													<div class="col-12 col-md-2">
 														<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="secretarioex" value="<?php if($nacesso5[3] == $nivel_secretarioex){echo $cacesso5[3];}  ?>" onclick="alteraValor(this)" <?php if($cacesso5[3] == 1 && $nacesso5[3] == $nivel_secretarioex){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -514,7 +514,7 @@ $cacesso11 = explode(',', $cac11);
 														</div>
 													</div>
 
-													<div class="col">
+													<div class="col-12 col-md-2">
 														<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="tesoureiro" value="<?php if($nacesso5[4] == $nivel_tesoureiro){echo $cacesso5[4];}  ?>" onclick="alteraValor(this)" <?php if($cacesso5[4] == 1 && $nacesso5[4] == $nivel_tesoureiro){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -536,7 +536,7 @@ $cacesso11 = explode(',', $cac11);
 										  	<input type="hidden" name="page" value="<?php echo $page6;?>">
 										  <div class="card">
 										    <div class="card-header" id="menu6">
-										      <h5 class="mb-0">
+										      <h5 class="mb-0 space-bt">
 										        <button class="btn btn-link collapsed title-acc" type="button" data-toggle="collapse" data-target="#reunioes" aria-expanded="false" aria-controls="reunioes">
 										          <i class="fas fa-handshake"></i> Reuniões
 										          <button class="btn btn-primary" type="submit" style="margin-left: 30px;">Atualizar</button>
@@ -548,7 +548,7 @@ $cacesso11 = explode(',', $cac11);
 
 
 										        <div class="row">
-										        	<div class="col">
+										        	<div class="col-12 col-md-2">
 												      	<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="presidente" value="<?php if($nacesso6[0] == $nivel_presidente){echo $cacesso6[0];}  ?>" onclick="alteraValor(this)" <?php if($cacesso6[0] == 1 && $nacesso6[0] == $nivel_presidente){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -557,7 +557,7 @@ $cacesso11 = explode(',', $cac11);
 														</div>
 													</div>
 
-													<div class="col">
+													<div class="col-12 col-md-2">
 														<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="secretario" value="<?php if($nacesso6[1] == $nivel_secretario){echo $cacesso6[1];}  ?>" onclick="alteraValor(this)" <?php if($cacesso6[1] == 1 && $nacesso6[1] == $nivel_secretario){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -566,7 +566,7 @@ $cacesso11 = explode(',', $cac11);
 														</div>
 													</div>
 
-													<div class="col">
+													<div class="col-12 col-md-2">
 														<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="contador" value="<?php if($nacesso6[2] == $nivel_contador){echo $cacesso6[2];}  ?>" onclick="alteraValor(this)" <?php if($cacesso6[2] == 1 && $nacesso6[2] == $nivel_contador){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -575,7 +575,7 @@ $cacesso11 = explode(',', $cac11);
 														</div>
 													</div>
 
-													<div class="col">
+													<div class="col-12 col-md-2">
 														<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="secretarioex" value="<?php if($nacesso6[3] == $nivel_secretarioex){echo $cacesso6[3];}  ?>" onclick="alteraValor(this)" <?php if($cacesso6[3] == 1 && $nacesso6[3] == $nivel_secretarioex){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -584,7 +584,7 @@ $cacesso11 = explode(',', $cac11);
 														</div>
 													</div>
 
-													<div class="col">
+													<div class="col-12 col-md-2">
 														<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="tesoureiro" value="<?php if($nacesso6[4] == $nivel_tesoureiro){echo $cacesso6[4];}  ?>" onclick="alteraValor(this)" <?php if($cacesso6[4] == 1 && $nacesso6[4] == $nivel_tesoureiro){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -606,7 +606,7 @@ $cacesso11 = explode(',', $cac11);
 										  	<input type="hidden" name="page" value="<?php echo $page7;?>">
 										  <div class="card">
 										    <div class="card-header" id="menu7">
-										      <h5 class="mb-0">
+										      <h5 class="mb-0 space-bt">
 										        <button class="btn btn-link collapsed title-acc" type="button" data-toggle="collapse" data-target="#localizar" aria-expanded="false" aria-controls="localizar">
 										          <i class="fab fa-accessible-icon"></i> Banco de C.R.
 										          <button class="btn btn-primary" type="submit" style="margin-left: 30px;">Atualizar</button>
@@ -618,7 +618,7 @@ $cacesso11 = explode(',', $cac11);
 
 
 										        <div class="row">
-										        	<div class="col">
+										        	<div class="col-12 col-md-2">
 												      	<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="presidente" value="<?php if($nacesso7[0] == $nivel_presidente){echo $cacesso7[0];}  ?>" onclick="alteraValor(this)" <?php if($cacesso7[0] == 1 && $nacesso7[0] == $nivel_presidente){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -627,7 +627,7 @@ $cacesso11 = explode(',', $cac11);
 														</div>
 													</div>
 
-													<div class="col">
+													<div class="col-12 col-md-2">
 														<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="secretario" value="<?php if($nacesso7[1] == $nivel_secretario){echo $cacesso7[1];}  ?>" onclick="alteraValor(this)" <?php if($cacesso7[1] == 1 && $nacesso7[1] == $nivel_secretario){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -636,7 +636,7 @@ $cacesso11 = explode(',', $cac11);
 														</div>
 													</div>
 
-													<div class="col">
+													<div class="col-12 col-md-2">
 														<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="contador" value="<?php if($nacesso7[2] == $nivel_contador){echo $cacesso7[2];}  ?>" onclick="alteraValor(this)" <?php if($cacesso7[2] == 1 && $nacesso7[2] == $nivel_contador){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -645,7 +645,7 @@ $cacesso11 = explode(',', $cac11);
 														</div>
 													</div>
 
-													<div class="col">
+													<div class="col-12 col-md-2">
 														<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="secretarioex" value="<?php if($nacesso7[3] == $nivel_secretarioex){echo $cacesso7[3];}  ?>" onclick="alteraValor(this)" <?php if($cacesso7[3] == 1 && $nacesso7[3] == $nivel_secretarioex){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -654,7 +654,7 @@ $cacesso11 = explode(',', $cac11);
 														</div>
 													</div>
 
-													<div class="col">
+													<div class="col-12 col-md-2">
 														<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="tesoureiro" value="<?php if($nacesso7[8] == $nivel_tesoureiro){echo $cacesso7[4];}  ?>" onclick="alteraValor(this)" <?php if($cacesso7[4] == 1 && $nacesso7[8] == $nivel_tesoureiro){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -676,7 +676,7 @@ $cacesso11 = explode(',', $cac11);
 										  	<input type="hidden" name="page" value="<?php echo $page8;?>">
 										  <div class="card">
 										    <div class="card-header" id="menu8">
-										      <h5 class="mb-0">
+										      <h5 class="mb-0 space-bt">
 										        <button class="btn btn-link collapsed title-acc" type="button" data-toggle="collapse" data-target="#integracao" aria-expanded="false" aria-controls="integracao">
 										          <i class="fas fa-inbox"></i> Integração
 										          <button class="btn btn-primary" type="submit" style="margin-left: 30px;">Atualizar</button>
@@ -688,7 +688,7 @@ $cacesso11 = explode(',', $cac11);
 
 
 										        <div class="row">
-										        	<div class="col">
+										        	<div class="col-12 col-md-2">
 												      	<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="presidente" value="<?php if($nacesso8[0] == $nivel_presidente){echo $cacesso8[0];}  ?>" onclick="alteraValor(this)" <?php if($cacesso8[0] == 1 && $nacesso8[0] == $nivel_presidente){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -697,7 +697,7 @@ $cacesso11 = explode(',', $cac11);
 														</div>
 													</div>
 
-													<div class="col">
+													<div class="col-12 col-md-2">
 														<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="secretario" value="<?php if($nacesso8[1] == $nivel_secretario){echo $cacesso8[1];}  ?>" onclick="alteraValor(this)" <?php if($cacesso8[1] == 1 && $nacesso8[1] == $nivel_secretario){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -706,7 +706,7 @@ $cacesso11 = explode(',', $cac11);
 														</div>
 													</div>
 
-													<div class="col">
+													<div class="col-12 col-md-2">
 														<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="contador" value="<?php if($nacesso8[2] == $nivel_contador){echo $cacesso8[2];}  ?>" onclick="alteraValor(this)" <?php if($cacesso8[2] == 1 && $nacesso8[2] == $nivel_contador){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -715,7 +715,7 @@ $cacesso11 = explode(',', $cac11);
 														</div>
 													</div>
 
-													<div class="col">
+													<div class="col-12 col-md-2">
 														<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="secretarioex" value="<?php if($nacesso8[3] == $nivel_secretarioex){echo $cacesso8[3];}  ?>" onclick="alteraValor(this)" <?php if($cacesso8[3] == 1 && $nacesso8[3] == $nivel_secretarioex){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -724,7 +724,7 @@ $cacesso11 = explode(',', $cac11);
 														</div>
 													</div>
 
-													<div class="col">
+													<div class="col-12 col-md-2">
 														<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="tesoureiro" value="<?php if($nacesso8[4] == $nivel_tesoureiro){echo $cacesso8[4];}  ?>" onclick="alteraValor(this)" <?php if($cacesso8[4] == 1 && $nacesso8[4] == $nivel_tesoureiro){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -746,7 +746,7 @@ $cacesso11 = explode(',', $cac11);
 										  	<input type="hidden" name="page" value="<?php echo $page9;?>">
 										  <div class="card">
 										    <div class="card-header" id="menu9">
-										      <h5 class="mb-0">
+										      <h5 class="mb-0 space-bt">
 										        <button class="btn btn-link collapsed title-acc" type="button" data-toggle="collapse" data-target="#equipe" aria-expanded="false" aria-controls="equipe">
 										          <i class="far fa-address-book"></i> Equipe
 										          <button class="btn btn-primary" type="submit" style="margin-left: 30px;">Atualizar</button>
@@ -758,7 +758,7 @@ $cacesso11 = explode(',', $cac11);
 
 
 										        <div class="row">
-										        	<div class="col">
+										        	<div class="col-12 col-md-2">
 												      	<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="presidente" value="<?php if($nacesso9[0] == $nivel_presidente){echo $cacesso9[0];}  ?>" onclick="alteraValor(this)" <?php if($cacesso9[0] == 1 && $nacesso9[0] == $nivel_presidente){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -767,7 +767,7 @@ $cacesso11 = explode(',', $cac11);
 														</div>
 													</div>
 
-													<div class="col">
+													<div class="col-12 col-md-2">
 														<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="secretario" value="<?php if($nacesso9[1] == $nivel_secretario){echo $cacesso9[1];}  ?>" onclick="alteraValor(this)" <?php if($cacesso9[1] == 1 && $nacesso9[1] == $nivel_secretario){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -776,7 +776,7 @@ $cacesso11 = explode(',', $cac11);
 														</div>
 													</div>
 
-													<div class="col">
+													<div class="col-12 col-md-2">
 														<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="contador" value="<?php if($nacesso9[2] == $nivel_contador){echo $cacesso9[2];}  ?>" onclick="alteraValor(this)" <?php if($cacesso9[2] == 1 && $nacesso9[2] == $nivel_contador){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -785,7 +785,7 @@ $cacesso11 = explode(',', $cac11);
 														</div>
 													</div>
 
-													<div class="col">
+													<div class="col-12 col-md-2">
 														<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="secretarioex" value="<?php if($nacesso9[3] == $nivel_secretarioex){echo $cacesso9[3];}  ?>" onclick="alteraValor(this)" <?php if($cacesso9[3] == 1 && $nacesso9[3] == $nivel_secretarioex){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -794,7 +794,7 @@ $cacesso11 = explode(',', $cac11);
 														</div>
 													</div>
 
-													<div class="col">
+													<div class="col-12 col-md-2">
 														<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="tesoureiro" value="<?php if($nacesso9[4] == $nivel_tesoureiro){echo $cacesso9[4];}  ?>" onclick="alteraValor(this)" <?php if($cacesso9[4] == 1 && $nacesso9[4] == $nivel_tesoureiro){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -818,7 +818,7 @@ $cacesso11 = explode(',', $cac11);
 										  	<input type="hidden" name="page" value="<?php echo $page11;?>">
 										  <div class="card">
 										    <div class="card-header" id="menu11">
-										      <h5 class="mb-0">
+										      <h5 class="mb-0 space-bt">
 										        <button class="btn btn-link collapsed title-acc" type="button" data-toggle="collapse" data-target="#configuracoes" aria-expanded="false" aria-controls="configuracoes">
 										         <i class="fas fa-wrench"></i> Configurações
 										          <button class="btn btn-primary" type="submit" style="margin-left: 30px;">Atualizar</button>
@@ -830,7 +830,7 @@ $cacesso11 = explode(',', $cac11);
 
 
 										        <div class="row">
-										        	<div class="col">
+										        	<div class="col-12 col-md-2">
 												      	<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="presidente" value="<?php if($nacesso11[0] == $nivel_presidente){echo $cacesso11[0];}  ?>" onclick="alteraValor(this)" <?php if($cacesso11[0] == 1 && $nacesso11[0] == $nivel_presidente){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -839,7 +839,7 @@ $cacesso11 = explode(',', $cac11);
 														</div>
 													</div>
 
-													<div class="col">
+													<div class="col-12 col-md-2">
 														<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="secretario" value="<?php if($nacesso11[1] == $nivel_secretario){echo $cacesso11[1];}  ?>" onclick="alteraValor(this)" <?php if($cacesso11[1] == 1 && $nacesso11[1] == $nivel_secretario){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -848,7 +848,7 @@ $cacesso11 = explode(',', $cac11);
 														</div>
 													</div>
 
-													<div class="col">
+													<div class="col-12 col-md-2">
 														<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="contador" value="<?php if($nacesso11[2] == $nivel_contador){echo $cacesso11[2];}  ?>" onclick="alteraValor(this)" <?php if($cacesso11[2] == 1 && $nacesso11[2] == $nivel_contador){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -857,7 +857,7 @@ $cacesso11 = explode(',', $cac11);
 														</div>
 													</div>
 
-													<div class="col">
+													<div class="col-12 col-md-2">
 														<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="secretarioex" value="<?php if($nacesso11[3] == $nivel_secretarioex){echo $cacesso11[3];}  ?>" onclick="alteraValor(this)" <?php if($cacesso11[3] == 1 && $nacesso11[3] == $nivel_secretarioex){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">
@@ -866,7 +866,7 @@ $cacesso11 = explode(',', $cac11);
 														</div>
 													</div>
 
-													<div class="col">
+													<div class="col-12 col-md-2">
 														<div class="form-check">
 														  <input class="form-check-input" type="checkbox" name="tesoureiro" value="<?php if($nacesso11[4] == $nivel_tesoureiro){echo $cacesso11[4];}  ?>" onclick="alteraValor(this)" <?php if($cacesso11[4] == 1 && $nacesso11[4] == $nivel_tesoureiro){echo 'checked';} ?>>
 														  <label class="form-check-label" for="defaultCheck1">

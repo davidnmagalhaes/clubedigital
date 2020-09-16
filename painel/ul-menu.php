@@ -120,6 +120,10 @@
                                         Páginas</a>
                                 </li>
                                 <li>
+                                    <a href="slides<?php if($_GET['clube']){echo $clube;}?>">
+                                        Slides</a>
+                                </li>
+                                <li>
                                     <a href="campanhas<?php if($_GET['clube']){echo $clube;}?>">
                                         Campanhas</a>
                                 </li>
